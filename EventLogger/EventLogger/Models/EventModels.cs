@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -137,19 +138,53 @@ namespace EventLogger.Models
 
     public class Event
     {
+
         public enum eType
         {
             Start, Stop, Break
         }
-       
-        public DateTime TimePoint{ get; set; }
+
+        private DateTime timePoint;
+        [Required,Display(Name = "Zeitpunkt"),DisplayFormat(DataFormatString = "{0:O}")]
+        public DateTime TimePoint
+        {
+            get
+            {
+                return this.timePoint;
+            }
+            set
+            {
+                this.timePoint = value;
+            }
+        }
+        [Display(Name = "Datum"), DisplayFormat(DataFormatString = "{0:D}")]
+        public DateTime Date
+        {
+            get
+            {
+                return this.timePoint;
+            }
+        }
+        [Display(Name = "Zeit"), DisplayFormat(DataFormatString = "{0:T}")]
+        public DateTime Time
+        {
+            get
+            {
+                return this.timePoint;
+            }
+        }
+
+        [Required,Display(Name="Event Typ")]
         public eType EventType { get; set; }
+
+        [Required, Display(Name = "ID")]
         public int Id { get; set; }
+
+        [Display(Name="Notiz")]
+        [StringLength(32, ErrorMessage = "{0} darf aus max. {1} Zeichen bestehen.")]
         public String Description { get; set; }
 
-        public Event():this(-1,eType.Start)
-        {
-        }
+        public Event():this(-1,eType.Start){}
 
         public Event(int id, eType aType, String aDescription = "")
         {

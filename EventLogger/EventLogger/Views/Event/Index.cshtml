@@ -40,7 +40,10 @@
             @Html.DisplayNameFor(model => model.EventType)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TimePoint)
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Time)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Description)
@@ -56,7 +59,10 @@
             @Html.DisplayFor(modelItem => item.EventType)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.TimePoint)
+            @Html.DisplayFor(modelItem => item.Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Time)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Description)
