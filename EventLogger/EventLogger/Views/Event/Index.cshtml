@@ -4,13 +4,16 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+    
 
+<h2>Index</h2>
+<p>
+    @Html.Partial("_ViewSwitcher")
+</p>
 <p>
     @Html.ActionLink("Stop", "CreateStop") |
     @Html.ActionLink("Start", "CreateStart") |
     @Html.ActionLink("Break", "CreateBreak")
-
 </p>
 @{
     if (ViewBag.ErrorMessage != null)
