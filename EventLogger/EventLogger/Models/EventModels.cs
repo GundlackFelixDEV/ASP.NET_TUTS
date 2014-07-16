@@ -135,17 +135,47 @@ namespace EventLogger.Models
     }
 
 
-
-    public class Event
+    public class EventMetaData
     {
+        
+        [Required, Display(Name = "Zeitpunkt"), DisplayFormat(DataFormatString = "{0:O}")]
+        public object TimePoint;
 
-        public enum eType
+        [Display(Name = "Datum"), DisplayFormat(DataFormatString = "{0:D}")]
+        public object Date;
+
+        [Display(Name = "Zeit"), DisplayFormat(DataFormatString = "{0:T}")]
+        public object Time;
+
+        [Required, Display(Name = "Event Typ")]
+        public object EventType;
+
+        [Required, Display(Name = "ID")]
+        public object Id;
+
+        [Display(Name = "Notiz")]
+        [StringLength(32, ErrorMessage = "{0} darf aus max. {1} Zeichen bestehen.")]
+        public object Description;
+    }
+
+    [MetadataType(typeof(EventMetaData))]
+    public partial class Event
+    {
+        public Event() : this(-1, eType.Start) { }
+        public Event(int id, eType aType, String aDescription = "")
         {
-            Start, Stop, Break
+            TimePoint = DateTime.Now;
+            EventType = aType;
+            Description = aDescription;
+            Id = id;
         }
 
+        public enum eType{ Start, Stop, Break }
+        public eType EventType { get; set; }
+        public int Id { get; set; }
+        public String Description { get; set; }       
         private DateTime timePoint;
-        [Required,Display(Name = "Zeitpunkt"),DisplayFormat(DataFormatString = "{0:O}")]
+
         public DateTime TimePoint
         {
             get
@@ -157,7 +187,7 @@ namespace EventLogger.Models
                 this.timePoint = value;
             }
         }
-        [Display(Name = "Datum"), DisplayFormat(DataFormatString = "{0:D}")]
+        
         public DateTime Date
         {
             get
@@ -165,33 +195,13 @@ namespace EventLogger.Models
                 return this.timePoint;
             }
         }
-        [Display(Name = "Zeit"), DisplayFormat(DataFormatString = "{0:T}")]
+        
         public DateTime Time
         {
             get
             {
                 return this.timePoint;
             }
-        }
-
-        [Required,Display(Name="Event Typ")]
-        public eType EventType { get; set; }
-
-        [Required, Display(Name = "ID")]
-        public int Id { get; set; }
-
-        [Display(Name="Notiz")]
-        [StringLength(32, ErrorMessage = "{0} darf aus max. {1} Zeichen bestehen.")]
-        public String Description { get; set; }
-
-        public Event():this(-1,eType.Start){}
-
-        public Event(int id, eType aType, String aDescription = "")
-        {
-            TimePoint = DateTime.Now;
-            EventType = aType;
-            Description = aDescription;
-            Id = id;
         }
     }
 }
