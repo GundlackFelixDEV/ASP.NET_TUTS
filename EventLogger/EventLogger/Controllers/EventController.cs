@@ -10,11 +10,19 @@ namespace EventLogger.Controllers
     {
         EventRepository rep = new EventRepository();
         EventQueue evQueue = EventRepository.events;
+
+        public void validateEventQueue()
+        {
+            if (evQueue.IsValid != 0)
+            {
+                ViewData.ModelState.AddModelError("InvalidModelState", evQueue.ValidationMessage);
+            }   
+        }
         // GET: Event
         public ActionResult Index()
         {
             List<Event> events = evQueue.getEvents();
-            ViewBag.Message = evQueue.ValidationMessage;            
+            validateEventQueue();       
             return View("Index",events);
         }
 
@@ -26,12 +34,11 @@ namespace EventLogger.Controllers
             }
             catch(ApplicationException e)
             {
-                ViewBag.ErrorMessage = e.Message;
-            }
+                ViewData.ModelState.AddModelError("CreateStart", e.Message);
+            }            
             List<Event> events = evQueue.getEvents();
-            ViewBag.Message = evQueue.ValidationMessage;
+            validateEventQueue();
             return View("Index", events);
-            //return RedirectToAction("Index");
         }
 
         public ActionResult CreateStop()
@@ -42,9 +49,11 @@ namespace EventLogger.Controllers
             }
             catch (ApplicationException e)
             {
-                ViewBag.ErrorMessage = e.Message;
+                ViewData.ModelState.AddModelError("CreateStop", e.Message);
             }
-            return RedirectToAction("Index");
+            List<Event> events = evQueue.getEvents();
+            validateEventQueue();
+            return View("Index", events);
         }
 
         public ActionResult CreateBreak()
@@ -55,9 +64,11 @@ namespace EventLogger.Controllers
             }
             catch (ApplicationException e)
             {
-                ViewBag.ErrorMessage = e.Message;
+                ViewData.ModelState.AddModelError("CreateStop", e.Message);
             }
-        return RedirectToAction("Index");
+            List<Event> events = evQueue.getEvents();
+            validateEventQueue();
+            return View("Index", events);
         }
 
         [HttpPost]

@@ -32,16 +32,16 @@ namespace EventLogger.Models
         }
         public void addStopEvent()
         {
-            if (IsBreakValid)
-            {
-                isValid--;
-                myEvents.Add(new Event(CreateNewEventId, Event.eType.Stop));
-            }
-            else
+            if(!IsBreakValid)
             {
                 throw new ApplicationException("Unable to add Stop event. Break Event needs to be Terminated first!");
             }
-           
+            if (isValid == 0)
+            {
+                throw new ApplicationException("Unable to add Stop event. No corresponding start event to be stopped");
+            }
+            isValid--;
+            myEvents.Add(new Event(CreateNewEventId, Event.eType.Stop));         
         }
 
         public void addBreakEvent()
