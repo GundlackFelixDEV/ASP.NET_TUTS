@@ -175,6 +175,7 @@
     <Content Include="Views\Event\Index.cshtml" />
     <Content Include="Views\Shared\_ViewSwitcher.cshtml" />
     <Content Include="Views\Shared\_Layout.Mobile.cshtml" />
+    <Content Include="Views\Event\Index.Mobile.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

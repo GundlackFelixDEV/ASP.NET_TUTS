@@ -1,0 +1,48 @@
+﻿@model IEnumerable<TimeLogger.Models.Event>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+<p>
+    @Html.ActionLink("Stop", "CreateStop") |
+    @Html.ActionLink("Start", "CreateStart") |
+    @Html.ActionLink("Break", "CreateBreak")
+</p>
+@{
+    if (ViewBag.Message != null)
+    {
+        <p>
+            @ViewBag.Message
+        </p>
+    }
+}
+
+@Html.ValidationSummary("Die folgenden Fehler sind aufgetreten:")
+
+
+<ul data-role="listview">
+@foreach (var item in Model)
+{
+    <li>
+        <div>
+            <h3>
+                @Html.DisplayFor(modelItem => item.EventType)
+                -@Html.DisplayFor(modelItem => item.Description)
+            </h3>
+            <p>
+                @Html.DisplayNameFor(model => model.Date): @Html.DisplayFor(modelItem => item.Date)
+            </p>
+            <p>
+                @Html.DisplayNameFor(model => model.Time): @Html.DisplayFor(modelItem => item.Date)
+            </p>
+            <p>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </p>
+        </div>
+    </li>
+ }
+</ul>
