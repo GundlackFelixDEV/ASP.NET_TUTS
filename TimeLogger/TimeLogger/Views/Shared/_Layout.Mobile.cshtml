@@ -3,21 +3,22 @@
     <head> 
         <meta charset="utf-8" />
         <title>@ViewBag.Title</title> 
-        <meta name="viewport" content="width=device-width" />
-        @Styles.Render("~/Content/Mobile/css", "~/Content/jquerymobile/css")
-        @Scripts.Render("~/bundles/jquery", "~/bundles/jquerymobile")
-        <script>
-            $(document).ready(function () {
-                $.mobile.ajaxEnabled = false; 
-            });
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="@Url.Content("~/Content/mobile/jquery.mobile-1.4.2.css")"/>
+        <link rel="stylesheet" href="@Url.Content("~/Content/mobile/Site.Mobile.css")" />
+        <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-2.1.1.min.js")"></script>
+        <script type="text/javascript">
+            $(document).bind("mobileinit", function () {
+                $.mobile.ajaxEnabled = false;
+            })
         </script>
+        <script type="text/javascript" src="@Url.Content("~/Scripts/mobile/jquery.mobile-1.4.2.min.js")"></script>
     </head> 
 <body> 
     <div data-role="page" data-theme="a">
         <div data-role="header">
             <h1>@ViewBag.Title</h1>
         </div>
-
         <div data-role="content">
             @RenderSection("featured", false)
             @RenderBody()		

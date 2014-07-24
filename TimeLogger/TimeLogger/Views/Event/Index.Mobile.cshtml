@@ -1,10 +1,9 @@
 ﻿@model IEnumerable<TimeLogger.Models.Event>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Events";
+    DateTime lastDay = default(DateTime);
 }
-
-<h2>Index</h2>
 <p>
     @Html.ActionLink("Stop", "CreateStop") |
     @Html.ActionLink("Start", "CreateStart") |
@@ -23,26 +22,19 @@
 
 
 <ul data-role="listview">
-@foreach (var item in Model)
-{
-    <li>
-        <div>
-            <h3>
-                @Html.DisplayFor(modelItem => item.EventType)
-                -@Html.DisplayFor(modelItem => item.Description)
-            </h3>
-            <p>
-                @Html.DisplayNameFor(model => model.Date): @Html.DisplayFor(modelItem => item.Date)
-            </p>
-            <p>
-                @Html.DisplayNameFor(model => model.Time): @Html.DisplayFor(modelItem => item.Date)
-            </p>
-            <p>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-            </p>
-        </div>
-    </li>
- }
+    @foreach (var item in Model)
+    {
+        if (item.TimePoint.Date != lastDay)
+        {
+            lastDay = item.TimePoint.Date;
+            <li data-role="list-divider">@Html.DisplayFor(modelItem => item.Date)</li>
+        }
+        <li>
+            <div>
+                @Html.DisplayFor(modelItem => item.EventType):
+                @Html.DisplayFor(modelItem => item.Time)
+
+            </div>
+        </li>
+    }
 </ul>
