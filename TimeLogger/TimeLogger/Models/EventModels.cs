@@ -10,6 +10,7 @@ namespace TimeLogger.Models
     {
         private List<Event> myEvents;
         private int isValid;
+        private bool isInBreak;
 
         public EventQueue()
         {
@@ -18,21 +19,18 @@ namespace TimeLogger.Models
         }
         public void addStartEvent()
         {
-            if (IsBreakValid)
+            if (IsInBreak)
             {
-                isValid++;
-                myEvents.Add(new Event(CreateNewEventId,Event.eType.Start));
+                addBreakEvent();
             }
-            else
-            {
-                throw new ApplicationException("Unable to add Start event. Break Event needs to be Terminated first!");
-            }
+            isValid++;
+            myEvents.Add(new Event(CreateNewEventId, Event.eType.Start));
         }
         public void addStopEvent()
         {
-            if(!IsBreakValid)
+            if (IsInBreak)
             {
-                throw new ApplicationException("Unable to add Stop event. Break Event needs to be Terminated first!");
+                addBreakEvent();                
             }
             if (isValid == 0)
             {
@@ -46,6 +44,7 @@ namespace TimeLogger.Models
         {
             if(isValid > 0)
             {
+                isInBreak = !isInBreak;
                 myEvents.Add(new Event(CreateNewEventId, Event.eType.Break));
             }
             else
@@ -98,21 +97,15 @@ namespace TimeLogger.Models
             }
         }
 
-        public bool IsBreakValid
+        
+        public bool IsInBreak 
         {
             get
             {
-                int breakIndex = myEvents.FindLastIndex(ev => ev.EventType == Event.eType.Break);
-                if (breakIndex > 1)
-                {
-                    return (myEvents[breakIndex].EventType == myEvents[breakIndex-1].EventType);
-                }
-                else
-                {
-                    return true;
-                }
+                return isInBreak;
             }
         }
+
         public string ValidationMessage
         {
             get

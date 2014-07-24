@@ -5,13 +5,7 @@
 }
 
 
-
-<h2>Index</h2>
-<p>
-    @Html.ActionLink("Stop", "CreateStop") |
-    @Html.ActionLink("Start", "CreateStart") |
-    @Html.ActionLink("Break", "CreateBreak")
-</p>
+@Html.Partial("CreateEvent", new TimeLogger.Models.Event())
 
 @if (!ViewData.ModelState.IsValid)
 {

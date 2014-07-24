@@ -1,0 +1,19 @@
+﻿@model TimeLogger.Models.Event
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.TimePoint)
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Description)   
+                @Html.ActionLink("Start", "CreateStart", new {})| 
+                @Html.ActionLink("Stop", "CreateStop", new { })|
+                @Html.ActionLink("Break", "CreateBreak", new { })            
+            </div>
+        </div>
+    </div>
+}

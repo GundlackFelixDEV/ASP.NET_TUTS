@@ -400,6 +400,8 @@
     <Content Include="Views\Event\Index.Mobile.cshtml" />
     <Content Include="Scripts\jquery-2.1.1.min.map" />
     <Content Include="Scripts\Mobile\jquery.mobile-1.4.2.min.map" />
+    <Content Include="Views\Event\CreateEvent.cshtml" />
+    <Content Include="Views\Event\CreateEvent.Mobile.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

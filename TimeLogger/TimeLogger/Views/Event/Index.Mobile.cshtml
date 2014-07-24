@@ -4,22 +4,10 @@
     ViewBag.Title = "Events";
     DateTime lastDay = default(DateTime);
 }
-<p>
-    @Html.ActionLink("Stop", "CreateStop") |
-    @Html.ActionLink("Start", "CreateStart") |
-    @Html.ActionLink("Break", "CreateBreak")
-</p>
-@{
-    if (ViewBag.Message != null)
-    {
-        <p>
-            @ViewBag.Message
-        </p>
-    }
-}
+
+@Html.Partial("CreateEvent", new TimeLogger.Models.Event())
 
 @Html.ValidationSummary("Die folgenden Fehler sind aufgetreten:")
-
 
 <ul data-role="listview">
     @foreach (var item in Model)
@@ -31,9 +19,11 @@
         }
         <li>
             <div>
-                @Html.DisplayFor(modelItem => item.EventType):
-                @Html.DisplayFor(modelItem => item.Time)
-
+                <span>@Html.DisplayFor(modelItem => item.Description)</span>
+                <span>
+                    @Html.DisplayFor(modelItem => item.EventType):
+                    @Html.DisplayFor(modelItem => item.Time)
+                </span>           
             </div>
         </li>
     }

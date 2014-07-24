@@ -1,0 +1,18 @@
+﻿@model TimeLogger.Models.Event
+
+@using (Html.BeginForm())
+{    
+    <div class="form-horizontal">
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Description)
+                <input type="submit" value="StartEvent" class="btn btn-default" />
+                <input type="submit" value="StopEvent" class="btn btn-default" />
+                <input type="submit" value="BreakEvent" class=" btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
