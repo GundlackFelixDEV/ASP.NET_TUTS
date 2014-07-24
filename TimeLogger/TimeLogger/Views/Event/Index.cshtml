@@ -12,16 +12,13 @@
     @Html.ActionLink("Start", "CreateStart") |
     @Html.ActionLink("Break", "CreateBreak")
 </p>
-@{
-    if (ViewBag.Message != null)
-    {
-        <p>
-            @ViewBag.Message
-        </p>
-    }
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <p><h3>Errors:</h3></p>
+    @Html.ValidationSummary("Die folgenden Fehler sind aufgetreten:")
 }
 
-@Html.ValidationSummary("Die folgenden Fehler sind aufgetreten:")
 
 
 <table class="table">
