@@ -1,0 +1,52 @@
+﻿@model IEnumerable<EventManager.Models.EventItem>
+
+@{
+    ViewBag.Title = "OverviewEvents";
+}
+
+<h2>OverviewEvents</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Start)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.End)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Duration)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Start)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.End)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Duration)
+        </td>
+        <td>
+            @if (DateTime.Compare(item.Start, item.End) == 0)
+            {
+                @Html.ActionLink("Stop", "Stop", new { id = item.Id })
+                    
+            }
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id })
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>
