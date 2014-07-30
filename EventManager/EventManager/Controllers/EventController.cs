@@ -23,12 +23,6 @@ namespace EventManager.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult AddEvent()   
-        {
-            return PartialView("AddEvent",(object)"");
-            return PartialView("../Views/Event/Partial/AddEvent", (object)"");
-        }
-
         public ActionResult Start(string description)
         {
             eventManager.StartItem(description);
