@@ -7,9 +7,17 @@ namespace EventManager.Models
 {
     public class EventManager
     {
-        private List<EventItem> pendingItems = new List<EventItem>();
-        private List<EventItem> items = new List<EventItem>();
+        private static List<EventItem> pendingItems;
+        private static List<EventItem> items;
 
+        public EventManager()
+        {
+            if (pendingItems == null)
+                pendingItems = new List<EventItem>();
+
+            if (items == null)
+                items = new List<EventItem>();
+        }
 
         public List<EventItem> PendingItems
         {

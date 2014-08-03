@@ -7,14 +7,14 @@ using EventManager.Models;
 
 namespace EventManager.Controllers
 {
-    public class EventController : Controller
+    public class EventOverviewController : Controller
     {
         private EventManager.Models.EventManager eventManager = new EventManager.Models.EventManager();
 
         // GET: Event
         public ActionResult Index()
         {
-            return View("~/Views/Event/CurrentEvents.cshtml",eventManager.PendingItems);
+            return View("~/Views/Event/OverviewEvents.cshtml", eventManager.AllItems);
         }
 
         public ActionResult Stop(int id)
@@ -35,9 +35,9 @@ namespace EventManager.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult Details()
+        public ActionResult Pending()
         {
-            return RedirectToAction("Index","EventOverview");
+            return RedirectToAction("Index", "Event");
         }
     }
 }
