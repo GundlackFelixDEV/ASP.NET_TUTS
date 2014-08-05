@@ -2,6 +2,12 @@
 
 <tr>
     <td>
+        @if (DateTime.Compare(Model.Start, Model.End) == 0)
+        {
+            @Html.ActionLink("Stop", "Stop", new { id = Model.Id })
+        }
+    </td>
+    <td>
         @Html.DisplayFor(model => model.Description)
     </td>
     <td>
@@ -14,13 +20,6 @@
         @Html.DisplayFor(model => model.Duration)
     </td>
     <td>
-        @if (DateTime.Compare(Model.Start, Model.End) == 0)
-        {
-            @Html.ActionLink("Stop", "Stop", new { id = Model.Id })
-            @Html.Raw("|");
-
-        }
-        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
         @Html.ActionLink("Delete", "Delete", new { id = Model.Id })
     </td>
 </tr>

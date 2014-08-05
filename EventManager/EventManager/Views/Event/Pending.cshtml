@@ -16,9 +16,7 @@
 
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Id)
-        </th>
+        <th></th>
         <th>
             @Html.DisplayNameFor(model => model.Description)
         </th>
@@ -28,7 +26,8 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var item in Model) 
+{
     @Html.Partial("_PendingItem",item);
 }
 
