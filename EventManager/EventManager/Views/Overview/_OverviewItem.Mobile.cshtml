@@ -5,8 +5,15 @@
         @Html.DisplayFor(model => model.Description)
     </p>
     <p>
-        @Html.DisplayFor(model => model.Start) - 
-        @Html.DisplayFor(model => model.End) -
+        <h5>@Html.DisplayNameFor(model => model.StartTime)</h5>
+        @Html.DisplayFor(model => model.StartTime)
+     </p>
+    <p>
+        <h5>@Html.DisplayNameFor(model => model.EndTime)</h5>
+        @Html.DisplayFor(model => model.EndTime)
+    </p>
+    <p>
+        <h5>@Html.DisplayNameFor(model => model.Duration)</h5>
         @Html.DisplayFor(model => model.Duration)
     </p>
     <p>

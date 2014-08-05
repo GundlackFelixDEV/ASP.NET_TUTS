@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
 namespace EventManager.Models
 {
-    public class EventItem
+    [MetadataType(typeof(EventMetaData))]
+    public partial class EventItem
     {
         public EventItem()
         {
@@ -41,6 +43,22 @@ namespace EventManager.Models
             }
         }
 
+        public TimeSpan StartTime
+        {
+            get
+            {
+                return startTime.TimeOfDay;
+            }
+        }
+
+        public DateTime StartDate
+        {
+            get
+            {
+                return startTime.Date;
+            }
+        }
+
         private DateTime endTime = DateTime.Now;
         public DateTime End 
         { 
@@ -60,6 +78,20 @@ namespace EventManager.Models
                 }
             }
         }
+        public TimeSpan EndTime
+        {
+            get
+            {
+                return endTime.TimeOfDay;
+            }
+        }
+        public DateTime EndDate
+        {
+            get
+            {
+                return endTime.Date;
+            }
+        }
 
         public TimeSpan Duration
         {
@@ -74,5 +106,37 @@ namespace EventManager.Models
             if(other == null) return false;
             return (Id == other.Id);
         }
+    }
+
+    public class EventMetaData
+    {
+
+        [Required, Display(Name = "Start"), DisplayFormat(DataFormatString = "{0:O}")]
+        public object Start;
+
+        [Display(Name = "Start-Datum"), DisplayFormat(DataFormatString = "{0:D}")]
+        public object StartDate;
+
+        [Display(Name = "Start-Zeit"), DisplayFormat(DataFormatString = "{0:T}")]
+        public object StartTime;
+
+        [Required, Display(Name = "Ende"), DisplayFormat(DataFormatString = "{0:O}")]
+        public object End;
+
+        [Display(Name = "Ende-Datum"), DisplayFormat(DataFormatString = "{0:D}")]
+        public object EndDate;
+
+        [Display(Name = "End-Zeit"), DisplayFormat(DataFormatString = "{0:T}")]
+        public object EndTime;
+
+        [Display(Name = "Dauer"), DisplayFormat(DataFormatString = "{0:T}")]
+        public object Duration;
+
+        [Required, Display(Name = "ID")]
+        public object Id;
+
+        [Display(Name = "Beschreibung")]
+        [StringLength(32, ErrorMessage = "{0} darf aus max. {1} Zeichen bestehen.")]
+        public object Description;
     }
 }
