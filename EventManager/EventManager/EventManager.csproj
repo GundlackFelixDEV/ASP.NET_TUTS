@@ -402,15 +402,19 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-2.1.1.min.map" />
-    <Content Include="Views\Event\Overview.cshtml" />
-    <Content Include="Views\Event\OverviewEdit.cshtml" />
-    <Content Include="Views\Event\Pending.cshtml" />
-    <Content Include="Views\Shared\_OverviewEditItem.cshtml" />
-    <Content Include="Views\Shared\_OverviewItem.cshtml" />
-    <Content Include="Views\Shared\_PendingItem.cshtml" />
+    <Content Include="Views\Overview\Overview.cshtml" />
+    <Content Include="Views\OverviewEdit\OverviewEdit.cshtml" />
+    <Content Include="Views\OverviewEdit\_OverviewEditItem.cshtml" />
+    <Content Include="Views\Overview\_OverviewItem.cshtml" />
+    <Content Include="Views\Pending\_PendingItem.cshtml" />
     <Content Include="Views\Shared\_Layout.Mobile.cshtml" />
     <Content Include="Views\Shared\_ViewSwitcher.cshtml" />
     <Content Include="Scripts\jquery.mobile-1.4.2.min.map" />
+    <Content Include="Views\Pending\_PendingItem.Mobile.cshtml" />
+    <Content Include="Views\Pending\Pending.Mobile.cshtml" />
+    <Content Include="Views\Pending\Pending.cshtml" />
+    <Content Include="Views\Overview\Overview.Mobile.cshtml" />
+    <Content Include="Views\Overview\_OverviewItem.Mobile.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

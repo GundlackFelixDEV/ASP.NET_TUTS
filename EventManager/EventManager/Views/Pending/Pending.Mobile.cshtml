@@ -1,0 +1,26 @@
+﻿@model IEnumerable<EventManager.Models.EventItem>
+@{
+    ViewBag.Title = "Current Events";
+    DateTime lastDay = default(DateTime);
+}
+@using (Html.BeginForm("Start", "Pending"))
+{
+    <p>
+        @Html.TextBox("description")
+        <input type="submit" value="Start" />
+    </p>
+}
+
+<ul data-role="listview">
+    @foreach (var item in Model)
+    {
+        if (item.Start.Date != lastDay)
+        {
+            lastDay = item.Start.Date;
+            <li data-role="list-divider">@Html.DisplayFor(modelItem => item.Start.Date)</li>
+        }
+        <li>
+            @Html.Partial("_PendingItem.Mobile", item)
+        </li>
+    }
+</ul>

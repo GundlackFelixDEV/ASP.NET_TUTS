@@ -1,0 +1,19 @@
+﻿@model EventManager.Models.EventItem
+
+<div>
+    <p>
+        @Html.DisplayFor(model => model.Description)
+    </p>
+    <p>
+        @Html.DisplayFor(model => model.Start) - 
+        @Html.DisplayFor(model => model.End) -
+        @Html.DisplayFor(model => model.Duration)
+    </p>
+    <p>
+        @if (DateTime.Compare(Model.Start, Model.End) == 0)
+        {
+            @Html.ActionLink("Stop", "Stop", new { id = Model.Id })
+        }
+        @Html.ActionLink("Delete", "Delete", new { id = Model.Id })
+    </p>
+</div>

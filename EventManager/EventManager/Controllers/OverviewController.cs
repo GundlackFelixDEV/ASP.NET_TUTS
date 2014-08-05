@@ -14,7 +14,7 @@ namespace EventManager.Controllers
         // GET: Event
         public ActionResult Index()
         {
-            return View("~/Views/Event/Overview.cshtml", eventManager.AllItems);
+            return View("Overview", eventManager.AllItems);
         }
 
         public ActionResult Stop(int id)

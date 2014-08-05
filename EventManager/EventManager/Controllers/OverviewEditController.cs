@@ -14,7 +14,7 @@ namespace EventManager.Controllers
         // GET: Event
         public ActionResult Index()
         {
-            return View("~/Views/Event/OverviewEdit.cshtml", eventManager.AllItems);
+            return View("OverviewEdit", eventManager.AllItems);
         }
 
         public ActionResult Start(string description)

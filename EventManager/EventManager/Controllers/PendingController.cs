@@ -14,7 +14,7 @@ namespace EventManager.Controllers
         // GET: Event
         public ActionResult Index()
         {
-            return View("~/Views/Event/Pending.cshtml",eventManager.PendingItems);
+            return View("Pending", eventManager.PendingItems);            
         }
 
         public ActionResult Stop(int id)

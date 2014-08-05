@@ -1,10 +1,9 @@
 ﻿@model IEnumerable<EventManager.Models.EventItem>
 
     @{
-        ViewBag.Title = "Event Overview";
+        ViewBag.Title = "Overview";
     }
-
-    <h2>Event Overview</h2>
+    
     @using (Html.BeginForm("Start", "Overview"))
     {
         <p>
@@ -36,7 +35,3 @@
         }
 
     </table>
-    <p>
-        @Html.ActionLink("Pending Events", "Pending") |
-        @Html.ActionLink("Edit", "Edit")
-    </p>
