@@ -1,0 +1,17 @@
+﻿@model EventManager.Models.EventItem
+
+<tr>
+    <td>
+        @Html.DisplayFor(model => model.Id)
+    </td>
+    <td>
+        @Html.DisplayFor(model => model.Description)
+    </td>
+    <td>
+        @Html.DisplayFor(model => model.Start)
+    </td>
+    <td>
+        @Html.ActionLink("Stop", "Stop", new { id = Model.Id }) |
+        @Html.ActionLink("Delete", "Delete", new { id = Model.Id })
+    </td>
+</tr>

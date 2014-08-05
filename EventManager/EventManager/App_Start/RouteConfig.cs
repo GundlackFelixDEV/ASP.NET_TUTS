@@ -20,14 +20,9 @@ namespace EventManager
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "PendingEvent", action = "Index", id = UrlParameter.Optional }
             );
 
-            routes.MapRoute(
-                name: "EventOverview",
-                url:"Event/{action}/{id}",
-                defaults: new { controller = "EventOverviewController", action ="Index",id=UrlParameter.Optional}
-            );
         }
     }
 }

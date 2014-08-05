@@ -7,20 +7,14 @@ using EventManager.Models;
 
 namespace EventManager.Controllers
 {
-    public class EventController : Controller
+    public class OverviewEditController : Controller
     {
         private EventManager.Models.EventManager eventManager = new EventManager.Models.EventManager();
 
         // GET: Event
         public ActionResult Index()
         {
-            return View("~/Views/Event/CurrentEvents.cshtml",eventManager.PendingItems);
-        }
-
-        public ActionResult Stop(int id)
-        {
-            eventManager.StopItem(id);
-            return RedirectToAction("Index");
+            return View("~/Views/Event/OverviewEdit.cshtml", eventManager.AllItems);
         }
 
         public ActionResult Start(string description)
@@ -29,15 +23,19 @@ namespace EventManager.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult Delete(int id)
+        public ActionResult Edit(EventItem item)
         {
-            eventManager.DeletItem(id);
+            eventManager.editItem(item);
             return RedirectToAction("Index");
         }
-
-        public ActionResult Details()
+        public ActionResult Pending()
         {
-            return RedirectToAction("Index","EventOverview");
+            return RedirectToAction("Index", "Pending");
+        }
+
+        public ActionResult Overview()
+        {
+            return RedirectToAction("Index", "Overview");
         }
     }
 }

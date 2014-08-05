@@ -6,7 +6,13 @@
 
 <h2>Current Events</h2>
 
-@Html.Partial("AddEvent")
+@using (Html.BeginForm("Start", "Pending"))
+{
+    <p>
+        @Html.TextBox("description")
+        <input type="submit" value="Start" />
+    </p>
+}
 
 <table class="table">
     <tr>
@@ -23,21 +29,7 @@
     </tr>
 
 @foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Id)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Start)
-        </td>
-        <td>
-            @Html.ActionLink("Stop", "Stop", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
+    @Html.Partial("_PendingItem",item);
 }
 
 </table>
