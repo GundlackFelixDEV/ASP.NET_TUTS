@@ -27,3 +27,8 @@ input[type="password"].input-validation-error {
 .validation-summary-valid {
     display: none;
 }
+
+div.isHidden{
+    visibility:hidden; 
+    display: none;
+}
