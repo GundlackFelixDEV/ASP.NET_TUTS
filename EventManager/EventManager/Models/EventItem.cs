@@ -114,19 +114,19 @@ namespace EventManager.Models
         [Required, Display(Name = "Start"), DisplayFormat(DataFormatString = "{0:s}")]
         public object Start;
 
-        [Display(Name = "Start-Datum"), DisplayFormat(DataFormatString = "{0:dd\\/MMM\\/yy}")]
+        [Display(Name = "Start"), DisplayFormat(DataFormatString = "{0:dd\\/MMM\\/yy}")]
         public object StartDate;
 
-        [Display(Name = "Start-Zeit"), DisplayFormat(DataFormatString = "{0:hh\\:mm\\:ss}")]
+        [Display(Name = "Start"), DisplayFormat(DataFormatString = "{0:hh\\:mm\\:ss}")]
         public object StartTime;
 
         [Required, Display(Name = "Ende"), DisplayFormat(DataFormatString = "{0:s}")]
         public object End;
 
-        [Display(Name = "Ende-Datum"), DisplayFormat(DataFormatString = "{0:dd\\/MMMM\\/yy}")]
+        [Display(Name = "Ende"), DisplayFormat(DataFormatString = "{0:dd\\/MMMM\\/yy}")]
         public object EndDate;
 
-        [Display(Name = "End-Zeit"), DisplayFormat(DataFormatString = "{0:hh\\:mm\\:ss}")]
+        [Display(Name = "Ende"), DisplayFormat(DataFormatString = "{0:hh\\:mm\\:ss}")]
         public object EndTime;
 
         [Display(Name = "Dauer"), DisplayFormat(DataFormatString = "{0:hh\\:mm\\:ss}")]
