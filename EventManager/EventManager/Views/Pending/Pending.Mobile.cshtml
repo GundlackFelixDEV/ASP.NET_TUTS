@@ -17,7 +17,7 @@
         if (item.Start.Date != lastDay)
         {
             lastDay = item.Start.Date;
-            <li data-role="list-divider">@Html.DisplayFor(modelItem => item.Start.Date)</li>
+            <li data-role="list-divider">@Html.DisplayFor(modelItem => item.StartDate)</li>
         }
         <li>
             @Html.Partial("_PendingItem.Mobile", item)

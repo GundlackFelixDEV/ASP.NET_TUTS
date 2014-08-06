@@ -111,25 +111,25 @@ namespace EventManager.Models
     public class EventMetaData
     {
 
-        [Required, Display(Name = "Start"), DisplayFormat(DataFormatString = "{0:O}")]
+        [Required, Display(Name = "Start"), DisplayFormat(DataFormatString = "{0:s}")]
         public object Start;
 
-        [Display(Name = "Start-Datum"), DisplayFormat(DataFormatString = "{0:D}")]
+        [Display(Name = "Start-Datum"), DisplayFormat(DataFormatString = "{0:dd\\/MMM\\/yy}")]
         public object StartDate;
 
-        [Display(Name = "Start-Zeit"), DisplayFormat(DataFormatString = "{0:T}")]
+        [Display(Name = "Start-Zeit"), DisplayFormat(DataFormatString = "{0:hh\\:mm\\:ss}")]
         public object StartTime;
 
-        [Required, Display(Name = "Ende"), DisplayFormat(DataFormatString = "{0:O}")]
+        [Required, Display(Name = "Ende"), DisplayFormat(DataFormatString = "{0:s}")]
         public object End;
 
-        [Display(Name = "Ende-Datum"), DisplayFormat(DataFormatString = "{0:D}")]
+        [Display(Name = "Ende-Datum"), DisplayFormat(DataFormatString = "{0:dd\\/MMMM\\/yy}")]
         public object EndDate;
 
-        [Display(Name = "End-Zeit"), DisplayFormat(DataFormatString = "{0:T}")]
+        [Display(Name = "End-Zeit"), DisplayFormat(DataFormatString = "{0:hh\\:mm\\:ss}")]
         public object EndTime;
 
-        [Display(Name = "Dauer"), DisplayFormat(DataFormatString = "{0:T}")]
+        [Display(Name = "Dauer"), DisplayFormat(DataFormatString = "{0:hh\\:mm\\:ss}")]
         public object Duration;
 
         [Required, Display(Name = "ID")]
