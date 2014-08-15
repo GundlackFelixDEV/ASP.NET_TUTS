@@ -104,10 +104,9 @@ namespace EventManager.Models
         public object Description;
 
         [Display(Name = "Titel")]
-        [
-        Required(),
+        [Required(ErrorMessage = "{0} ist erforderlich."),
         MaxLength(32, ErrorMessage = "{0} darf aus max. {1} Zeichen bestehen."),
-        MinLength(5, ErrorMessage = "{0} darf aus max. {1} Zeichen bestehen.")]
+        MinLength(5, ErrorMessage = "{0} muss aus min. {1} Zeichen bestehen.")]
         public object Titel;
     }
 }

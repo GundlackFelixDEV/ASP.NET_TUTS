@@ -85,11 +85,14 @@ namespace EventManager.Controllers
         }
 
         [HttpPost]
-        public ActionResult Start(string titel)
+        public ActionResult Start(string titel)        
         {
             try
             {
-                eventManager.StartItem(titel);
+                if (ModelState.IsValid)
+                {
+                    eventManager.StartItem(titel);
+                }
             }
             catch (Exception e)
             {

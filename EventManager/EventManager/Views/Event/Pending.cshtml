@@ -1,0 +1,28 @@
+﻿@model IEnumerable<EventManager.Models.EventItem>
+
+@{
+    ViewBag.Title = "Current Events";
+}
+
+@{
+    Html.RenderAction("StartEvent");
+}
+@Html.ValidationSummary(true)
+<table class="table">
+    <tr>
+        <th></th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StartTime)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) 
+{
+    @Html.Partial("_PendingItem",item);
+}
+
+</table>

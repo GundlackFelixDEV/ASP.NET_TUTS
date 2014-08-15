@@ -1,0 +1,32 @@
+﻿@model IEnumerable<EventManager.Models.EventItem>
+
+@{
+    ViewBag.Title = "Edit Events";
+}
+
+@using (Html.BeginForm("Start", "OverviewEdit"))
+{
+    <p>
+        @Html.TextBox("description")
+        <input type="submit" value="Start" />
+    </p>
+}
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Start)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.End)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        @Html.Partial("_OverviewEditItem",item);
+    }
+</table>

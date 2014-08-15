@@ -1,0 +1,23 @@
+﻿@model IEnumerable<EventManager.Models.EventItem>
+
+@{
+    ViewBag.Title = "Overview";
+    DateTime lastDay = default(DateTime);
+}
+
+@{
+    Html.RenderAction("StartEvent");
+}
+<ul data-role="listview">
+    @foreach (var item in Model)
+    {
+        if(item.Start.Date != lastDay.Date)
+        {
+            lastDay = item.Start;
+            <li data-role="list-divider">@Html.DisplayFor(modelItem => item.StartDate)</li>
+        }
+        <li>
+            @Html.Partial("_OverviewItem.Mobile", item)
+        </li>   
+    }
+</ul>

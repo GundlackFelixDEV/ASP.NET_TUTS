@@ -5,6 +5,7 @@
         <title>@ViewBag.Title</title> 
         <meta name="viewport" content="width=device-width" />
         @Styles.Render("~/Content/Mobile/css")
+
         <script>
             $(document).ready(function () {
                 $.mobile.ajaxEnabled = false; 
@@ -30,5 +31,6 @@
         </div>
     </div>
     @Scripts.Render("~/bundles/jquerymobile")
+    @Scripts.Render("~/bundles/jqueryval")
 </body>
 </html>
