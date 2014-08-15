@@ -122,21 +122,22 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\OverviewEdit\" />
+    <Folder Include="Views\Overview\" />
+    <Folder Include="Views\Pending\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\BundleMobileConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\OverviewController.cs" />
-    <Compile Include="Controllers\OverviewEditController.cs" />
-    <Compile Include="Controllers\PendingController.cs" />
+    <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Controllers\ViewSwitcherController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\EventItem.cs" />
-    <Compile Include="Models\EventManager.cs" />
+    <Compile Include="Models\EventMgr.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -398,19 +399,20 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Scripts\jquery-2.1.1.min.map" />
-    <Content Include="Views\Overview\Overview.cshtml" />
-    <Content Include="Views\OverviewEdit\OverviewEdit.cshtml" />
-    <Content Include="Views\OverviewEdit\_OverviewEditItem.cshtml" />
-    <Content Include="Views\Overview\_OverviewItem.cshtml" />
-    <Content Include="Views\Pending\_PendingItem.cshtml" />
+    <Content Include="Views\Event\Overview.cshtml" />
+    <Content Include="Views\Event\OverviewEdit.cshtml" />
+    <Content Include="Views\Event\_OverviewEditItem.cshtml" />
+    <Content Include="Views\Event\_OverviewItem.cshtml" />
+    <Content Include="Views\Event\_PendingItem.cshtml" />
     <Content Include="Views\Shared\_Layout.Mobile.cshtml" />
     <Content Include="Views\Shared\_ViewSwitcher.cshtml" />
     <Content Include="Scripts\jquery.mobile-1.4.2.min.map" />
-    <Content Include="Views\Pending\_PendingItem.Mobile.cshtml" />
-    <Content Include="Views\Pending\Pending.Mobile.cshtml" />
-    <Content Include="Views\Pending\Pending.cshtml" />
-    <Content Include="Views\Overview\Overview.Mobile.cshtml" />
-    <Content Include="Views\Overview\_OverviewItem.Mobile.cshtml" />
+    <Content Include="Views\Event\_PendingItem.Mobile.cshtml" />
+    <Content Include="Views\Event\Pending.Mobile.cshtml" />
+    <Content Include="Views\Event\Pending.cshtml" />
+    <Content Include="Views\Event\Overview.Mobile.cshtml" />
+    <Content Include="Views\Event\_OverviewItem.Mobile.cshtml" />
+    <Content Include="Views\Event\StartEvent.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -11,94 +11,58 @@ namespace EventManager.Models
     {
         public EventItem()
         {
+            Titel = "";
             Description = "";
             Id = -1;
         }
-        public EventItem(string description, int id)
+
+        public EventItem(string titel, string description, int id)
         {
             Description = description;
             Id = id;
+            Titel = titel;
         }
+
 
         public int Id { get; set; }
         public string Description { get; set; }
+        public string Titel { get; set; }
 
         private DateTime startTime = DateTime.Now;
         public DateTime Start 
         {
-            get
-            {
-                return startTime;
-            }
-            set
-            {
-                if (value.CompareTo(End) > 0)
-                {
-                    throw new ArgumentException("It is not allowed to set the start time later than the end time");
-                }
-                else
-                {
-                    startTime = value;
-                }
-            }
+            get { return startTime; }
+            set { startTime = value; }
         }
 
         public TimeSpan StartTime
         {
-            get
-            {
-                return startTime.TimeOfDay;
-            }
+            get { return startTime.TimeOfDay; }
         }
 
         public DateTime StartDate
         {
-            get
-            {
-                return startTime.Date;
-            }
+            get {return startTime.Date; }
         }
 
         private DateTime endTime = DateTime.Now;
         public DateTime End 
         { 
-            get
-            {
-                return endTime;
-            }
-            set
-            {
-                if (value.CompareTo(Start) < 0)
-                {
-                    throw new ArgumentException("It is not allowed to set the end time earlier than the start time");
-                }
-                else
-                {
-                    endTime = value;
-                }
-            }
+            get { return endTime; }
+            set { endTime = value; }
         }
         public TimeSpan EndTime
         {
-            get
-            {
-                return endTime.TimeOfDay;
-            }
+            get { return endTime.TimeOfDay; }
         }
         public DateTime EndDate
         {
-            get
-            {
-                return endTime.Date;
-            }
+            get{ return endTime.Date; }
         }
 
         public TimeSpan Duration
         {
-            get
-            {
-                return End-Start;
-            }
+            get { return End-Start; }
         }
 
         public bool Equals(EventItem other)
@@ -114,7 +78,7 @@ namespace EventManager.Models
         [Required, Display(Name = "Start"), DisplayFormat(DataFormatString = "{0:s}")]
         public object Start;
 
-        [Display(Name = "Start"), DisplayFormat(DataFormatString = "{0:dd\\/MMM\\/yy}")]
+        [Display(Name = "Start"), DisplayFormat(DataFormatString = "{0:d}")]
         public object StartDate;
 
         [Display(Name = "Start"), DisplayFormat(DataFormatString = "{0:hh\\:mm\\:ss}")]
@@ -123,7 +87,7 @@ namespace EventManager.Models
         [Required, Display(Name = "Ende"), DisplayFormat(DataFormatString = "{0:s}")]
         public object End;
 
-        [Display(Name = "Ende"), DisplayFormat(DataFormatString = "{0:dd\\/MMMM\\/yy}")]
+        [Display(Name = "Ende"), DisplayFormat(DataFormatString = "{0:d}")]
         public object EndDate;
 
         [Display(Name = "Ende"), DisplayFormat(DataFormatString = "{0:hh\\:mm\\:ss}")]
@@ -136,7 +100,14 @@ namespace EventManager.Models
         public object Id;
 
         [Display(Name = "Beschreibung")]
-        [StringLength(32, ErrorMessage = "{0} darf aus max. {1} Zeichen bestehen.")]
+        [MaxLength(32, ErrorMessage = "{0} darf aus max. {1} Zeichen bestehen.")]
         public object Description;
+
+        [Display(Name = "Titel")]
+        [
+        Required(),
+        MaxLength(32, ErrorMessage = "{0} darf aus max. {1} Zeichen bestehen."),
+        MinLength(5, ErrorMessage = "{0} darf aus max. {1} Zeichen bestehen.")]
+        public object Titel;
     }
 }
