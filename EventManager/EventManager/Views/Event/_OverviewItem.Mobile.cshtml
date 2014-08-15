@@ -4,11 +4,10 @@
     bool pending = DateTime.Compare(Model.Start, Model.End) == 0;
 }
 <div>
-    <div class="ui-grid-a">
-        <div><h6>@Html.DisplayFor(model => model.Titel):</h6></div>
-        <div>@Html.DisplayFor(model => model.Description)</div>
+    <div>
+        <b>@Html.DisplayNameFor(model => model.Titel): </b>@Html.DisplayFor(model => model.Titel)
     </div>
-    <div class="ui-grid-b">
+    <div class="ui-grid-c">
         <div class="ui-block-a">
             <h6>@Html.DisplayNameFor(model => model.StartTime)</h6>
             @Html.DisplayFor(model => model.StartTime)
@@ -24,8 +23,15 @@
                 @Html.DisplayFor(model => model.EndTime)
 
             }
-        </div>        
+        </div>
         <div class="ui-block-c">
+            @if (!pending)
+            {
+                <h6>@Html.DisplayNameFor(model => model.Duration)</h6>
+                @Html.DisplayFor(model => model.Duration)
+            }
+        </div>        
+        <div class="ui-block-d">
             <div style="float:right">
                 @if (pending)
                 {
@@ -35,11 +41,4 @@
             </div>
         </div>
     </div>
-    @if (!pending)
-    {
-    <div>
-        <b>@Html.DisplayNameFor(model => model.Duration): </b>@Html.DisplayFor(model => model.Duration)
-    </div>
-    }
-
 </div>

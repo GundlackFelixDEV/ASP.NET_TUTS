@@ -1,6 +1,9 @@
 ﻿@model EventManager.Models.EventItem
 
-@using (Html.BeginForm("StartEvent", "Event"))
+@{
+    Html.EnableClientValidation();
+}
+@using (Html.BeginForm("StartEvent", "Event", FormMethod.Post, new { data_ajax = "false" }))
 {
     @Html.AntiForgeryToken()
     
