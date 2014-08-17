@@ -27,23 +27,23 @@ namespace EventManager.Controllers
             return View("Overview", eventManager.AllItems);
         }
 
-        public ActionResult EditEvent(int id)
+        public ActionResult Edit(int id)
         {
             EventItem item = null;
             try
             {
-                item = eventManager.FindItem(id);                
+                item = eventManager.FindItem(id);
+                return View("EditEvent",item);
             }
             catch(Exception e)
             {
                 ModelState.AddModelError("Error",e.Message);
                 return RedirectToAction(this.CurrentView);
             }
-            return PartialView("EditEvent",item);
         }
 
         [HttpPost]
-        public ActionResult EditEvent(EventItem item)
+        public ActionResult Edit(EventItem item)
         {
             if(ModelState.IsValid)
             {
@@ -56,7 +56,7 @@ namespace EventManager.Controllers
                     ModelState.AddModelError("Error",e.Message);
                 }
             }
-            return RedirectToAction(this.CurrentView);
+            return RedirectToAction(this.CurrentView,item);
         }
 
         public ActionResult Stop(int id)
@@ -81,7 +81,7 @@ namespace EventManager.Controllers
         public ActionResult StartEvent()
         {
             EventItem item = new EventItem();
-            return PartialView("StartEvent", item);
+            return PartialView("_StartEvent", item);
         }
 
         [HttpPost]
