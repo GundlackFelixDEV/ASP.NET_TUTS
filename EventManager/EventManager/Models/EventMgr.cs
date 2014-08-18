@@ -5,12 +5,12 @@ using System.Web;
 
 namespace EventManager.Models
 {
-    public class EventManager
+    public class EventMgr
     {
         private static List<EventItem> pendingItems;
         private static List<EventItem> items;
 
-        public EventManager()
+        public EventMgr()
         {
             if (pendingItems == null)
                 pendingItems = new List<EventItem>();
@@ -35,22 +35,21 @@ namespace EventManager.Models
             }
         }
 
-        public void StartItem(string description)
+        public void StartItem(string aTitel)
         {
             int id = (items.Count>0)?items.Max(f => f.Id):0;
 
-            EventItem newItem = new EventItem(description,++id);
+            EventItem newItem = new EventItem();
+            newItem.Titel = aTitel;
+            newItem.Id = ++id;
+
             pendingItems.Add(newItem);
             items.Add(newItem);
         }
 
         public void StopItem(int id)
         {
-            EventItem item = null;
-            item = pendingItems.First(f => f.Id == id);
-
-            if(item == null)
-                throw new ArgumentOutOfRangeException(string.Format("Now pending item with id {0}",id));
+            EventItem item = FindItem(id);
 
             item.End = DateTime.Now;
             pendingItems.RemoveAll(obj => obj.Id == id);
@@ -58,26 +57,33 @@ namespace EventManager.Models
 
         public void DeletItem(int id)
         {
-            EventItem item = null;
-            item = items.First(f =>f.Id == id);
-
-            if (item == null)
-                throw new ArgumentOutOfRangeException(string.Format("Now existing item with id {0}", id));
+            EventItem item = FindItem(id);
 
             items.Remove(item);
             pendingItems.Remove(item);
         }
 
-        public void editItem(EventItem changeItem)
+        public void EditItem(EventItem changeItem)
         {
-            EventItem item = items.First(f => f.Id == changeItem.Id);
+            EventItem item = FindItem(changeItem.Id);
 
-            if (item == null)
-                throw new ArgumentOutOfRangeException(string.Format("Now existing item with id {0}", changeItem.Id));
-
+            if(DateTime.Compare(changeItem.Start,changeItem.End) < 0)
+                throw new InvalidOperationException(string.Format("Event start {0} can not be after event end {1}",changeItem.Start, changeItem.End));
+            
             item.Start = changeItem.Start;
             item.End = changeItem.End;
             item.Description = changeItem.Description;
+            item.Titel = changeItem.Titel;
+        }
+
+        public EventItem FindItem(int id)
+        {
+            EventItem item = items.First(f => f.Id == id);
+
+            if(item == null)
+                throw new ArgumentOutOfRangeException(string.Format("Now existing item with id {0}", id));
+
+            return item;
         }
     }
 }
