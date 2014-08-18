@@ -81,7 +81,7 @@ namespace EventManager.Models
             EventItem item = items.First(f => f.Id == id);
 
             if(item == null)
-                throw new ArgumentOutOfRangeException(string.Format("Now existing item with id {0}", id));
+                throw new ArgumentOutOfRangeException(string.Format("No existing item with id {0}", id));
 
             return item;
         }

@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
 namespace EventManager.Models
 {
@@ -70,6 +67,30 @@ namespace EventManager.Models
             if(other == null) return false;
             return (Id == other.Id);
         }
+    }
+
+    [MetadataType(typeof(TypedEventMetaData))]
+    public partial class TypedEventItem : EventItem
+    {
+        public EventType Type { get; set; }
+
+        public TypedEventItem()
+            : base()
+        {
+            Type = null;
+        }
+
+        public TypedEventItem(string titel, string description, int id)
+            : base(titel, description, id)
+        {
+            Type = null;
+        }
+    }
+
+    public class TypedEventMetaData : EventMetaData
+    {
+        [Display(Name = "Eventtype")]
+        public object Type;
     }
 
     public class EventMetaData
