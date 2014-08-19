@@ -1,4 +1,4 @@
-﻿@model EventManager.Models.EventItem
+﻿@model EventManager.Models.TypedEventItem
 
 @{
     Html.EnableClientValidation();
@@ -9,9 +9,8 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-
         <div class="form-group">
-            Html.LabelFor(model => model.Titel);            
+            @Html.LabelFor(model => model.Titel);            
             <div class="col-md-10">
                     @Html.EditorFor(model => model.Titel, new { htmlAttributes = new { @class = "form-control span2", @placeholder = @Html.NameFor(model => model.Titel) } })
                     @Html.ValidationMessageFor(model => model.Titel, "", new { @class = "text-danger" })      
@@ -19,7 +18,7 @@
         </div>
 
         <div class="form-group">
-            Html.LabelFor(model => model.Description);
+            @Html.LabelFor(model => model.Description);
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control span2", @placeholder = @Html.NameFor(model => model.Description) } })
                 @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
@@ -27,7 +26,7 @@
         </div>
 
         <div class="form-group">
-            Html.LabelFor(model => model.StartTime);
+            @Html.LabelFor(model => model.StartTime)
             <div class="col-md-10">
                 @Html.EditorFor(model => model.StartTime, new { htmlAttributes = new { @class = "form-control span2"} })
                 @Html.ValidationMessageFor(model => model.StartTime, "", new { @class = "text-danger" })
@@ -35,13 +34,19 @@
         </div>
 
         <div class="form-group">
-            Html.LabelFor(model => model.StartTime);
+            @Html.LabelFor(model => model.EndTime)
             <div class="col-md-10">
                 @Html.EditorFor(model => model.EndTime, new { htmlAttributes = new { @class = "form-control span2" } })
                 @Html.ValidationMessageFor(model => model.EndTime, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <input type="submit" value="Start" class="btn btn-default" />
-    </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Type)
+            <div class="col-md-10">
+                @Html.ActionLink("Add","AddEventType")
+            </div>
+        </div>
+            <input type="submit" value="Start" class="btn btn-default" />
+        </div>
 }

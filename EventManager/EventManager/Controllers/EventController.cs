@@ -29,11 +29,10 @@ namespace EventManager.Controllers
 
         public ActionResult Edit(int id)
         {
-            EventItem item = null;
+            TypedEventItem item = null;
             try
             {
-                item = eventManager.FindItem(id);
-                return View("EditEvent",item);
+                return View("EditEvent", new TypedEventItem(eventManager.FindItem(id)));
             }
             catch(Exception e)
             {

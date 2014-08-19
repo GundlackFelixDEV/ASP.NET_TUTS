@@ -20,6 +20,11 @@ namespace EventManager.Models
             Titel = titel;
         }
 
+        public EventItem(EventItem item)
+        {
+            CopyItem(item);
+        }
+
 
         public int Id { get; set; }
         public string Description { get; set; }
@@ -62,11 +67,22 @@ namespace EventManager.Models
             get { return End-Start; }
         }
 
-        public bool Equals(EventItem other)
+        public virtual bool Equals(EventItem other)
         {
             if(other == null) return false;
             return (Id == other.Id);
         }
+
+        public virtual EventItem CopyItem(EventItem item)
+        {
+            Id = item.Id;
+            Description = item.Description;
+            Titel = item.Titel;
+            Start = item.Start;
+            End = item.End;
+            return this;
+        }
+
     }
 
     [MetadataType(typeof(TypedEventMetaData))]
@@ -84,6 +100,22 @@ namespace EventManager.Models
             : base(titel, description, id)
         {
             Type = null;
+        }
+
+        public TypedEventItem(EventItem item)
+        {
+            CopyItem(item);
+        }
+
+
+        public override EventItem CopyItem(EventItem item)
+        {
+            base.CopyItem(item);
+            TypedEventItem typeItem = item as TypedEventItem;
+            if(typeItem != null)
+                Type = typeItem.Type;
+
+            return this;
         }
     }
 
