@@ -21,8 +21,7 @@ namespace LocalBusiness.Models
         public string Description { get; set; }
         public List<BusinessEvent> Events { get; set; }
         public Dictionary<DayOfWeek, BusinessSchedule> Schedule { get; set; }
-        
-        [DataType(DataType.Contact)]
+       
         public BusinessContact Contact { get; set; }
 
         public void SetBusinessHourOn(DayOfWeek day, BusinessSchedule shedule)
