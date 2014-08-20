@@ -1,0 +1,12 @@
+﻿@model LocalBusiness.Models.Business
+
+@{
+    ViewBag.Title = Model.Titel;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div>
+    <h4>@Html.DisplayFor(model => model.Titel)</h4>
+</div>
+<div>
+    @Html.DisplayFor(model => model.Schedule)
+</div>

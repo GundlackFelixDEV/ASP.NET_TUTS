@@ -1,0 +1,31 @@
+﻿@model IList<LocalBusiness.Models.BusinessEvent>
+
+<div>
+    <ul>
+        @foreach(var item in Model)
+        {
+            <li>
+                <div>
+                    <div>
+                        @Html.DisplayNameFor(Model => Model.Titel);
+                        @Html.DisplayFor(modelItem => item.Titel);
+                    </div>
+                    <div>
+                        @Html.DisplayNameFor(Model => Model.Description);
+                        @Html.DisplayTextFor(modelItem => item.Description);
+
+                    </div>
+                    <div>
+                        @Html.DisplayNameFor(Model => Model.EventDateStart);
+                        @Html.DisplayFor(modelItem => item.EventDateStart.Date);
+                    </div>
+                    <div>
+                        @Html.DisplayNameFor(Model => Model.EventDateStop);
+                        @Html.DisplayFor(modelItem => item.EventDateStop.Date);
+                    </div>
+                </div>
+            </li>
+        }
+    </ul>
+
+</div>

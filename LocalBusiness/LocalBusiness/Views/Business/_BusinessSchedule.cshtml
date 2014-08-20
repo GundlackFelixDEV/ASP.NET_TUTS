@@ -1,0 +1,30 @@
+﻿@model IEnumerable<LocalBusiness.Models.BusinessSchedule>
+
+<table class="table">
+    <tr>
+        <th>@Html.DisplayNameFor(Model => Model.WeekDay)</th>
+    </tr>
+    <tr>
+        <th>@Html.DisplayNameFor(Model => Model.Open)</th>
+    </tr>
+    <tr>
+        <th>@Html.DisplayNameFor(Model => Model.Close)</th>
+    </tr>   
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.WeekDay);
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Open);
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Close);
+        </td>
+    </tr>
+}
+</table>
