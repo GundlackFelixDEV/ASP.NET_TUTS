@@ -8,10 +8,18 @@
     <h4>@Html.DisplayFor(model => model.Titel)</h4>
 </div>
 <div class="row">
-    <div class="col-md-4 col-sm-4 col-xs-8">
-        @Html.Partial("_BusinessContact", Model.Contact)   
+    <div class="row">
+        <div class="col-md-4 col-sm-4 col-xs-8">
+            @{Html.RenderPartial("_BusinessContact", Model.Contact);}
+        </div>
+        <div class="col-md-8 col-sm-8 col-xs-12">
+            <h1>Geographic Information</h1>
+        </div>
     </div>
-    <div class="col-md-8 col-sm-8 col-xs-12">       
-        Placeholder
+    <div class="row">
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            @{Html.RenderPartial("_BusinessSchedule", Model.Schedule.Values.ToList());}
+        </div>
     </div>
+
 </div>

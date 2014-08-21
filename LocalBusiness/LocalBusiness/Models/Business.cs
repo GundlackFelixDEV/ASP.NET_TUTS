@@ -14,7 +14,12 @@ namespace LocalBusiness.Models
             Titel = "Dummy Titel";
             Description = "Dummy Description";
             Events = new List<BusinessEvent>();
-            Schedule = new Dictionary<DayOfWeek,BusinessSchedule>();
+            Schedule = new Dictionary<DayOfWeek,BusinessSchedule>();           
+            var days = Enum.GetValues(typeof(DayOfWeek));
+            foreach(DayOfWeek day in days)
+            {
+                Schedule[day] = new BusinessSchedule();
+            }
             Contact = new BusinessContact();
         }
         public string Titel { get; set; }
