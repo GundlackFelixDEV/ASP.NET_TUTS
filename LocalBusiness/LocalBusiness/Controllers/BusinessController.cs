@@ -7,7 +7,7 @@ using LocalBusiness.Models;
 
 namespace LocalBusiness.Controllers
 {
-    public class BusinessController : Controller
+    public partial class BusinessController : Controller
     {
         // GET: Business
         public ActionResult Index()
@@ -16,19 +16,14 @@ namespace LocalBusiness.Controllers
             return View(myShop);
         }
 
-        public ActionResult Events(List<BusinessEvent> aEventList)
+        public PartialViewResult Events(List<BusinessEvent> aEventList)
         {
             return PartialView("_BusinessEvents", aEventList);
         }
 
-        public ActionResult OpeningHours(Dictionary<DayOfWeek, BusinessSchedule> schedule)
+        public PartialViewResult OpeningHours(Dictionary<DayOfWeek, BusinessSchedule> schedule)
         {
             return PartialView("_BusinessSchedule" , schedule.Values.ToList());
-        }
-
-        public ActionResult Contacts(BusinessContact contact)
-        {
-            return PartialView("_BusinessContacts" , contact);
         }
     }
 }

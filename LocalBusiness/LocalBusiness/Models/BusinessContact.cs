@@ -18,6 +18,16 @@ namespace LocalBusiness.Models
             Email = "Dummy@Dummy.de";
             Telephone = "000/Dummy";
         }
+        public BusinessContact(BusinessContact aContact)
+        {
+            City = aContact.City;
+            StreetNumber = aContact.StreetNumber;
+            Street = aContact.Street;
+            Postalcode = aContact.Postalcode;
+            AditionalInfo = aContact.AditionalInfo;
+            Email = aContact.Email;
+            Telephone = aContact.Telephone;
+        }
         public string City { get; set; }
         public string StreetNumber { get; set; }
         public string Street { get; set; }
