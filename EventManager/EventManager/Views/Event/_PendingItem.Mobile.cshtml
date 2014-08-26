@@ -1,20 +1,12 @@
 ﻿@model EventManager.Models.EventItem
 
-<div>
-    <div>
-        <b>@Html.DisplayNameFor(model => model.Titel): </b>@Html.DisplayFor(model => model.Titel)
+<div class="newrow" data-role="">
+    <div class="col-md-8 col-sm-8 col-xs-12">
+        @Html.DisplayFor(model => model.Titel)
     </div>
-    <div class="ui-grid-a">
-        <div class="ui-block-a">
-            <h6>@Html.DisplayNameFor(model => model.StartTime)</h6>
-            @Html.DisplayFor(model => model.StartTime)         
-        </div>
-        <div class="ui-block-b">
-            <div style="float:right">
-                @Html.ActionLink("Edit", "Edit", new { id = Model.Id })
-                @Html.ActionLink("Stop", "Stop", new { id = Model.Id })
-                @Html.ActionLink("Delete", "Delete", new { id = Model.Id })
-            </div>            
-        </div>
+    <div class="col-md-4 col-sm-4 col-xs-12">
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id })
+        @Html.ActionLink("Stop", "Stop", new { id = Model.Id })
+        @Html.ActionLink("Delete", "Delete", new { id = Model.Id })          
     </div>
 </div>

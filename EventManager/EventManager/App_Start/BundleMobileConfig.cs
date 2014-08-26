@@ -10,8 +10,7 @@ namespace EventManager {
 
             bundles.Add(new StyleBundle("~/Content/Mobile/css").Include(
                 "~/Content/Site.Mobile.css",
-                "~/Content/bootstrap.css",
-                "~/Content/jquery.mobile-{version}.css"));
+                "~/Content/bootstrap.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                 "~/Scripts/jquery.validate.js",

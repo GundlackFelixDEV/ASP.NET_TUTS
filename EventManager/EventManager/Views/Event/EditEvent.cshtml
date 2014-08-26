@@ -10,7 +10,7 @@
     
     <div class="form-horizontal">
         <div class="form-group">
-            @Html.LabelFor(model => model.Titel);            
+            @Html.LabelFor(model => model.Titel)            
             <div class="col-md-10">
                     @Html.EditorFor(model => model.Titel, new { htmlAttributes = new { @class = "form-control span2", @placeholder = @Html.NameFor(model => model.Titel) } })
                     @Html.ValidationMessageFor(model => model.Titel, "", new { @class = "text-danger" })      

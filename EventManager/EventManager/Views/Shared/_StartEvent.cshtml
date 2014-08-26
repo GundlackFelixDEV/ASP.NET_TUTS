@@ -11,12 +11,10 @@
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
         <div class="form-group">
-            <input type="submit" value="Start" class="btn btn-default" />    
-            <div class="col-md-10">
-                <div class="input-append">
+            <input type="submit" value="Start" class="btn btn-default hidden-xs col-md-1 col-sm-1" />    
+            <div class="col-md-10 col-sm-10 col-xs-12">
                     @Html.EditorFor(model => model.Titel, new { htmlAttributes = new { @class = "form-control span2", @placeholder = @Html.NameFor(model => model.Titel) } })
                     @Html.ValidationMessageFor(model => model.Titel, "", new { @class = "text-danger" })
-                </div>              
             </div>
         </div>
     </div>

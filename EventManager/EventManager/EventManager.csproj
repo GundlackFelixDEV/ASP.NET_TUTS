@@ -172,7 +172,7 @@
     <Content Include="Views\Event\Pending.cshtml" />
     <Content Include="Views\Event\Overview.Mobile.cshtml" />
     <Content Include="Views\Event\_OverviewItem.Mobile.cshtml" />
-    <Content Include="Views\Event\_StartEvent.cshtml" />
+    <Content Include="Views\Shared\_StartEvent.cshtml" />
     <Content Include="Views\Event\EditEvent.cshtml" />
   </ItemGroup>
   <ItemGroup />
@@ -181,6 +181,7 @@
     <None Include="Project_Readme.html" />
     <Content Include="Views\EventType\EventTypes.cshtml" />
     <Content Include="Views\EventType\AddEventType.cshtml" />
+    <Content Include="Views\Event\_EditEvent.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
