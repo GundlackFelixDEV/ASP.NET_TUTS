@@ -5,59 +5,57 @@
     string colLabel = "col-md-12 col-sm-12 col-xs-12";
     string colDisplay = "col-md-12 col-sm-12 col-xs-12";
 }
-<div class="row" style="min-width:260px">
-    <div class="row">
-        <div class="@colHalve">
-            <div class="row">
-                @Html.LabelFor(model => model.City, new { @class = "control-label " + @colLabel })
-                <div class="@colDisplay">
-                    @Html.DisplayFor(model => model.City)
-                </div>
-            </div>
-        </div>
-        <div class="@colHalve">
-            <div class="row">
-                @Html.LabelFor(model => model.Postalcode, new { @class = "control-label " + @colLabel })
-                <div class="@colDisplay">
-                    @Html.DisplayFor(model => model.Postalcode)
-                </div>
+<div class="row">
+    <div class="@colHalve">
+        <div class="row">
+            @Html.LabelFor(model => model.City, new { @class = "control-label " + @colLabel })
+            <div class="@colDisplay">
+                @Html.DisplayFor(model => model.City)
             </div>
         </div>
     </div>
-    <br />
-    <div class="row">
-        <div class="@colHalve">
-            <div class="row">
-                @Html.LabelFor(model => model.Street, new { @class = "control-label " + @colLabel })
-                <div class="@colDisplay">
-                    @Html.DisplayFor(model => model.Street)
-                </div>
-            </div>
-        </div>
-        <div class="@colHalve">
-            <div class="row">
-                @Html.LabelFor(model => model.StreetNumber, new { @class = "control-label " + @colLabel })
-                <div class="@colDisplay">
-                    @Html.DisplayFor(model => model.StreetNumber)
-                </div>
+    <div class="@colHalve">
+        <div class="row">
+            @Html.LabelFor(model => model.Postalcode, new { @class = "control-label " + @colLabel })
+            <div class="@colDisplay">
+                @Html.DisplayFor(model => model.Postalcode)
             </div>
         </div>
     </div>
-    <br />
-    @{
-        var labelElectronic = "col-md-4 col-sm-4 col-xs-4";
-        var textElectronic = "col-md-8 col-sm-8 col-sm-8";
-    }
-    <div class="row">
-        @Html.LabelFor(model => model.Email, new { @class = "control-label " + @labelElectronic })
-        <div class="@textElectronic">
-            @Html.DisplayFor(model => model.Email)
+</div>
+<br />
+<div class="row">
+    <div class="@colHalve">
+        <div class="row">
+            @Html.LabelFor(model => model.Street, new { @class = "control-label " + @colLabel })
+            <div class="@colDisplay">
+                @Html.DisplayFor(model => model.Street)
+            </div>
         </div>
     </div>
-    <div class="row">
-        @Html.LabelFor(model => model.Telephone, new { @class = "control-label " + @labelElectronic })
-        <div class="@textElectronic">
-            @Html.DisplayFor(model => model.Telephone)
+    <div class="@colHalve">
+        <div class="row">
+            @Html.LabelFor(model => model.StreetNumber, new { @class = "control-label " + @colLabel })
+            <div class="@colDisplay">
+                @Html.DisplayFor(model => model.StreetNumber)
+            </div>
         </div>
+    </div>
+</div>
+<br />
+@{
+    var labelElectronic = "col-md-4 col-sm-4 col-xs-4";
+    var textElectronic = "col-md-8 col-sm-8 col-sm-8";
+}
+<div class="row">
+    @Html.LabelFor(model => model.Email, new { @class = "control-label " + @labelElectronic })
+    <div class="@textElectronic">
+        @Html.DisplayFor(model => model.Email)
+    </div>
+</div>
+<div class="row">
+    @Html.LabelFor(model => model.Telephone, new { @class = "control-label " + @labelElectronic })
+    <div class="@textElectronic">
+        @Html.DisplayFor(model => model.Telephone)
     </div>
 </div>

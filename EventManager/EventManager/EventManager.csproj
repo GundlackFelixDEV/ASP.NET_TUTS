@@ -122,8 +122,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\" />
-    <Folder Include="Scripts\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -143,12 +141,53 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\ajax-loader.gif" />
+    <Content Include="Content\ajax-loader.png" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\jquery.mobile-1.4.2.css" />
+    <Content Include="Content\jquery.mobile.external-png-1.4.2.css" />
+    <Content Include="Content\jquery.mobile.external-png-1.4.2.min.css" />
+    <Content Include="Content\jquery.mobile.icons-1.4.2.css" />
+    <Content Include="Content\jquery.mobile.icons-1.4.2.min.css" />
+    <Content Include="Content\jquery.mobile.inline-png-1.4.2.css" />
+    <Content Include="Content\jquery.mobile.inline-png-1.4.2.min.css" />
+    <Content Include="Content\jquery.mobile.inline-svg-1.4.2.css" />
+    <Content Include="Content\jquery.mobile.inline-svg-1.4.2.min.css" />
+    <Content Include="Content\jquery.mobile.structure-1.4.2.css" />
+    <Content Include="Content\jquery.mobile.structure-1.4.2.min.css" />
+    <Content Include="Content\jquery.mobile.theme-1.4.2.css" />
+    <Content Include="Content\jquery.mobile.theme-1.4.2.min.css" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Content\Site.Mobile.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <None Include="Scripts\jquery-2.1.1.intellisense.js" />
+    <Content Include="Scripts\jquery-2.1.1.js" />
+    <Content Include="Scripts\jquery-2.1.1.min.js" />
+    <Content Include="Scripts\jquery.mobile-1.4.2.js" />
+    <Content Include="Scripts\jquery.mobile-1.4.2.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.7.2.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.matchmedia.addListener.js" />
+    <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <None Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -182,6 +221,8 @@
     <Content Include="Views\EventType\EventTypes.cshtml" />
     <Content Include="Views\EventType\AddEventType.cshtml" />
     <Content Include="Views\Event\_EditEvent.cshtml" />
+    <Content Include="Scripts\jquery-2.1.1.min.map" />
+    <Content Include="Scripts\jquery.mobile-1.4.2.min.map" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
