@@ -1,0 +1,12 @@
+<h2>Show Tutorial</h2>
+<div ng-controller="GeolocationController">
+	<div> {{ErrorMessage}}</div>
+	<div>		
+	Longitude: <input type="text" ng-model="Position.Longitude" />
+	</div>
+	<div>
+	Latitude: <input type="text" ng-model="Position.Latitude" />
+	</div>
+	<button ng-click='GetCurrentPosition()'>Current Position</button>
+	<button ng-click='SetPosition(Position)'>Save</button>
+</div>
