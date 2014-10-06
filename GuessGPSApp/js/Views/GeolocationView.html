@@ -1,12 +1,19 @@
 <h2>Show Tutorial</h2>
-<div ng-controller="GeolocationController">
-	<div> {{ErrorMessage}}</div>
-	<div>		
-	Longitude: <input type="text" ng-model="Position.Longitude" />
-	</div>
-	<div>
-	Latitude: <input type="text" ng-model="Position.Latitude" />
-	</div>
-	<button ng-click='GetCurrentPosition()'>Current Position</button>
-	<button ng-click='SetPosition(Position)'>Save</button>
+<div class="row">
+    <div ng-controller="GeolocationController" class="col-md-6">
+        <div class="col-md-6">
+            <div> {{ErrorMessage}}</div>
+            <div>		
+            Longitude: <input type="text" ng-model="Position.coords.longitude" />
+            </div>
+            <div>
+            Latitude: <input type="text" ng-model="Position.coords.latitude" />
+            </div>
+            <button ng-click='GetCurrentPosition()'>Current Position</button>
+            <button ng-click='SetPosition(Position)'>Save</button>
+        </div>
+        <div class="col-md-6" id="map-canvas" style="height:256px; background-color:lightskyblue">
+
+        </div> 
+    </div>
 </div>
