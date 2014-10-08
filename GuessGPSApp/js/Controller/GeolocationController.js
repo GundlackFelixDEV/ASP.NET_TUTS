@@ -5,37 +5,30 @@ GeoGuessApp.controller('GeolocationController',function($scope){
 	$scope.ErrorMessage = "";
 	var map = null;
         var marker = null;
-        $scope.MapsOption = {
-            zoom: 13
-        };
+        var nav = null;
         
-        $scope.InitGoogleMaps = function(position){           
+        $scope.Initialize = function(){           
            console.log("InitGoogleMaps");
-           if(!position.coords)
-           {
-               $scope.Error("Unable to initialize google maps widget. Position unknown");
-               return;
-           }
-           var pos = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
-           var options = $scope.MapsOption;
-           options.center = pos;
+
+           var pos = new google.maps.LatLng(50,13);
+           var options = {
+                zoom: 13,
+                center: pos
+            };
            
-           if(map === null){
-               map = new google.maps.Map(document.getElementById('map-canvas'), options);
-           }
+            map = new google.maps.Map(document.getElementById('map-canvas'), options);
            
-           if(marker === null){
             marker = new google.maps.Marker({
                 position: pos,
                 map: map,
                 title: 'Current Position!'
-            }); 
-           }              
+            });               
             
-           google.maps.event.addListener(map, 'click', function(event){
-               $scope.HandleMapClick(event.latLng);
-           });
+            google.maps.event.addListener(map, 'click', function(event){
+                $scope.HandleMapClick(event.latLng);
+            });
         };
+        
         $scope.HandleMapClick = function(location){
             console.log("HandleMapClick");
             var pos = { coords: {
@@ -44,16 +37,17 @@ GeoGuessApp.controller('GeolocationController',function($scope){
             $scope.SetPosition(pos);
         };
             
-    	//Geolocation Functions
-	var nav = null;  
-	$scope.GetCurrentPosition = function(){                
+    	//Geolocation Functions  
+	$scope.SetCurrentPosition = function(){     
+                console.log("SetCurrentPosition");
 		if(nav === null){
 			nav = window.navigator;
 		}
 		if(nav !== null){
 			if(nav.geolocation){
-				nav.geolocation.getCurrentPosition(function(pos){
-                                    $scope.SetPosition(pos);
+				nav.geolocation.getCurrentPosition(function(location){
+                                    $scope.SetPosition(location);    
+                                    map.panTo($scope.convert2GooglePos(location));
                                 },$scope.GeolocationErrorCallback);
                                 
                         } else {
@@ -63,16 +57,14 @@ GeoGuessApp.controller('GeolocationController',function($scope){
 		else {
 			$scope.Error("Unable to find navigator");
 		}
-                return null;
 	};
-	
+	$scope.convert2GooglePos = function(position){
+            return new google.maps.LatLng(position.coords.latitude,position.coords.longitude); 
+        };
 	$scope.SetPosition = function(position){
-		console.log("setting position:" + position);
+		console.log("SetPosition");
 		$scope.Position = position;
-                if(map === null){
-                    $scope.InitGoogleMaps(position);
-                }
-                marker.setPosition(new google.maps.LatLng(position.coords.longitude,position.coords.latitude)); 
+                marker.setPosition($scope.convert2GooglePos(position)); 
 		$scope.$apply();
 	};
 	
@@ -104,14 +96,16 @@ GeoGuessApp.controller('GeolocationController',function($scope){
 	    // If it's an unknown error, build a message that includes 
 	    // information that helps identify the situation, so that 
 	    // the error handler can be updated.
-	    if (message == "")
+	    if (message === "")
 	    {
 	        var strErrorCode = error.code.toString();
 	        message = "The position could not be determined due to " + 
 	                  "an unknown error (Code: " + strErrorCode + ").";
 	    }
-		$scope.Error(message);
+            $scope.Error(message);
 	};
         
-        google.maps.event.addDomListener(window, 'load', $scope.GetCurrentPosition());
+        console.log("Initialize Controller");
+        $scope.Initialize();
+        $scope.SetCurrentPosition();
 });
