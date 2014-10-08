@@ -1,19 +1,32 @@
-<h2>Show Tutorial</h2>
-<div class="row">
-    <div ng-controller="GeolocationController" class="col-md-6">
-        <div class="col-md-6">
-            <div> {{ErrorMessage}}</div>
-            <div>		
-            Longitude: <input type="text" ng-model="Position.coords.longitude" />
-            </div>
-            <div>
-            Latitude: <input type="text" ng-model="Position.coords.latitude" />
-            </div>
-            <button ng-click='GetCurrentPosition()'>Current Position</button>
-            <button ng-click='SetPosition(Position)'>Save</button>
-        </div>
-        <div class="col-md-6" id="map-canvas" style="height:256px; background-color:lightskyblue">
-
-        </div> 
-    </div>
+<div ng-controller="GeolocationController" class="row">
+	<div class="col-xs-offset-1 col-xs-10">
+		<div class="row">
+			<div class="col-md-4 col-sm-4">
+				<h2>Show Tutorial</h2>				
+				<form role="form">
+					<div class="form-group">
+						<label class="control-label" for="gps_longitude">Longitude</label>
+						<div class="">
+							<input class="form-control" type="text" id="gps_longitude"ng-model="Position.coords.longitude" placeholder="GPS Longitude"/>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label" for="gps_latitude">Latitude</label>
+						<div class="">
+							<input class="form-control" type="text" id="gps_latitude"ng-model="Position.coords.latitude" placeholder="GPS Latitude"/>
+						</div>
+					</div>
+					<div class="form-group">
+						<div> {{ErrorMessage}}</div>
+						<div>
+							<button ng-click='GetCurrentPosition()'>Current Position</button>
+						</div>
+					</div>
+				</form>
+			</div>
+			</br>
+			<div class="col-md-8 col-sm-8" id="map-canvas" style="height:256px; background-color:lightskyblue">
+			</div> 
+		</div>
+	</div>
 </div>

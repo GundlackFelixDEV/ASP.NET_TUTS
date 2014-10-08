@@ -1,19 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<meta charset="utf-8" />    
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 	<title>Location Test with Buttons</title>
+	<script type="text/javascript" src="js/Scripts/jquery-2.1.1.min.js"></script>
+	<link rel="stylesheet" href="content/bootstrap.css" >
 </head>
 <body ng-app="GeoGuessApp">
-	<div class="col-md-9">
+	<div class="container-fluid">
 		<div ng-view></div>
 	</div>
-	<script type="text/javascript" src="js/angular-1.2.25/angular.js"></script>
-	<script type="text/javascript" src="js/angular-1.2.25/angular-route.js"></script>
+	<script type="text/javascript" src="js/Scripts/angular.js"></script>
+	<script type="text/javascript" src="js/Scripts/angular-route.js"></script>
+	<script type="text/javascript" src="js/Scripts/bootstrap.min.js"></script>
 	<script type="text/javascript" src="js/GeoGuessApp.js"></script>
 	<script type="text/javascript" src="js/Controller/GeolocationController.js"></script>
-        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
 </body>
 </html>
  
