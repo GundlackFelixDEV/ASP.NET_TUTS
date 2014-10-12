@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="GeoGuessApp">
 <head>
 	<meta charset="utf-8" />    
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -7,7 +7,7 @@
 	<script type="text/javascript" src="js/Scripts/jquery-2.1.1.min.js"></script>
 	<link rel="stylesheet" href="content/bootstrap.css" >
 </head>
-<body ng-app="GeoGuessApp">
+<body>
 	<div class="container-fluid">
 		<div ng-view></div>
 	</div>
@@ -16,7 +16,8 @@
 	<script type="text/javascript" src="js/Scripts/bootstrap.min.js"></script>
 	<script type="text/javascript" src="js/GeoGuessApp.js"></script>
 	<script type="text/javascript" src="js/Controller/GeolocationController.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+        <script src="http://www.panoramio.com/wapi/wapi.js?v=1&hl=de"></script>
 </body>
 </html>
  
