@@ -6,7 +6,20 @@ GeoGuessApp.controller('GeolocationController',function($scope){
 	var map = null;
         var marker = null;
         var nav = null;
-        
+        var curPos_Symbol = {
+                    path: google.maps.SymbolPath.CIRCLE,
+                    scale: 6,
+                    fillColor: 'blue',
+                    fillOpacity:0.8,
+                    strokeWeight:2
+                  };
+        var imgPos_Symbol = {
+          path: google.maps.SymbolPath.CIRCLE,
+          scale: 6,
+          fillColor: 'red',
+          fillOpacity:0.8,
+          strokeWeight:2
+        };
         $scope.Initialize = function(){           
            console.log("InitGoogleMaps");
 
@@ -21,7 +34,8 @@ GeoGuessApp.controller('GeolocationController',function($scope){
             marker = new google.maps.Marker({
                 position: pos,
                 map: map,
-                title: 'Current Position!'
+                title: 'Current Position!',
+                icon: curPos_Symbol
             });               
             
             google.maps.event.addListener(map, 'click', function(event){
@@ -48,6 +62,7 @@ GeoGuessApp.controller('GeolocationController',function($scope){
 				nav.geolocation.getCurrentPosition(function(location){
                                     $scope.SetPosition(location);    
                                     map.panTo($scope.convert2GooglePos(location));
+                                    marker.setIcon(curPos_Symbol);
                                 },$scope.GeolocationErrorCallback);
                                 
                         } else {
@@ -61,11 +76,22 @@ GeoGuessApp.controller('GeolocationController',function($scope){
 	$scope.convert2GooglePos = function(position){
             return new google.maps.LatLng(position.coords.latitude,position.coords.longitude); 
         };
+        
+        $scope.$on("PositionChanged", function (event, position) {
+            console.log("GeolocationController: HandlePositionChanged");
+            $scope.SetPosition({
+                coords:{
+                    latitude: position.lat,
+                    longitude: position.lng
+                }});
+           marker.setIcon(imgPos_Symbol);
+        });
+        
 	$scope.SetPosition = function(position){
 		console.log("SetPosition");
 		$scope.Position = position;
                 marker.setPosition($scope.convert2GooglePos(position)); 
-		$scope.$apply();
+                $scope.$apply();
 	};
 	
 	$scope.Error = function(message){

@@ -25,8 +25,8 @@ GeoGuessApp.controller('PanoramioController',function($scope){
     ];
     
     $scope.photo_options = {
-        'width': 500,
-        'height': 300,
+        'width': 300,
+        'height': 256,
         'croppedPhotos':true
     };
     
@@ -46,8 +46,18 @@ GeoGuessApp.controller('PanoramioController',function($scope){
 		console.log("Initialize PanoramioWidget");
 		
 		wapiblock = document.getElementById('wapiblock');	
-        widget = new panoramio.PhotoWidget(wapiblock, $scope.myRequest, $scope.photo_options);
+        widget = new panoramio.PhotoWidget(wapiblock, $scope.myRequest, $scope.photo_options);        
         widget.setPosition(0);
+        
+         panoramio.events.listen( widget, panoramio.events.EventType.PHOTO_CHANGED,
+            function(e) { $scope.HandlePhotoChanged(e); });
+        
+    };
+    $scope.HandlePhotoChanged = function()
+    {
+     console.log("Panoramio PhotoChanged"); 
+     var img = widget.getPhoto();
+     $scope.$broadcast("PositionChanged", img.getPosition());
     };
     
     $scope.HanldeRequestChanged = function()
