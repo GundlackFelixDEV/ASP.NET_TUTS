@@ -1,7 +1,25 @@
-<!--
-To change this template, choose Tools | Templates
-and open the template in the editor.
--->
-<div ng-controller="PanoramioController" class="row">
-    <div id="wapiblock"></div>
+
+<div class="row">
+	<div ng-controller="PanoramioController" class="col-md-5">
+		<div class="row">
+		    <div id="wapiblock"></div>
+		</div>
+	</div>
+	<div ng-controller="GeolocationController" class="col-md-5">
+		<div class="row">		
+			<div class="col-xs-offset-1 col-xs-10">
+				<div class="row">
+					<div class="col-md-8 col-sm-8 map-container" style="height:256px;">
+						<div id="map-canvas" style="width:100%; height:100%;"></div>                             
+						<div class="col-sm-9 col-md-9">
+						<a ng-click="SetCurrentPosition()">
+							<i class="glyphicon glyphicon-home"></i>
+						</a> 
+						 GPS: [{{Position.coords.longitude | number: 4}} ; {{Position.coords.latitude | number: 4}}]
+						</div>                 
+					</div> 
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

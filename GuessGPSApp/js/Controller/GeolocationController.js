@@ -104,8 +104,8 @@ GeoGuessApp.controller('GeolocationController',function($scope){
 	    }
             $scope.Error(message);
 	};
-        
-        console.log("Initialize Controller");
-        $scope.Initialize();
-        $scope.SetCurrentPosition();
+	
+    console.log('$GeolocationController init');
+	$scope.Initialize();
+	$scope.SetCurrentPosition();
 });

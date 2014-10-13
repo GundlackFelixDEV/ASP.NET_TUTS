@@ -8,6 +8,8 @@
 	<link rel="stylesheet" href="content/bootstrap.css" >
 </head>
 <body>
+	<a href="#CurrentLocation">Current Position</a> |
+	<a href="#Panoramio">Panoramio and Current Position</a>
 	<div class="container-fluid">
 		<div ng-view></div>
 	</div>
@@ -16,8 +18,9 @@
 	<script type="text/javascript" src="js/Scripts/bootstrap.min.js"></script>
 	<script type="text/javascript" src="js/GeoGuessApp.js"></script>
 	<script type="text/javascript" src="js/Controller/GeolocationController.js"></script>
-        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
-        <script src="http://www.panoramio.com/wapi/wapi.js?v=1&hl=de"></script>
+	<script type="text/javascript" src="js/Controller/PanoramioController.js"></script>
+	<script src="http://www.panoramio.com/wapi/wapi.js?v=1&hl=de"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
 </body>
 </html>
  

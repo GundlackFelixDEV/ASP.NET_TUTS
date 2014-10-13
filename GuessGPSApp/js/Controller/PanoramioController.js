@@ -4,10 +4,13 @@
  */
 
 GeoGuessApp.controller('PanoramioController',function($scope){
+   console.log('$PanoramioController init');
+   
    $scope.myRequest = {
-        'tag': 'sunset',
-        'rect': {'sw': {'lat': -30, 'lng': 10.5}, 'ne': {'lat': 50.5, 'lng': 30}},
+        'tag': 'city',
+        'rect': {'sw': {'lat':49.5, 'lng': 10.7},'ne': {'lat':49.7, 'lng': 11.3}},
     };
+	
     $scope.Tags = [
         'sunset',
         'beaches',
@@ -22,23 +25,29 @@ GeoGuessApp.controller('PanoramioController',function($scope){
     ];
     
     $scope.photo_options = {
-        'width': 300,
-        'height': 200,
-        'croppedPhotos':true,
+        'width': 500,
+        'height': 300,
+        'croppedPhotos':true
     };
     
     var wapiblock = null;
     var widget = null;
+	
     $scope.InitPhotoWidget = function()
     {
-        if(wapiblock === null)
-            wapiblock = document.getElementById('wapiblock');
+        if(wapiblock !== null)
+			return null;
         
+		
         
+        if(widget!== null)
+			return null;
+		
+		console.log("Initialize PanoramioWidget");
+		
+		wapiblock = document.getElementById('wapiblock');	
         widget = new panoramio.PhotoWidget(wapiblock, $scope.myRequest, $scope.photo_options);
         widget.setPosition(0);
-        widget.enableNextArrow();
-        widget.enalbePreviousArrow();
     };
     
     $scope.HanldeRequestChanged = function()
@@ -50,5 +59,7 @@ GeoGuessApp.controller('PanoramioController',function($scope){
         
         widget.setRequest($scope.myRequest);
     };
-    
+	
+	console.log("$PanoramioController init");
+	$scope.InitPhotoWidget();
 });
