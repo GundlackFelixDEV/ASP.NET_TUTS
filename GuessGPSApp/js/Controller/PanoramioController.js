@@ -57,7 +57,7 @@ GeoGuessApp.controller('PanoramioController',function($scope){
     {
      console.log("Panoramio PhotoChanged"); 
      var img = widget.getPhoto();
-     $scope.$broadcast("PositionChanged", img.getPosition());
+     $scope.$broadcast("PhotoPositionChanged", img.getPosition());
     };
     
     $scope.HanldeRequestChanged = function()

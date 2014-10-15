@@ -1,25 +1,14 @@
 GeoGuessApp.controller('GeolocationController',function($scope){
 
 	//Geolocation Model
-	$scope.Position = {};
+	$scope.UserPosition = {};
+        $scope.PhotoPosition = {}
 	$scope.ErrorMessage = "";
 	var map = null;
-        var marker = null;
+        var photo_marker = null;
+        var user_marker = null;
         var nav = null;
-        var curPos_Symbol = {
-                    path: google.maps.SymbolPath.CIRCLE,
-                    scale: 6,
-                    fillColor: 'blue',
-                    fillOpacity:0.8,
-                    strokeWeight:2
-                  };
-        var imgPos_Symbol = {
-          path: google.maps.SymbolPath.CIRCLE,
-          scale: 6,
-          fillColor: 'red',
-          fillOpacity:0.8,
-          strokeWeight:2
-        };
+        
         $scope.Initialize = function(){           
            console.log("InitGoogleMaps");
 
@@ -30,13 +19,18 @@ GeoGuessApp.controller('GeolocationController',function($scope){
             };
            
             map = new google.maps.Map(document.getElementById('map-canvas'), options);
-           
-            marker = new google.maps.Marker({
-                position: pos,
+            
+            photo_marker = new google.maps.Marker({
                 map: map,
-                title: 'Current Position!',
-                icon: curPos_Symbol
-            });               
+                title: 'Photo Position!',
+                icon: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
+            });
+            user_marker = new google.maps.Marker({
+                map: map,
+                title: 'Current Position!'
+            });
+        
+            user_marker.setPosition(pos);
             
             google.maps.event.addListener(map, 'click', function(event){
                 $scope.HandleMapClick(event.latLng);
@@ -48,9 +42,12 @@ GeoGuessApp.controller('GeolocationController',function($scope){
             var pos = { coords: {
                     latitude: location.lat(),
                     longitude: location.lng()}};
-            $scope.SetPosition(pos);
+            $scope.SetUserPosition(pos);
         };
-            
+        $scope.MoveToImagePosition = function()
+        {
+            map.panTo($scope.convert2GooglePos($scope.PhotoPosition));
+        };
     	//Geolocation Functions  
 	$scope.SetCurrentPosition = function(){     
                 console.log("SetCurrentPosition");
@@ -60,9 +57,8 @@ GeoGuessApp.controller('GeolocationController',function($scope){
 		if(nav !== null){
 			if(nav.geolocation){
 				nav.geolocation.getCurrentPosition(function(location){
-                                    $scope.SetPosition(location);    
+                                    $scope.SetUserPosition(location);    
                                     map.panTo($scope.convert2GooglePos(location));
-                                    marker.setIcon(curPos_Symbol);
                                 },$scope.GeolocationErrorCallback);
                                 
                         } else {
@@ -77,23 +73,29 @@ GeoGuessApp.controller('GeolocationController',function($scope){
             return new google.maps.LatLng(position.coords.latitude,position.coords.longitude); 
         };
         
-        $scope.$on("PositionChanged", function (event, position) {
-            console.log("GeolocationController: HandlePositionChanged");
-            $scope.SetPosition({
+        $scope.$on("PhotoPositionChanged", function (event, position) {
+            console.log("GeolocationController: HandlePhotoPositionChanged");
+            $scope.SetPhotoPosition({
                 coords:{
                     latitude: position.lat,
                     longitude: position.lng
-                }});
-           marker.setIcon(imgPos_Symbol);
+                }});  
         });
         
-	$scope.SetPosition = function(position){
-		console.log("SetPosition");
-		$scope.Position = position;
-                marker.setPosition($scope.convert2GooglePos(position)); 
+	$scope.SetUserPosition = function(position){
+		console.log("SetUserPosition");
+		$scope.UserPosition = position;
+                user_marker.setPosition($scope.convert2GooglePos(position));               
                 $scope.$apply();
 	};
 	
+        $scope.SetPhotoPosition = function(position){
+            console.log("SetPhotoPosition");
+            $scope.PhotoPosition = position;
+            photo_marker.setPosition($scope.convert2GooglePos(position));
+            $scope.$apply();
+        };
+        
 	$scope.Error = function(message){
 		if(!message || message.length === 0){
 			message = "Unknown Error";
