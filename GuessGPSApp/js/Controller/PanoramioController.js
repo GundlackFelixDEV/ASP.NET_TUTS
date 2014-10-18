@@ -3,8 +3,10 @@
  * and open the template in the editor.
  */
 
-GeoGuessApp.controller('PanoramioController',function($scope){
+function PanoramioController($scope,$injector){
    console.log('$PanoramioController init');
+   
+   $injector.invoke(PhotolocationController, this, {$scope: $scope});
    
    $scope.myRequest = {
         'tag': 'city',
@@ -72,4 +74,4 @@ GeoGuessApp.controller('PanoramioController',function($scope){
 	
 	console.log("$PanoramioController init");
 	$scope.InitPhotoWidget();
-});
+};
