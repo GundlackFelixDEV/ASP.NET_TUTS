@@ -18,6 +18,7 @@ function PhotolocationController($scope,$injector){
         
         $scope.MoveToPhotoPosition = function()
         {
+            console.log("MoveToPhotoPosition");
             $scope.map.panTo($scope.convert2GooglePos($scope.PhotoPosition));
         };
 

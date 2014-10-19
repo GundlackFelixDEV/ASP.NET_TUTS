@@ -37,7 +37,11 @@ function GeolocationController($scope){
                     longitude: location.lng()}};
             $scope.SetUserPosition(pos);
         };
-        
+        $scope.MoveToUserPosition = function()
+        {
+            console.log("MoveToPhotoPosition");
+            $scope.map.panTo($scope.convert2GooglePos($scope.UserPosition));
+        };
     	//Geolocation Functions  
 	$scope.SetCurrentPosition = function(){     
                 console.log("SetCurrentPosition");
@@ -47,8 +51,8 @@ function GeolocationController($scope){
 		if(nav !== null){
 			if(nav.geolocation){
 				nav.geolocation.getCurrentPosition(function(location){
-                                    $scope.SetUserPosition(location);    
-                                    $scope.map.panTo($scope.convert2GooglePos(location));
+                                    $scope.SetUserPosition(location);  
+                                    $scope.MoveToUserPosition();                                   
                                 },$scope.GeolocationErrorCallback);
                                 
                         } else {
