@@ -39,7 +39,7 @@ function GeolocationController($scope){
         };
         $scope.MoveToUserPosition = function()
         {
-            console.log("MoveToPhotoPosition");
+            console.log("MoveToUserPosition");
             $scope.map.panTo($scope.convert2GooglePos($scope.UserPosition));
         };
     	//Geolocation Functions  
@@ -63,16 +63,17 @@ function GeolocationController($scope){
 			$scope.Error("Unable to find navigator");
 		}
 	};
-	$scope.convert2GooglePos = function(position){
-            return new google.maps.LatLng(position.coords.latitude,position.coords.longitude); 
-        };
-               
+              
 	$scope.SetUserPosition = function(position){
 		console.log("SetUserPosition");
 		$scope.UserPosition = position;
                 $scope.user_marker.setPosition($scope.convert2GooglePos(position));               
                 $scope.$apply();
 	};
+        
+        	$scope.convert2GooglePos = function(position){
+            return new google.maps.LatLng(position.coords.latitude,position.coords.longitude); 
+        };
         
 	$scope.Error = function(message){
 		if(!message || message.length === 0){
