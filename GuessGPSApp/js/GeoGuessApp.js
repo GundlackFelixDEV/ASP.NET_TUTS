@@ -15,3 +15,8 @@ GeoGuessApp.config(['$routeProvider',function($routeProvider){
 		})
 		.otherwise({redirectTo:'/CurrentLocation'});
 }]);
+
+function GeoGuessController()
+{
+	
+}

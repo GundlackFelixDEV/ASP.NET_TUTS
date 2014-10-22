@@ -1,47 +1,40 @@
 function GeolocationController($scope){
 
 	//Geolocation Model
-	$scope.UserPosition = {};
+	$scope.UserPosition = null;
 	$scope.ErrorMessage = "";
 	$scope.map = null;
-        $scope.user_marker = null;
-        var nav = null;
+    var nav = null;
         
-        $scope.Initialize = function(){           
-           console.log("InitGoogleMaps");
+	$scope.Initialize = function(){           
+	   console.log("InitGoogleMaps");
 
-           var pos = new google.maps.LatLng(50,13);
-           var options = {
-                zoom: 13,
-                center: pos
-            };
-           
-            $scope.map = new google.maps.Map(document.getElementById('map-canvas'), options);
-            
-            $scope.user_marker = new google.maps.Marker({
-                map: $scope.map,
-                title: 'Current Position!'
-            });
-        
-            $scope.user_marker.setPosition(pos);
-            
-            google.maps.event.addListener($scope.map, 'click', function(event){
-                $scope.HandleMapClick(event.latLng);
-            });
-        };
-        
-        $scope.HandleMapClick = function(location){
-            console.log("HandleMapClick");
-            var pos = { coords: {
-                    latitude: location.lat(),
-                    longitude: location.lng()}};
-            $scope.SetUserPosition(pos);
-        };
-        $scope.MoveToUserPosition = function()
-        {
-            console.log("MoveToUserPosition");
-            $scope.map.panTo($scope.convert2GooglePos($scope.UserPosition));
-        };
+	   var pos = new google.maps.LatLng(50,13);
+	   var options = {
+			zoom: 13,
+			center: pos
+		};
+	   
+		$scope.map = new google.maps.Map(document.getElementById('map-canvas'), options);
+		$scope.UserPosition = new Position($scope.map,pos);
+		
+		google.maps.event.addListener($scope.map, 'click', function(event){
+			$scope.HandleMapClick(event.latLng);
+		});
+	};
+	
+	$scope.HandleMapClick = function(location){
+		console.log("HandleMapClick");
+		var pos = { coords: {
+				latitude: location.lat(),
+				longitude: location.lng()}};
+		$scope.SetUserPosition(pos);
+	};
+	$scope.MoveToUserPosition = function()
+	{
+		console.log("MoveToUserPosition");
+		$scope.map.panTo($scope.UserPosition.GPS);
+	};
     	//Geolocation Functions  
 	$scope.SetCurrentPosition = function(){     
                 console.log("SetCurrentPosition");
@@ -64,16 +57,11 @@ function GeolocationController($scope){
 		}
 	};
               
-	$scope.SetUserPosition = function(position){
+	$scope.SetUserPosition = function(pos){
 		console.log("SetUserPosition");
-		$scope.UserPosition = position;
-                $scope.user_marker.setPosition($scope.convert2GooglePos(position));               
-                $scope.$apply();
+		$scope.UserPosition.setPosition(pos);              
+		$scope.$apply();
 	};
-        
-        	$scope.convert2GooglePos = function(position){
-            return new google.maps.LatLng(position.coords.latitude,position.coords.longitude); 
-        };
         
 	$scope.Error = function(message){
 		if(!message || message.length === 0){
@@ -81,7 +69,6 @@ function GeolocationController($scope){
 		}
 		console.log("GeolocationController: " + message);
 		$scope.ErrorMessage = message;
-		//$scope.$apply();
 	};
 	
 	$scope.GeolocationErrorCallback = function(error){

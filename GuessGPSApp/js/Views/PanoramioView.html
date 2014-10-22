@@ -1,26 +1,22 @@
 
-<div class="row">
-	<div ng-controller="PanoramioController" class="col-md-5 col-sm-5">
-		<div class="row">
-		    <div id="wapiblock"></div>
-		</div>
+<div ng-controller="PanoramioController" class="row">
+	<div class="col-md-4 col-sm-4"">
+		<div id="wapiblock"></div>
 	</div>
-        <br class="hidden-md hidden-sm">
-	<div class="col-md-5 col-sm-5">     
-                <div class="row map-container" style="height:256px;">
-                        <div id="map-canvas" style="width:100%; height:100%;"></div>                             
-                        <div class="col-sm-9 col-md-9">
-                        <a ng-click="SetCurrentPosition()">
-                                <i class="glyphicon glyphicon-home"></i>
-                        </a> 
-                          [{{UserPosition.coords.longitude | number: 4}} ; {{UserPosition.coords.latitude | number: 4}}]
-                        </div> 
-                        <div class="col-sm-9 col-md-9">                                        
-                    <a ng-click="MoveToPhotoPosition()">
-                    <i class="glyphicon glyphicon-camera"></i>
-                    </a> 
-                     GPS: [{{PhotoPosition.coords.longitude | number: 4}} ; {{PhotoPosition.coords.latitude | number: 4}}]
-                        </div> 
-                </div> 
+	<br class="hidden-md hidden-sm">
+	<div class="col-md-6 col-sm-6">     
+		<div class="row map-container" style="height:400px;">
+			<div id="map-canvas" style="width:100%; height:100%;"></div>                             
+			<div class="col-sm-9 col-md-9">
+				<a ng-click="MoveToUserPosition()"><i class="glyphicon glyphicon-map-marker"></i></a> |
+				<a ng-click="SetCurrentPosition()"><i class="glyphicon glyphicon-home"></i></a> |
+				<a ng-click="MoveToPhotoPosition()"><i class="glyphicon glyphicon-camera"></i></a> 
+			</div> 
+		</div> 
+	</div>
+	<div class="col-md-2 col-sm-2" id="GPS-info">
+		<div>User: [{{UserPosition.GPS.lat | number: 3}} ; {{UserPosition.GPS.lng | number: 3}}]</div>
+		<div>Photo: [{{PhotoPosition.GPS.lat | number: 3}} ; {{PhotoPosition.GPS.lng | number: 3}}]</div>
 	</div>
 </div>
+

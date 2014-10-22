@@ -3,39 +3,35 @@ function PhotolocationController($scope,$injector){
         $injector.invoke(GeolocationController, this, {$scope: $scope});
         
 	//Geolocation Model
-        $scope.PhotoPosition = {};
-        $scope.photo_marker = null;
+        $scope.PhotoPosition = null;
         
         $scope.Initialize = function(){
            console.log("$Photolocation Initialize");
-            
-            $scope.photo_marker = new google.maps.Marker({
-                               map: $scope.map,
-                               title: 'Photo Position!',
-                               icon: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
-                           });
+           $scope.PhotoPosition = new Position($scope.map,new google.maps.LatLng(50,13));
+		   $scope.PhotoPosition.Marker.setIcon({
+		        path: google.maps.SymbolPath.CIRCLE,
+		        scale: 7,
+		        fillColor: "#F00",
+		        fillOpacity: 0.05,
+		        strokeWeight: 0.4
+		    });
         };
         
         $scope.MoveToPhotoPosition = function()
         {
             console.log("MoveToPhotoPosition");
-            $scope.map.panTo($scope.convert2GooglePos($scope.PhotoPosition));
+            $scope.map.panTo($scope.PhotoPosition.GPS);
         };
 
         $scope.$on("PhotoPositionChanged", function (event, position) {
             console.log("GeolocationController: HandlePhotoPositionChanged");
-            $scope.SetPhotoPosition({
-                coords:{
-                    latitude: position.lat,
-                    longitude: position.lng
-                }});  
+			$scope.PhotoPosition.setPosition(position); 
         });
         
 	
         $scope.SetPhotoPosition = function(position){
             console.log("SetPhotoPosition");
-            $scope.PhotoPosition = position;
-            $scope.photo_marker.setPosition($scope.convert2GooglePos(position));
+			$scope.PhotoPosition.setPosition(position);
             $scope.$apply();
         };
         
