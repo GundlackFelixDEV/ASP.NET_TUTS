@@ -1,22 +1,23 @@
-
 <div ng-controller="PanoramioController" class="row">
-	<div class="col-md-4 col-sm-4"">
+	<div class="col-md-4 col-sm-4">
 		<div id="wapiblock"></div>
 	</div>
 	<br class="hidden-md hidden-sm">
-	<div class="col-md-6 col-sm-6">     
-		<div class="row map-container" style="height:400px;">
-			<div id="map-canvas" style="width:100%; height:100%;"></div>                             
-			<div class="col-sm-9 col-md-9">
-				<a ng-click="MoveToUserPosition()"><i class="glyphicon glyphicon-map-marker"></i></a> |
-				<a ng-click="SetCurrentPosition()"><i class="glyphicon glyphicon-home"></i></a> |
-				<a ng-click="MoveToPhotoPosition()"><i class="glyphicon glyphicon-camera"></i></a> 
-			</div> 
-		</div> 
+        
+	<div class="col-md-6 col-sm-6">  
+            <div class="map-container">
+                <div id="map-canvas"></div>
+                <div class="map-controlls align-bottom align-right">        
+                    <div><a ng-click="MoveToUserPosition()"><i class="glyphicon glyphicon-map-marker"></i></a></div>
+                    <div><a ng-click="MoveToPhotoPosition()"><i class="glyphicon glyphicon-camera"></i></a></div>
+                    <div><a ng-click="SetCurrentPosition()"><i class="glyphicon glyphicon-home"></i></a></div>
+                </div>
+            </div>
 	</div>
 	<div class="col-md-2 col-sm-2" id="GPS-info">
 		<div>User: [{{UserPosition.GPS.lat | number: 3}} ; {{UserPosition.GPS.lng | number: 3}}]</div>
 		<div>Photo: [{{PhotoPosition.GPS.lat | number: 3}} ; {{PhotoPosition.GPS.lng | number: 3}}]</div>
+                <div>Distance: {{DistanceToUser | number: 2}} km</div>
 	</div>
 </div>
 

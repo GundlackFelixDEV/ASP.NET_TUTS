@@ -38,28 +38,33 @@ function PanoramioController($scope,$injector){
     $scope.InitPhotoWidget = function()
     {
         if(wapiblock !== null)
-			return null;
-        
-		
-        
+        {
+            return null;
+        }       
         if(widget!== null)
-			return null;
+        {
+            return null;
+        }
 		
-		console.log("Initialize PanoramioWidget");
-		
-		wapiblock = document.getElementById('wapiblock');	
+        console.log("Initialize PanoramioWidget");
+
+        wapiblock = document.getElementById('wapiblock');	
         widget = new panoramio.PhotoWidget(wapiblock, $scope.myRequest, $scope.photo_options);        
         widget.setPosition(0);
         
-         panoramio.events.listen( widget, panoramio.events.EventType.PHOTO_CHANGED,
-            function(e) { $scope.HandlePhotoChanged(e); });
+        panoramio.events.listen( widget, panoramio.events.EventType.PHOTO_CHANGED,
+                                    function(e) { $scope.HandlePhotoChanged(e); });
         
     };
     $scope.HandlePhotoChanged = function()
     {
-     console.log("Panoramio PhotoChanged"); 
-     var img = widget.getPhoto();
-     $scope.$broadcast("PhotoPositionChanged", img.getPosition());
+        console.log("Panoramio PhotoChanged"); 
+        var img = widget.getPhoto();
+        var pos = img.getPosition();
+        $scope.$broadcast("PhotoPositionChanged", 
+                        {coords:{latitude: pos.lat,longitude: pos.lng}
+        });
+     
     };
     
     $scope.HanldeRequestChanged = function()
@@ -67,11 +72,10 @@ function PanoramioController($scope,$injector){
         if(widget === null){
             console.log("Error PanoramioController: widget not initialized!")
             return;
-        }
-        
+        }        
         widget.setRequest($scope.myRequest);
     };
 	
-	console.log("$PanoramioController init");
-	$scope.InitPhotoWidget();
+    console.log("$PanoramioController init");
+    $scope.InitPhotoWidget();
 };
