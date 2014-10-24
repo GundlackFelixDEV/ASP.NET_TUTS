@@ -16,9 +16,8 @@ function PhotolocationController($scope,$injector){
                  fillOpacity: 0.05,
                  strokeWeight: 0.4
              });
-             $scope.UpdateDistanceToUser();
         };
-        
+ 
         $scope.MoveToPhotoPosition = function()
         {
             console.log("MoveToPhotoPosition");
@@ -26,7 +25,7 @@ function PhotolocationController($scope,$injector){
         };
 
         $scope.$on("PhotoPositionChanged", function (event, position) {
-            console.log("GeolocationController: HandlePhotoPositionChanged");
+            console.log("HandlePhotoPositionChanged");
             $scope.SetPhotoPosition(position); 
         });
         
@@ -34,13 +33,21 @@ function PhotolocationController($scope,$injector){
         $scope.SetPhotoPosition = function(position){
             console.log("SetPhotoPosition");
             $scope.PhotoPosition.setPosition(position);
-            $scope.UpdateDistanceToUser();
             $scope.$apply();
         };
         
         $scope.UpdateDistanceToUser = function()
         {
+			console.log("UpdateDistanceToUser");
             $scope.DistanceToUser = $scope.PhotoPosition.getDisstance($scope.UserPosition);
         };
         $scope.Initialize();
+		
+		$scope.$watch("[UserPosition.GPS.lat]", function(newValue, oldValue) {
+				$scope.UpdateDistanceToUser();
+		},true);
+		
+		$scope.$watch("[PhotoPosition.GPS.lat]", function(newValue, oldValue) {
+				$scope.UpdateDistanceToUser();
+		},true);			
 };
