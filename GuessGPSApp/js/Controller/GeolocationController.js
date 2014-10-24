@@ -1,4 +1,4 @@
-function GeolocationController($scope){
+var GeolocationController = function($scope){
 
     //Geolocation Model
     $scope.UserPosition = null;

@@ -61,10 +61,7 @@ function PanoramioController($scope,$injector){
         console.log("Panoramio PhotoChanged"); 
         var img = widget.getPhoto();
         var pos = img.getPosition();
-        $scope.$broadcast("PhotoPositionChanged", 
-                        {coords:{latitude: pos.lat,longitude: pos.lng}
-        });
-     
+        $scope.$broadcast("PhotoPositionChanged", {coords:{latitude: pos.lat,longitude: pos.lng}});
     };
     
     $scope.HanldeRequestChanged = function()
