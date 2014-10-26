@@ -48,5 +48,9 @@ var Position = function(aMap,aPos,args){
                 map: aMap,
                 title: 'Position'});
 
-    this.setPosition(aPos);
+    var pos = aPos;
+    if(!aPos){
+        pos = { coords:{ latitude:0,longitude:0}};
+    };
+    this.setPosition(pos);
 };

@@ -4,26 +4,26 @@ var GeolocationController = function($scope){
     $scope.UserPosition = null;
     $scope.ErrorMessage = "";
     $scope.map = null;
+    $scope.options = {
+                    zoom: 13,
+                    mapTypeControl: false
+            };
     var nav = null;
         
     $scope.Initialize = function(){           
        console.log("InitGoogleMaps");
 
-       var pos = new google.maps.LatLng(50,13);
-       var options = {
-                    zoom: 13,
-                    center: pos
-            };
-
-        $scope.map = new google.maps.Map(document.getElementById('map-canvas'), options);
-        $scope.UserPosition = new Position($scope.map,pos);
+        $scope.map = new google.maps.Map(document.getElementById('map-canvas'), $scope.options);
+        
 
         google.maps.event.addListener($scope.map, 'click', function(event){
                 $scope.HandleMapClick(event.latLng);
         });
+        $scope.UserPosition = new Position($scope.map);
+        $scope.SetCurrentPosition();
     };
     $scope.GetBounds = function(){
-        return $scope.map.getBounds()
+        return $scope.map.getBounds();
     };
     $scope.HandleMapClick = function(location){
         console.log("HandleMapClick");
@@ -103,5 +103,4 @@ var GeolocationController = function($scope){
 	
     console.log('$GeolocationController init');
     $scope.Initialize();
-    $scope.SetCurrentPosition();
 };

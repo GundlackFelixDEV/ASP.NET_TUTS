@@ -31,7 +31,7 @@ function PanoramioController($scope,$injector){
         'height': 256,
         'croppedPhotos':true
     };
-    
+    $scope.photo = {};
     var wapiblock = null;
     var widget = null;
     var WIDGET_ANIMATION_TIME = 300;
@@ -62,18 +62,26 @@ function PanoramioController($scope,$injector){
                                     function(e) { $scope.HandlePhotoChanged(e); });
         
         google.maps.event.addListener($scope.PhotoPosition.Marker, 'click', function() {
-            $scope.DisplayPhotoWidgetTemporal(4000);
+           $scope.ToggleDisplayTemporal();
         });
         google.maps.event.addListener($scope.map,'bounds_changed',function(){
-            $scope.HandleMapBoundsChanged();            
+            $scope.GetPhotosInBounds();            
         });
+    };
+    $scope.ToggleDisplayTemporal = function()
+    {
+        if($(wapiblock).is(':visible')){
+            $scope.HidePhotoWidget();
+        }else{
+            $scope.DisplayPhotoWidgetTemporal(WIDGET_AUTOHIDE_TIME);
+        }
     };
     $scope.DisplayPhotoWidget = function(delay){
         var t_delay = delay;
         if(typeof t_delay === "undefined"){
             t_delay = 0;   
         }
-        $(wapiblock).finish()
+        $(wapiblock).stop()
                 .delay(t_delay)
                 .show(WIDGET_ANIMATION_TIME);
     };
@@ -82,7 +90,7 @@ function PanoramioController($scope,$injector){
         if(typeof t_delay === "undefined"){
             t_delay = 0;   
         }
-        $(wapiblock).finish()
+        $(wapiblock).stop()
                 .show()
                 .delay(t_delay)
                 .hide(WIDGET_ANIMATION_TIME);
@@ -92,7 +100,7 @@ function PanoramioController($scope,$injector){
         if(typeof t_delay === "undefined"){
             t_delay = WIDGET_AUTOHIDE_TIME;   
         }
-        $(wapiblock).finish()
+        $(wapiblock).stop()
                 .show(WIDGET_ANIMATION_TIME)
                 .delay(t_delay)
                 .hide(WIDGET_ANIMATION_TIME);
@@ -103,11 +111,12 @@ function PanoramioController($scope,$injector){
         console.log("Panoramio PhotoChanged"); 
         var img = widget.getPhoto();
         if(img !== null){
+            $scope.photo = img;
             var pos = img.getPosition();
-            $scope.$broadcast("PhotoPositionChanged", {coords:{latitude: pos.lat,longitude: pos.lng}});   
+            $scope.$broadcast("PhotoPositionChanged", {coords:{latitude: pos.lat,longitude: pos.lng}});
         }      
     };
-    $scope.HandleMapBoundsChanged = function(){
+    $scope.GetPhotosInBounds = function(){
         if($scope.map !== "undefined"){
             console.log("PanoramioController: HandleMapBoundsChanged");
             var bounds = $scope.map.getBounds();
@@ -117,6 +126,7 @@ function PanoramioController($scope,$injector){
                                      'ne': {'lat':ne.lat(), 'lng': ne.lng()}};
             $scope.HanldeRequestChanged();
         }
+        widget.setPosition(0);
     };
     $scope.HanldeRequestChanged = function(){
         if(widget === null){
@@ -124,7 +134,6 @@ function PanoramioController($scope,$injector){
             return;
         }        
         widget.setRequest($scope.myRequest);
-        widget.setPosition(0);
     };
     $scope.NextPhoto = function(){
         var pos = widget.getPosition();
@@ -133,8 +142,10 @@ function PanoramioController($scope,$injector){
     };
     $scope.PreviousPhoto = function(){
         var pos = widget.getPosition();
-        widget.setPosition(pos+1);
-        $scope.DisplayPhotoWidgetTemporal();
+        if(pos > 0){
+            widget.setPosition(pos-1);
+            $scope.DisplayPhotoWidgetTemporal();
+        }
     };
     console.log("$PanoramioController init");
     $scope.InitPhotoWidget();
