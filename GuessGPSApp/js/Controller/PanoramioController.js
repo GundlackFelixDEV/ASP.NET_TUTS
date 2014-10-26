@@ -13,6 +13,7 @@ function PanoramioController($scope,$injector){
     };
 	
     $scope.Tags = [
+        'all',
         'sunset',
         'beaches',
         'panorama',
@@ -50,24 +51,14 @@ function PanoramioController($scope,$injector){
         wapiblock = document.getElementById('wapiblock');	
         widget = new panoramio.PhotoWidget(wapiblock, $scope.myRequest, $scope.photo_options);        
         widget.setPosition(0);
-        
+        $(wapiblock).hide();
         panoramio.events.listen( widget, panoramio.events.EventType.PHOTO_CHANGED,
                                     function(e) { $scope.HandlePhotoChanged(e); });
         
         google.maps.event.addListener($scope.PhotoPosition.Marker, 'click', function() {
             $scope.DisplayPhotoWidgetTemporal(4000);
         });
-        google.maps.event.addListener($scope.map,'bounds_changed',function(){
-            console.log("PanoramioController: HandleMapBoundsChanged");
-           var bounds = $scope.GetBounds();
-           var ne = bounds.getNorthEast();
-           var sw = bounds.getSouthWest();
-           $scope.myRequest.rect = {'sw': {'lat':sw.lat(), 'lng': sw.lng()},
-                                    'ne': {'lat':ne.lat(), 'lng': ne.lng()}};
-           $scope.HanldeRequestChanged();
-        });
-        $(wapiblock).hide().delay(1000).show();
-        $scope.DisplayPhotoWidgetTemporal(4000);
+        google.maps.event.addListener($scope.map,'bounds_changed',$scope.HandleMapBoundsChanged());
     };
     $scope.DisplayPhotoWidget = function(){
         return $(wapiblock).show(WIDGET_ANIMATION_TIME);
@@ -84,7 +75,7 @@ function PanoramioController($scope,$injector){
             t_delay = 3000;   
         }
         $(wapiblock).show(WIDGET_ANIMATION_TIME)
-                .delay(timeOut)
+                .delay(t_delay)
                 .hide(WIDGET_ANIMATION_TIME);
     };
     $scope.HandlePhotoChanged = function()
@@ -92,20 +83,38 @@ function PanoramioController($scope,$injector){
         console.log("Panoramio PhotoChanged"); 
         var img = widget.getPhoto();
         if(img !== null){
+            $scope.DisplayPhotoWidgetTemporal();
             var pos = img.getPosition();
             $scope.$broadcast("PhotoPositionChanged", {coords:{latitude: pos.lat,longitude: pos.lng}});   
         }      
     };
-    $scope.HanldeRequestChanged = function()
-    {
+    $scope.HandleMapBoundsChanged = function(){
+        if($scope.map !== "undefined"){
+            console.log("PanoramioController: HandleMapBoundsChanged");
+            var bounds = $scope.map.getBounds();
+            var ne = bounds.getNorthEast();
+            var sw = bounds.getSouthWest();
+            $scope.myRequest.rect = {'sw': {'lat':sw.lat(), 'lng': sw.lng()},
+                                     'ne': {'lat':ne.lat(), 'lng': ne.lng()}};
+            $scope.HanldeRequestChanged();
+        }
+    };
+    $scope.HanldeRequestChanged = function(){
         if(widget === null){
-            console.log("Error PanoramioController: widget not initialized!")
+            console.log("Error PanoramioController: widget not initialized!");
             return;
         }        
         widget.setRequest($scope.myRequest);
         widget.setPosition(0);
     };
-	
+    $scope.NextPhoto = function(){
+        var pos = widget.getPosition();
+        widget.setPosition(pos+1);
+    };
+    $scope.PreviousPhoto = function(){
+        var pos = widget.getPosition();
+        widget.setPosition(pos+1);
+    };
     console.log("$PanoramioController init");
     $scope.InitPhotoWidget();
 };
