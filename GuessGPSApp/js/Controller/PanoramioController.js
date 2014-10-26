@@ -9,7 +9,6 @@ function PanoramioController($scope,$injector){
    $injector.invoke(PhotolocationController, this, {$scope: $scope});
    
    $scope.myRequest = {
-        'tag': 'city',
         'rect': {'sw': {'lat':49.5, 'lng': 10.7},'ne': {'lat':49.7, 'lng': 11.3}},
     };
 	
