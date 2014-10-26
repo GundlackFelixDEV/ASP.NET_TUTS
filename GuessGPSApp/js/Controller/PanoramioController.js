@@ -35,6 +35,7 @@ function PanoramioController($scope,$injector){
     var wapiblock = null;
     var widget = null;
     var WIDGET_ANIMATION_TIME = 300;
+    var WIDGET_AUTOHIDE_TIME = 3000;
     $scope.InitPhotoWidget = function()
     {
         if(wapiblock !== null)
@@ -49,41 +50,59 @@ function PanoramioController($scope,$injector){
         console.log("Initialize PanoramioWidget");
 
         wapiblock = document.getElementById('wapiblock');	
-        widget = new panoramio.PhotoWidget(wapiblock, $scope.myRequest, $scope.photo_options);        
-        widget.setPosition(0);
+        widget = new panoramio.PhotoWidget(wapiblock, $scope.myRequest, $scope.photo_options);
         $(wapiblock).hide();
+        $(wapiblock).mouseenter(function(){
+           $scope.DisplayPhotoWidget(); 
+        }).mouseleave(function(){
+            $scope.HidePhotoWidget(WIDGET_AUTOHIDE_TIME);
+        });
+        
         panoramio.events.listen( widget, panoramio.events.EventType.PHOTO_CHANGED,
                                     function(e) { $scope.HandlePhotoChanged(e); });
         
         google.maps.event.addListener($scope.PhotoPosition.Marker, 'click', function() {
             $scope.DisplayPhotoWidgetTemporal(4000);
         });
-        google.maps.event.addListener($scope.map,'bounds_changed',$scope.HandleMapBoundsChanged());
+        google.maps.event.addListener($scope.map,'bounds_changed',function(){
+            $scope.HandleMapBoundsChanged();            
+        });
     };
-    $scope.DisplayPhotoWidget = function(){
-        return $(wapiblock).show(WIDGET_ANIMATION_TIME);
-    };
-    $scope.HidePhotoWidget = function()
-    {
-        return $(wapiblock).hide(WIDGET_ANIMATION_TIME);
-    };
-    $scope.DisplayPhotoWidgetTemporal = function(timeOut)
-    {
-        var t_delay = timeOut;
-        if(typeof t_delay === "undefined")
-        {
-            t_delay = 3000;   
+    $scope.DisplayPhotoWidget = function(delay){
+        var t_delay = delay;
+        if(typeof t_delay === "undefined"){
+            t_delay = 0;   
         }
-        $(wapiblock).show(WIDGET_ANIMATION_TIME)
+        $(wapiblock).finish()
+                .delay(t_delay)
+                .show(WIDGET_ANIMATION_TIME);
+    };
+    $scope.HidePhotoWidget = function(delay){
+        var t_delay = delay;
+        if(typeof t_delay === "undefined"){
+            t_delay = 0;   
+        }
+        $(wapiblock).finish()
+                .show()
                 .delay(t_delay)
                 .hide(WIDGET_ANIMATION_TIME);
     };
+    $scope.DisplayPhotoWidgetTemporal = function(timeOut){
+        var t_delay = timeOut;
+        if(typeof t_delay === "undefined"){
+            t_delay = WIDGET_AUTOHIDE_TIME;   
+        }
+        $(wapiblock).finish()
+                .show(WIDGET_ANIMATION_TIME)
+                .delay(t_delay)
+                .hide(WIDGET_ANIMATION_TIME);
+    };
+    
     $scope.HandlePhotoChanged = function()
     {
         console.log("Panoramio PhotoChanged"); 
         var img = widget.getPhoto();
         if(img !== null){
-            $scope.DisplayPhotoWidgetTemporal();
             var pos = img.getPosition();
             $scope.$broadcast("PhotoPositionChanged", {coords:{latitude: pos.lat,longitude: pos.lng}});   
         }      
@@ -110,10 +129,12 @@ function PanoramioController($scope,$injector){
     $scope.NextPhoto = function(){
         var pos = widget.getPosition();
         widget.setPosition(pos+1);
+        $scope.DisplayPhotoWidgetTemporal();
     };
     $scope.PreviousPhoto = function(){
         var pos = widget.getPosition();
         widget.setPosition(pos+1);
+        $scope.DisplayPhotoWidgetTemporal();
     };
     console.log("$PanoramioController init");
     $scope.InitPhotoWidget();
