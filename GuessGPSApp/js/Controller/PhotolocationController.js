@@ -13,7 +13,7 @@ function PhotolocationController($scope,$injector){
                  path: google.maps.SymbolPath.CIRCLE,
                  scale: 7,
                  fillColor: "#F00",
-                 fillOpacity: 0.05,
+                 fillOpacity: 0.5,
                  strokeWeight: 0.4
              });
         };

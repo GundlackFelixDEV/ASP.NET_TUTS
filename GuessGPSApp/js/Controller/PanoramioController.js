@@ -34,7 +34,7 @@ function PanoramioController($scope,$injector){
     
     var wapiblock = null;
     var widget = null;
-	
+    var WIDGET_ANIMATION_TIME = 300;
     $scope.InitPhotoWidget = function()
     {
         if(wapiblock !== null)
@@ -55,6 +55,30 @@ function PanoramioController($scope,$injector){
         panoramio.events.listen( widget, panoramio.events.EventType.PHOTO_CHANGED,
                                     function(e) { $scope.HandlePhotoChanged(e); });
         
+        google.maps.event.addListener($scope.PhotoPosition.Marker, 'click', function() {
+            $scope.DisplayPhotoWidgetTemporal(4000);
+        });
+  
+        $(wapiblock).hide().delay(1000).show();
+        $scope.DisplayPhotoWidgetTemporal(4000);
+    };
+    $scope.DisplayPhotoWidget = function(){
+        return $(wapiblock).show(WIDGET_ANIMATION_TIME);
+    };
+    $scope.HidePhotoWidget = function()
+    {
+        return $(wapiblock).hide(WIDGET_ANIMATION_TIME);
+    }
+    $scope.DisplayPhotoWidgetTemporal = function(timeOut)
+    {
+        var t_delay = timeOut;
+        if(typeof t_delay === "undefined")
+        {
+            t_delay = 3000;   
+        }
+        $(wapiblock).show(WIDGET_ANIMATION_TIME)
+                .delay(timeOut)
+                .hide(WIDGET_ANIMATION_TIME);
     };
     $scope.HandlePhotoChanged = function()
     {

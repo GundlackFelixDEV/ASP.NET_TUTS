@@ -1,16 +1,20 @@
 <div ng-controller="PanoramioController" class="row">
-	<div class="col-md-4 col-sm-4">
-		<div id="wapiblock"></div>
-	</div>
 	<br class="hidden-md hidden-sm">
-	<div class="col-md-6 col-sm-6">  
-            <div class="map-container-md">
+	<div class="col-md-10 col-sm-10">  
+            <div class="map-container-l">
                 <div id="map-canvas"></div>
                 <div class="map-controlls align-bottom align-right">        
                     <div><a ng-click="MoveToUserPosition()"><i class="glyphicon glyphicon-map-marker"></i></a></div>
                     <div><a ng-click="MoveToPhotoPosition()"><i class="glyphicon glyphicon-camera"></i></a></div>
                     <div><a ng-click="SetCurrentPosition()"><i class="glyphicon glyphicon-home"></i></a></div>
                 </div>
+                <div id="panoramio-container" class="align-top align-right">
+                    <div id="wapiblock-ctrl" class="map-controlls align-top align-right">
+                        <div><a ng-click="DisplayPhotoWidgetTemporal(4000)"><i class="glyphicon glyphicon-picture"></i></a></div>
+                    </div>
+                    <div id="wapiblock"></div>
+                </div>
+
             </div>
 	</div>
 	<div class="col-md-2 col-sm-2" id="GPS-info">

@@ -11,6 +11,10 @@ body{
   margin:10px;  
 }
 
+.align-top{
+    position:absolute;
+    top:0;
+}
 .align-bottom{
     position: absolute;
     bottom:0;
@@ -44,6 +48,13 @@ body{
 }
 .map-controlls i.glyphicon {
     font-size:1.5em;
+}
+#wapiblock{
+    display: none;
+}
+#wapiblock-ctrl{
+    padding-top: 25px;
+    padding-right:5px;
 }
 .gps-info{
     float:right;
