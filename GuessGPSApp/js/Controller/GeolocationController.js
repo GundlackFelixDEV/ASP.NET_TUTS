@@ -22,7 +22,9 @@ var GeolocationController = function($scope){
                 $scope.HandleMapClick(event.latLng);
         });
     };
-	
+    $scope.GetBounds = function(){
+        return $scope.map.getBounds()
+    };
     $scope.HandleMapClick = function(location){
         console.log("HandleMapClick");
         var pos = { coords: {
