@@ -43,8 +43,7 @@ function PhotolocationController($scope,$injector){
             $scope.$apply();
         };
         
-        $scope.UpdateDistanceToUser = function()
-        {
+        $scope.UpdateDistanceToUser = function(){
             console.log("UpdateDistanceToUser");
             $scope.DistanceToUser = $scope.PhotoPosition.getDisstance($scope.UserPosition);
         };

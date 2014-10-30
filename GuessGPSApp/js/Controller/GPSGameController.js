@@ -20,50 +20,55 @@ var GPSGameController = function($scope,$injector,$timeout){
     };
    
     $scope.StartGame = function(){
+        if($scope.GameStatus.running){
+            return;
+        }
         alert("Game starting!");
+	$scope.GameStatus.picking = false;
+        $scope.GameStatus.finish = false;
+        $scope.GameStatus.running = true;
+        
         $scope.NextPhoto();
         $scope.DisplayPhotoWidget();
         $scope.HidePhotoWidget($scope.PickTimer.TimeOut*0.3);
-        $scope.StartPicking();
-	$scope.GameStatus.finish = false;	
+        $scope.StartPicking();	
     };
     
     $scope.StopGame = function(){
-	$scope.$timeout.cancel($scope.PickTimer.Timer);
-        $scope.PickTimer.T = $scope.PickTimer.TimeOut;    
-		
-	$scope.$timeout.cancel($scope.NewGameTimer.Timer);
-        $scope.NewGameTimer.T = $scope.NewGameTimer.TimeOut; 
-	$scope.GameStatus.waiting = false;
 	$scope.GameStatus.picking = false;
         $scope.GameStatus.finish = false;
+        $scope.GameStatus.running = false;
+        
+	$timeout.cancel($scope.PickTimer.Timer);
+        $scope.PickTimer.T = $scope.PickTimer.TimeOut;    
+		
+	$timeout.cancel($scope.NewGameTimer.Timer);
+        $scope.NewGameTimer.T = $scope.NewGameTimer.TimeOut; 
     };
+    
     var CountDownPick = function(){
        $scope.PickTimer.T -= 1000;
        if($scope.PickTimer.T > 0){
-        $timeout(CountDownPick,1000);
+        $scope.PickTimer.Timer = $timeout(CountDownPick,1000);
        }
     };
+    
     var CountDownGame = function(){
        $scope.NewGameTimer.T -= 1000; 
        if($scope.NewGameTimer.T > 0){
-           $timeout(CountDownGame,1000); 
+           $scope.PickTimer.Timer = $timeout(CountDownGame,1000); 
        }
     };
     $scope.StartPicking = function(){
         if($scope.PickTimer.Enabled){
-            $scope.PickTimer.Timer = $timeout(CountDownPick,1000); 
-            $scope.waiting = true;
+            $scope.PickTimer.Timer = $timeout(CountDownPick,1000); ;
         }
 	$scope.GameStatus.picking = true;
-
-
     };
-    
     $scope.FinishGame = function(){
         if($scope.NewGameTimer.Enabled){
             $scope.NewGameTimer.Timer = $timeout(CountDownGame,1000);
-            $scope.waiting = true;
+            $scope.GameStatus.running = true;
         }
         $scope.GameStatus.picking = false;
         $scope.GameStatus.finish = true;
