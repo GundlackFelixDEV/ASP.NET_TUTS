@@ -1,57 +1,69 @@
-var GPSGameController = function($scope,$injector){
+var GPSGameController = function($scope,$injector,$timeout){
     
     $injector.invoke(PanoramioController, this, {$scope: $scope});
-	
+
     $scope.GameStatus = {
         picking: false,
         finish: false,
-		waiting: false,
-		running: false
+	waiting: false,
+	running: false
     };
     $scope.PickTimer = {
         Enabled: true,
-        TimeOut: 10000,
-        T: 10000
+        TimeOut: 15000,
+        T: 15000
     };
     $scope.NewGameTimer = {
         Enabled: true,
-        TimeOut: 3000,
-        T: 3000
+        TimeOut: 5000,
+        T: 5000
     };
    
     $scope.StartGame = function(){
+        alert("Game starting!");
         $scope.NextPhoto();
-        $scope.DisplayPhotoWidgetTemporal(3000);
+        $scope.DisplayPhotoWidget();
+        $scope.HidePhotoWidget($scope.PickTimer.TimeOut*0.3);
         $scope.StartPicking();
-		$scope.GameStatus.finish = false;	
+	$scope.GameStatus.finish = false;	
     };
+    
     $scope.StopGame = function(){
-		$scope.$timeout.cancel($scope.PickTimer.Timer);
+	$scope.$timeout.cancel($scope.PickTimer.Timer);
         $scope.PickTimer.T = $scope.PickTimer.TimeOut;    
 		
-		$scope.$timeout.cancel($scope.NewGameTimer.Timer);
+	$scope.$timeout.cancel($scope.NewGameTimer.Timer);
         $scope.NewGameTimer.T = $scope.NewGameTimer.TimeOut; 
-		$scope.GameStatus.waiting = false;
-		$scope.GameStatus.picking = false;
+	$scope.GameStatus.waiting = false;
+	$scope.GameStatus.picking = false;
         $scope.GameStatus.finish = false;
-	}
-    
+    };
+    var CountDownPick = function(){
+       $scope.PickTimer.T -= 1000;
+       if($scope.PickTimer.T > 0){
+        $timeout(CountDownPick,1000);
+       }
+    };
+    var CountDownGame = function(){
+       $scope.NewGameTimer.T -= 1000; 
+       if($scope.NewGameTimer.T > 0){
+           $timeout(CountDownGame,1000); 
+       }
+    };
     $scope.StartPicking = function(){
         if($scope.PickTimer.Enabled){
-            $scope.PickTimer.Timer = $scope.$timeout(function(){
-                                    $scope.PickTimer.T -= 500;},500,true); 
-			$scope.waiting = true;
+            $scope.PickTimer.Timer = $timeout(CountDownPick,1000); 
+            $scope.waiting = true;
         }
-		$scope.GameStatus.picking = true;
+	$scope.GameStatus.picking = true;
 
 
     };
     
-    $scope.FinischGame = function(){
+    $scope.FinishGame = function(){
         if($scope.NewGameTimer.Enabled){
-            $scope.NewGameTimer.Timer = $scope.$timeout(function(){
-                                        $scope.NewGameTimer.T -= 500;},500,true);
-			$scope.waiting = true;
+            $scope.NewGameTimer.Timer = $timeout(CountDownGame,1000);
+            $scope.waiting = true;
         }
         $scope.GameStatus.picking = false;
         $scope.GameStatus.finish = true;
@@ -60,7 +72,6 @@ var GPSGameController = function($scope,$injector){
     $scope.$watch(function(scope) { return scope.PickTimer.T; },
               function(newValue) {
                   if(newValue === 0){
-                    $scope.$timeout.cancel($scope.PickTimer.Timer);
                     $scope.PickTimer.T = $scope.PickTimer.TimeOut;                        
                     $scope.FinishGame();
                   }
@@ -69,7 +80,6 @@ var GPSGameController = function($scope,$injector){
     $scope.$watch(function(scope) { return scope.NewGameTimer.T; },
             function(newValue) {
                 if(newValue === 0){
-                    $scope.$timeout.cancel($scope.NewGameTimer.Timer);
                     $scope.NewGameTimer.T = $scope.NewGameTimer.TimeOut;
                     $scope.StartGame();
                 }

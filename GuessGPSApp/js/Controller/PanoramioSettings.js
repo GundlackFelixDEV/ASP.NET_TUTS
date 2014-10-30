@@ -16,8 +16,4 @@ var PanoramioSettings = function($scope){
 		$scope.Request = {
 			'rect': {'sw': {'lat':-90, 'lng': -180},'ne': {'lat':90, 'lng': 180}},
 		};
-		
-		$scope.Order = {
-			"panoramio.PhotoOrder.DATE_DESC"
-		};
-}
+};

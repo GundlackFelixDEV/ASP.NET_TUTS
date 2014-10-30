@@ -15,10 +15,14 @@
 			</div>
 			<div class="map-controlls align-bottom align-left">
 				<div ng-switch on="GameStatus.running">				
-				<div ng-switch-when="false"><a ng-click="StopGame()"><i class="glyphicon glyphicon-stop"></i></a></div>
-				<div ng-switch-default="true"><a ng-click="StartGame()"><i class="glyphicon glyphicon-play"></i></a></div>
+				<div ng-switch-when="true"><a ng-click="StopGame()"><i class="glyphicon glyphicon-stop"></i></a></div>
+				<div ng-switch-default><a ng-click="StartGame()"><i class="glyphicon glyphicon-play"></i></a></div>
 				</div>
 			</div>
 		</div>
 	</div>
+        <div id="status-Display">
+            <div>{{PickTimer.T}}</div>
+            <div>{{NewGameTimer.T}}</div>
+        </div>
 </div>
