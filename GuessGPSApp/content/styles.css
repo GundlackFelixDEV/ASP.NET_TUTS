@@ -10,19 +10,6 @@ and open the template in the editor.
 body{
   margin:10px;  
 }
-
-.align-top{
-    position:absolute;
-    top:0;
-}
-.align-bottom{
-    position: absolute;
-    bottom:0;
-}
-.align-right{
-    position: absolute;
-    right:0;
-}
 #map-canvas{
     width:100%;
     height:100%;
@@ -58,4 +45,22 @@ body{
 }
 .gps-info{
     float:right;
+}
+
+.align-top{
+    position:absolute;
+    top:0;
+}
+.align-bottom{
+    position: absolute;
+    bottom:0;
+}
+.align-right{
+    position: absolute;
+    right:0;
+}
+.align-left{
+	padding-bottom:20px;
+    position: absolute;
+    left:0;
 }

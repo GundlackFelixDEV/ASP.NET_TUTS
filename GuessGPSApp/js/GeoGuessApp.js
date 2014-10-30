@@ -13,10 +13,9 @@ GeoGuessApp.config(['$routeProvider',function($routeProvider){
 			controller: "PanoramioController",
 			templateUrl: "js/Views/PanoramioView.html"
 		})
+		.when("/Game",{
+			controller: "GPSGameController",
+			templateUrl: "js/Views/GPSGameView.html"
+		})
 		.otherwise({redirectTo:'/CurrentLocation'});
 }]);
-
-function GeoGuessController()
-{
-	
-}

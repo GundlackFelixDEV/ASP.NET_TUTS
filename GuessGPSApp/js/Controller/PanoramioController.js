@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-function PanoramioController($scope,$injector){
+var PanoramioController = function($scope,$injector){
    console.log('$PanoramioController init');
    
    $injector.invoke(PhotolocationController, this, {$scope: $scope});

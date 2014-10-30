@@ -1,9 +1,12 @@
-var GPSGameController = function($scope,$injector,photoController){
+var GPSGameController = function($scope,$injector){
     
-    $injector.invoke(photoController, this, {$scope: $scope});
+    $injector.invoke(PanoramioController, this, {$scope: $scope});
+	
     $scope.GameStatus = {
-        picking: true,
-        finish: false
+        picking: false,
+        finish: false,
+		waiting: false,
+		running: false
     };
     $scope.PickTimer = {
         Enabled: true,
@@ -20,25 +23,35 @@ var GPSGameController = function($scope,$injector,photoController){
         $scope.NextPhoto();
         $scope.DisplayPhotoWidgetTemporal(3000);
         $scope.StartPicking();
+		$scope.GameStatus.finish = false;	
     };
-    
-    $scope.EndGame = function(){
-        
-    };
+    $scope.StopGame = function(){
+		$scope.$timeout.cancel($scope.PickTimer.Timer);
+        $scope.PickTimer.T = $scope.PickTimer.TimeOut;    
+		
+		$scope.$timeout.cancel($scope.NewGameTimer.Timer);
+        $scope.NewGameTimer.T = $scope.NewGameTimer.TimeOut; 
+		$scope.GameStatus.waiting = false;
+		$scope.GameStatus.picking = false;
+        $scope.GameStatus.finish = false;
+	}
     
     $scope.StartPicking = function(){
         if($scope.PickTimer.Enabled){
             $scope.PickTimer.Timer = $scope.$timeout(function(){
-                                    $scope.PickTimer.T -= 500;},500,true);    
+                                    $scope.PickTimer.T -= 500;},500,true); 
+			$scope.waiting = true;
         }
-        $scope.GameStatus.picking = true;
-        $scope.GameStatus.finish = false;
+		$scope.GameStatus.picking = true;
+
+
     };
     
     $scope.FinischGame = function(){
         if($scope.NewGameTimer.Enabled){
             $scope.NewGameTimer.Timer = $scope.$timeout(function(){
                                         $scope.NewGameTimer.T -= 500;},500,true);
+			$scope.waiting = true;
         }
         $scope.GameStatus.picking = false;
         $scope.GameStatus.finish = true;
@@ -48,7 +61,7 @@ var GPSGameController = function($scope,$injector,photoController){
               function(newValue) {
                   if(newValue === 0){
                     $scope.$timeout.cancel($scope.PickTimer.Timer);
-                    $scope.NewGameTimer.T = $scope.PickTimer.TimeOut;                        
+                    $scope.PickTimer.T = $scope.PickTimer.TimeOut;                        
                     $scope.FinishGame();
                   }
               });

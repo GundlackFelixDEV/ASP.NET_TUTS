@@ -1,0 +1,24 @@
+<div ng-controller="PanoramioController" class="row">
+	<br class="hidden-md hidden-sm">
+	<div class="col-md-10 col-sm-10">  
+		<div class="map-container-l">
+			<div id="map-canvas"></div>
+			<div class="map-controlls align-bottom align-right">        
+				<div><a ng-click="MoveToUserPosition()"><i class="glyphicon glyphicon-map-marker"></i></a></div>
+				<div><a ng-click="SetCurrentPosition()"><i class="glyphicon glyphicon-home"></i></a></div>
+			</div>
+			<div id="panoramio-container" class="align-top align-right">
+				<div id="wapiblock-ctrl" class="map-controlls align-top align-right">
+					<div><a ng-click="ToggleDisplayTemporal()"><i class="glyphicon glyphicon-picture"></i></a></div>
+				</div>
+				<div id="wapiblock"></div>
+			</div>
+			<div class="map-controlls align-bottom align-left">
+				<div ng-switch on="GameStatus.running">				
+				<div ng-switch-when="false"><a ng-click="StopGame()"><i class="glyphicon glyphicon-stop"></i></a></div>
+				<div ng-switch-default="true"><a ng-click="StartGame()"><i class="glyphicon glyphicon-play"></i></a></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
