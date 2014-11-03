@@ -1,24 +1,22 @@
 var GPSGameController = function($scope,$injector,$timeout){
     
     $injector.invoke(PanoramioController, this, {$scope: $scope});
-
+    $injector.invoke(CountDownController,this,{$scope: $scope, $timeout: $timeout});
     $scope.GameStatus = {
         picking: false,
         finish: false,
 	waiting: false,
 	running: false
     };
-    $scope.PickTimer = {
-        Enabled: true,
-        TimeOut: 15000,
-        T: 15000
-    };
-    $scope.NewGameTimer = {
-        Enabled: true,
-        TimeOut: 5000,
-        T: 5000
-    };
-   
+    
+    $scope.PickTimer = {};
+    $scope.PickTimer.Options = new CountDownOpts();
+    $scope.PickTimer.Options.T_Start = 15000;    
+    
+    $scope.NewGameTimer = {};
+    $scope.NewGameTimer.Options = new CountDownOpts();
+    $scope.NewGameTimer.Options.T_Start = 5000;
+    
     $scope.StartGame = function(){
         if($scope.GameStatus.running){
             return;
@@ -52,13 +50,13 @@ var GPSGameController = function($scope,$injector,$timeout){
         $scope.PickTimer.Timer = $timeout(CountDownPick,1000);
        }
     };
-    
+    /*
     var CountDownGame = function(){
        $scope.NewGameTimer.T -= 1000; 
        if($scope.NewGameTimer.T > 0){
            $scope.PickTimer.Timer = $timeout(CountDownGame,1000); 
        }
-    };
+    };*/
     $scope.StartPicking = function(){
         if($scope.PickTimer.Enabled){
             $scope.PickTimer.Timer = $timeout(CountDownPick,1000); ;
@@ -73,7 +71,7 @@ var GPSGameController = function($scope,$injector,$timeout){
         $scope.GameStatus.picking = false;
         $scope.GameStatus.finish = true;
     };
-    
+    /*
     $scope.$watch(function(scope) { return scope.PickTimer.T; },
               function(newValue) {
                   if(newValue === 0){
@@ -88,5 +86,5 @@ var GPSGameController = function($scope,$injector,$timeout){
                     $scope.NewGameTimer.T = $scope.NewGameTimer.TimeOut;
                     $scope.StartGame();
                 }
-            });
+            });*/
 };
