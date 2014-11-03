@@ -1,6 +1,6 @@
 Number.prototype.toRad = function() { return this * (Math.PI / 180); };
 
-var Position = function(aMap,aPos,args){
+var Position = function(aMap,aPos){
 	
     this.getDisstance = function(pos)
     {

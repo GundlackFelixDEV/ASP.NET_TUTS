@@ -19,3 +19,25 @@ GeoGuessApp.config(['$routeProvider',function($routeProvider){
 		})
 		.otherwise({redirectTo:'/CurrentLocation'});
 }]);
+
+GeoGuessApp.factory("CountDownService",function($rootScope){
+   var CountDownService = {};
+   CountDownService.options = {};
+   CountDownService.CountDownEnd = function(){
+        $rootScope.$broadcast('CountDownEnd');
+   };
+   CountDownService.Start = function(options){
+     CountDownService.options = options;
+     $rootScope.$broadcast('Start');
+   };
+   CountDownService.Stop = function(){
+     $rootScope.$broadcast('Stop');
+   };
+   CountDownService.Pause = function(){
+     $rootScope.$broadcast('Pause');
+   };
+   return CountDownService;
+});
+
+CountDown.$inject = ['$scope','$timeout','CountDownService'];
+GPSGameController.$inject = ['$scope','$injector','CountDownService'];

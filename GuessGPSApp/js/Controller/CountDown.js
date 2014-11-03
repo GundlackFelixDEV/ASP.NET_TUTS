@@ -3,38 +3,52 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-var CountDownController = function($scope,$timeout){
-    this.CountDown = function(){
-       $scope.T -= $scope.Options.delta;
-       if($scope.T !== this.Options.T_Stop){
-           this.Timer = $timeout(this.CountDown(),this.Options.delta); 
-       }
+function CountDown($scope,$timeout,CountDownService){
+    $scope.Start= function(){
+        this.Timer = $timeout(CountDown,Math.abs($scope.Options.delta),true);
     };
-    this.Start = function(){
-        this.Timer = $timeout(this.CountDown(),this.Options.delta); 
-    };
-    
-    this.Stop = function(){
+    $scope.Stop = function(){
         this.Pause();
-        $scope.T = this.Options.T_Start;
+        $scope.T = $scope.Options.T_Start;
     };
-    this.Pause = function(){
-       if(this.Timer){
+    $scope.Pause = function(){
+        if(this.Timer){
             $timeout.cancel(this.Timer);
         } 
-    };  
-    
-    this.Options = {};    
-    $scope.T = 10000;
+    };
+    var CountDown = function(){
+       var opt = $scope.Options;
+       if((opt.delta > 0 && $scope.T < opt.T_Stop) ||
+            (opt.delta < 0 && $scope.T > opt.T_Stop)){
+                $scope.T += opt.delta;
+                this.Timer = $timeout(CountDown,Math.abs(opt.delta),true); 
+            }
+    };
+    $scope.SetOptions = function(opt){
+        $scope.Pause();
+        if(opt instanceof CountDownOpts)
+        {
+            $scope.Options = opt;
+        }else{
+            console.error("CountDown.SetOptions unrecogniced option format. Standard initialization of CountDownOpts will be used!");
+            $scope.Options = new CountDownOpts();
+        } 
+        $scope.T = $scope.Options.T_Start;
+    };
+    $scope.$on("Start",function(){
+        $scope.SetOptions(CountDownService.options);
+        $scope.Start();
+    });
+    $scope.$on("Stop",$scope.Stop);
+    $scope.$on("Pause",$scope.Pause);
+    $scope.$watch(function(scope){return scope.T;},function(newValue){
+        console.log(newValue);
+        if(newValue === $scope.Options.T_Stop){
+            CountDownService.CountDownEnd();
+        }
+    });
     this.Timer = null;
-    
-    
-    if(typeof options === "CountDownOpts")
-    {
-        this.Options = options;
-    }else{
-        this.Options = new CountDownOpts();
-    }
+    $scope.SetOptions($scope.Options);
 };
 
 function CountDownOpts(){
