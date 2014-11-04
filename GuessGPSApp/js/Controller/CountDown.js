@@ -24,7 +24,7 @@ function CountDown($scope,$timeout,CountDownService){
        if((opt.delta > 0 && $scope.T < opt.T_Stop) ||
             (opt.delta < 0 && $scope.T > opt.T_Stop)){
                 $scope.T += opt.delta;
-                this.Timer = $timeout(CountDown,Math.abs(opt.delta),true); 
+                this.Timer = $timeout(CountDown,Math.abs(opt.delta),true);
             }
     };
     $scope.SetOptions = function(opt){
@@ -48,6 +48,8 @@ function CountDown($scope,$timeout,CountDownService){
         console.log(newValue);
         if(newValue === $scope.Options.T_Stop){
             CountDownService.CountDownEnd();
+        }else if(newValue <= 5000){
+            $("#CountDownDisplay").animate({fontSize: "3.5em"}, 500).delay(500).css({fontSize:"2em"});
         }
     });
     this.Timer = null;
