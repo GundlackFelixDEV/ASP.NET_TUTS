@@ -3,7 +3,8 @@ function GPSGameController($scope,$injector,CountDownService){
     $injector.invoke(PanoramioController, this, {$scope: $scope});
     
     $scope.GameStatus = 0;
-    
+    $scope.Rounds = 2;
+    $scope.CurRound = 0;
     $scope.PickTimer = {};
     $scope.PickTimer.Options = new CountDownOpts();
     $scope.PickTimer.Options.T_Start = 15000;    
@@ -16,9 +17,10 @@ function GPSGameController($scope,$injector,CountDownService){
         if($scope.GameStatus.running){
             return;
         }  
+        $scope.CurRound += 1;
         $scope.NextPhoto();
         $scope.DisplayPhotoWidget();
-        $scope.HidePhotoWidget($scope.PickTimer.TimeOut*0.3);
+        $scope.HidePhotoWidget($scope.PickTimer.Options.T_Start*0.3);
         $scope.StartPicking();	
     };
     
@@ -35,7 +37,9 @@ function GPSGameController($scope,$injector,CountDownService){
     };
     $scope.FinishGame = function(){
         console.log("GameFinished");
-        CountDownService.Start($scope.NewGameTimer.Options);
+        if($scope.CurRound < $scope.Rounds){
+            CountDownService.Start($scope.NewGameTimer.Options);
+        }
         $scope.GameStatus = 1;
     };
     
@@ -43,7 +47,7 @@ function GPSGameController($scope,$injector,CountDownService){
         console.log("HandleCountDownEnd");
         switch($scope.GameStatus){
             case 1: //NewGameWaiting Ended
-               $scope.StartPicking();
+               $scope.StartGame();
                return;
             case 2: //Picking Ended
                 $scope.FinishGame();

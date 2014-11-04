@@ -5,7 +5,9 @@
  */
 function CountDown($scope,$timeout,CountDownService){
     $scope.Start= function(){
-        this.Timer = $timeout(CountDown,Math.abs($scope.Options.delta),true);
+        if(this.Timer !== null){
+              this.Timer = $timeout(CountDown,Math.abs($scope.Options.delta),true);
+        }
     };
     $scope.Stop = function(){
         this.Pause();
@@ -14,6 +16,7 @@ function CountDown($scope,$timeout,CountDownService){
     $scope.Pause = function(){
         if(this.Timer){
             $timeout.cancel(this.Timer);
+            this.Timer = null;
         } 
     };
     var CountDown = function(){
