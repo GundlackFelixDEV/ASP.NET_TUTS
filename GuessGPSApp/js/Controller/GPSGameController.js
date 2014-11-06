@@ -12,9 +12,11 @@ function GPSGameController($scope,$injector,CountDownService){
     $scope.NewGameTimer = {};
     $scope.NewGameTimer.Options = new CountDownOpts();
     $scope.NewGameTimer.Options.T_Start = 5000;
-    
+    $scope.GameRunning = function(){
+        return $scope.GameStatus !== 0;
+    }
     $scope.StartGame = function(){
-        if($scope.GameStatus > 0){
+        if($scope.GameRunning()){
             return;
         }
         $scope.CurRound += 1;
@@ -27,7 +29,7 @@ function GPSGameController($scope,$injector,CountDownService){
     $scope.StopGame = function(){
         CountDownService.Stop();
         $scope.GameStatus = 0;
-        CountDownService.Stop();
+        $scope.CurRound = 0;
     };
     
     $scope.StartPicking = function(){

@@ -5,23 +5,24 @@
  */
 function CountDown($scope,$timeout,CountDownService){
     $scope.Start= function(){
-        if(this.Timer !== null){
+        console.log("CountDown.Start");
+        if(!$scope.IsRunning()){
               this.Timer = $timeout(CountDown,Math.abs($scope.Options.delta),true);
-			  this.Status = "Start";
+              this.Status = "Start";
         }
     };
     $scope.Stop = function(){
-        this.Pause();
-		this.Status = "Stop";
+        console.log("CountDown.Stop");
+        $scope.Pause();
+	this.Status = "Stop";
         $scope.T = $scope.Options.T_Start;
 
     };
     $scope.Pause = function(){
-        if(this.Timer){
-            $timeout.cancel(this.Timer);
-            this.Timer = null;
-			this.Status = "Pause";
-        } 
+        console.log("CountDown.Pause");
+        $timeout.cancel(this.Timer);
+        this.Timer = null;
+        this.Status = "Pause";
     };
     var CountDown = function(){
        var opt = $scope.Options;
@@ -32,6 +33,7 @@ function CountDown($scope,$timeout,CountDownService){
             }
     };
     $scope.SetOptions = function(opt){
+        console.log("CountDown.SetOptions");
         $scope.Pause();
         if(opt instanceof CountDownOpts)
         {
@@ -43,24 +45,31 @@ function CountDown($scope,$timeout,CountDownService){
         $scope.T = $scope.Options.T_Start;
     };
     $scope.$on("Start",function(){
+        console.log("CountDown.on: Start");
         $scope.SetOptions(CountDownService.options);
         $scope.Start();
     });
-    $scope.$on("Stop",$scope.Stop);
-    $scope.$on("Pause",$scope.Pause);
+    $scope.$on("Stop",function(){
+        console.log("CountDown.on: Stop");
+        $scope.Stop();
+    });
+    $scope.$on("Pause",function(){
+        console.log("CountDown.on: Pause");
+        $scope.Pause();
+    });
     $scope.$watch(function(scope){return scope.T;},function(newValue){
         console.log(newValue);
         if(newValue === $scope.Options.T_Stop){
             CountDownService.CountDownEnd();
         }else if(newValue <= 5000){
-            $("#CountDownDisplay").animate({fontSize: "3.5em"}, 500).delay(500).css({fontSize:"2em"});
+            $("#CountDownDisplay").css({fontSize:"2em"}).animate({fontSize: "3.5em"}, 500).delay(500).css({fontSize:"2em"});
         }
     });	
-	$scope.IsRunning = function(){
-		return (this.Status === "Start");
-	};
+    $scope.IsRunning = function(){
+            return (this.Status === "Start");
+    };
     this.Timer = null;
-	this.Status = "Stop";
+    this.Status = "Stop";
     $scope.SetOptions($scope.Options);
 
 };

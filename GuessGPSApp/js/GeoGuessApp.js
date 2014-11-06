@@ -27,13 +27,16 @@ GeoGuessApp.factory("CountDownService",function($rootScope){
         $rootScope.$broadcast('CountDownEnd');
    };
    CountDownService.Start = function(options){
+     console.log("CountDownService.Broadcast: Start");
      CountDownService.options = options;
      $rootScope.$broadcast('Start');
    };
    CountDownService.Stop = function(){
+     console.log("CountDownService.Broadcast: Stop");
      $rootScope.$broadcast('Stop');
    };
    CountDownService.Pause = function(){
+     console.log("CountDownService.Broadcast: Pause");
      $rootScope.$broadcast('Pause');
    };
    return CountDownService;
