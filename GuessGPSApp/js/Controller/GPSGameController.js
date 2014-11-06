@@ -14,9 +14,9 @@ function GPSGameController($scope,$injector,CountDownService){
     $scope.NewGameTimer.Options.T_Start = 5000;
     
     $scope.StartGame = function(){
-        if($scope.GameStatus.running){
+        if($scope.GameStatus > 0){
             return;
-        }  
+        }
         $scope.CurRound += 1;
         $scope.NextPhoto();
         $scope.DisplayPhotoWidget();

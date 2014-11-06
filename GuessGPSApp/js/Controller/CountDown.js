@@ -7,16 +7,20 @@ function CountDown($scope,$timeout,CountDownService){
     $scope.Start= function(){
         if(this.Timer !== null){
               this.Timer = $timeout(CountDown,Math.abs($scope.Options.delta),true);
+			  this.Status = "Start";
         }
     };
     $scope.Stop = function(){
         this.Pause();
+		this.Status = "Stop";
         $scope.T = $scope.Options.T_Start;
+
     };
     $scope.Pause = function(){
         if(this.Timer){
             $timeout.cancel(this.Timer);
             this.Timer = null;
+			this.Status = "Pause";
         } 
     };
     var CountDown = function(){
@@ -51,9 +55,14 @@ function CountDown($scope,$timeout,CountDownService){
         }else if(newValue <= 5000){
             $("#CountDownDisplay").animate({fontSize: "3.5em"}, 500).delay(500).css({fontSize:"2em"});
         }
-    });
+    });	
+	$scope.IsRunning = function(){
+		return (this.Status === "Start");
+	};
     this.Timer = null;
+	this.Status = "Stop";
     $scope.SetOptions($scope.Options);
+
 };
 
 function CountDownOpts(){

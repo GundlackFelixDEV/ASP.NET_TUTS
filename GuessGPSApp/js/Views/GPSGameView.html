@@ -14,6 +14,9 @@
 				<div id="wapiblock"></div>
 			</div>
 			<div class="map-controlls align-bottom align-left">
+				<div ng-controller="CountDown">
+					<div id="CountDownDisplay" ng-show="IsRunning()">{{T / 1000}} s</div>
+				</div>
 				<div ng-switch on="GameStatus.running">				
 				<div ng-switch-when="true"><a ng-click="StopGame()"><i class="glyphicon glyphicon-stop"></i></a></div>
 				<div ng-switch-default><a ng-click="StartGame()"><i class="glyphicon glyphicon-play"></i></a></div>
@@ -21,7 +24,4 @@
 			</div>
 		</div>
 	</div>
-        <div ng-controller="CountDown">
-            <div id="CountDownDisplay">{{T / 1000}} s</div>
-        </div>
 </div>
