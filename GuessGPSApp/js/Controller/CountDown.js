@@ -7,7 +7,7 @@ function CountDown($scope,$timeout,CountDownService){
     $scope.Start= function(){
         console.log("CountDown.Start");
         if(!$scope.IsRunning()){
-              this.Timer = $timeout(CountDown,Math.abs($scope.Options.delta),true);
+              $scope.Timer = $timeout(CountDown,Math.abs($scope.Options.delta),true);
               this.Status = "Start";
         }
     };
@@ -21,7 +21,7 @@ function CountDown($scope,$timeout,CountDownService){
     $scope.Pause = function(){
         console.log("CountDown.Pause");
         $timeout.cancel(this.Timer);
-        this.Timer = null;
+        $scope.Timer = null;
         this.Status = "Pause";
     };
     var CountDown = function(){
@@ -29,7 +29,7 @@ function CountDown($scope,$timeout,CountDownService){
        if((opt.delta > 0 && $scope.T < opt.T_Stop) ||
             (opt.delta < 0 && $scope.T > opt.T_Stop)){
                 $scope.T += opt.delta;
-                this.Timer = $timeout(CountDown,Math.abs(opt.delta),true);
+                $scope.Timer = $timeout(CountDown,Math.abs(opt.delta),true);
             }
     };
     $scope.SetOptions = function(opt){
@@ -68,7 +68,8 @@ function CountDown($scope,$timeout,CountDownService){
     $scope.IsRunning = function(){
             return (this.Status === "Start");
     };
-    this.Timer = null;
+    this.Continue = false;
+    $scope.Timer = null;
     this.Status = "Stop";
     $scope.SetOptions($scope.Options);
 
