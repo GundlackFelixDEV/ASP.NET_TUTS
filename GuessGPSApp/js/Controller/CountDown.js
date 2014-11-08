@@ -73,8 +73,8 @@ function CountDown($scope,$timeout,CountDownService){
     this.Continue = false;
     this.Status = "Stop";
     $scope.CountDown.Timer = null;
-    $scope.CountDown.SetOptions($scope.CountDown.Options);
-
+    $scope.CountDown.Options = new CountDownOpts();
+    $scope.CountDown.T = CountDownOpts.T_Start;
 };
 
 function CountDownOpts(){
