@@ -4,7 +4,12 @@
  * and open the template in the editor.
  */
 function CountDown($scope,$timeout,CountDownService){
+    this.Continue = false;
+    this.Status = "Stop";
     $scope.CountDown = {
+        Timer: null,
+        Options: new CountDownOpts(),
+        T: CountDownOpts.T_Start,
         Start:  function(){
                 console.log("CountDown.Start");
                 if(!$scope.CountDown.IsRunning()){
@@ -59,7 +64,9 @@ function CountDown($scope,$timeout,CountDownService){
         $scope.CountDown.Pause();
     });
     $scope.$watch(function(scope){return scope.CountDown.T;},function(newValue){
-        console.log(newValue);
+        if(newValue)
+            console.log("CountDown: " + newValue);
+        
         if(newValue === $scope.CountDown.Options.T_Stop){
             CountDownService.CountDownEnd();
         }else if(newValue <= 5000){
@@ -69,12 +76,6 @@ function CountDown($scope,$timeout,CountDownService){
     $scope.CountDown.IsRunning = function(){
             return (this.Status === "Start");
     };
-    
-    this.Continue = false;
-    this.Status = "Stop";
-    $scope.CountDown.Timer = null;
-    $scope.CountDown.Options = new CountDownOpts();
-    $scope.CountDown.T = CountDownOpts.T_Start;
 };
 
 function CountDownOpts(){
