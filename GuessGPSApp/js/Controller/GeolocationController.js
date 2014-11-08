@@ -1,7 +1,7 @@
 GeolocationController = function($scope){
-     var nav = null;  
      //Geolocation Model
     $scope.Geolocation = {
+        Nav:null,
         Position: null,
         map: null,
         Options: {
@@ -25,8 +25,10 @@ GeolocationController = function($scope){
         },
         SetCurrentPosition: function(){     
             console.log("Geolocation: SetCurrentPosition");
+            var nav = $scope.Geolocation.Nav;
             if(nav === null){
                 nav = window.navigator;
+                $scope.Geolocation.Nav = nav;
             }
             if(nav !== null){
                 if(nav.geolocation){
@@ -51,7 +53,7 @@ GeolocationController = function($scope){
     }; 
     this.initialize = function(){           
        console.log("Geolocation: Initialize");
-       $scope.Geolocation.map = new google.maps.Map(document.getElementById('map-canvas'), $scope.Geolocation.options);
+       $scope.Geolocation.map = new google.maps.Map(document.getElementById('map-canvas'), $scope.Geolocation.Options);
 
         google.maps.event.addListener($scope.Geolocation.map, 'click', function(event){
                 $scope.Geolocation.HandleMapClick(event.latLng);
