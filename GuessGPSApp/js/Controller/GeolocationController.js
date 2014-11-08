@@ -1,79 +1,73 @@
-var GeolocationController = function($scope){
-
-    //Geolocation Model
-    $scope.UserPosition = null;
-    $scope.ErrorMessage = "";
-    $scope.map = null;
-    $scope.options = {
-                    zoom: 13,
-                    mapTypeControl: false
-            };
-    var nav = null;
-        
-    $scope.Initialize = function(){           
-       console.log("InitGoogleMaps");
-
-        $scope.map = new google.maps.Map(document.getElementById('map-canvas'), $scope.options);
-        
-
-        google.maps.event.addListener($scope.map, 'click', function(event){
-                $scope.HandleMapClick(event.latLng);
-        });
-        $scope.UserPosition = new Position($scope.map);
-        $scope.SetCurrentPosition();
-    };
-    $scope.GetBounds = function(){
-        return $scope.map.getBounds();
-    };
-    $scope.HandleMapClick = function(location){
-        console.log("HandleMapClick");
-        var pos = { coords: {
-                        latitude: location.lat(),
-                        longitude: location.lng()}};
-        $scope.SetUserPosition(pos);
-    };
-    $scope.MoveToUserPosition = function()
-    {
-        console.log("MoveToUserPosition");
-        $scope.map.panTo($scope.UserPosition.GPS);
-    };
-    //Geolocation Functions  
-    $scope.SetCurrentPosition = function(){     
-        console.log("SetCurrentPosition");
-        if(nav === null){
-            nav = window.navigator;
-        }
-        if(nav !== null){
-            if(nav.geolocation){
-                nav.geolocation.getCurrentPosition(function(location){
-                    $scope.SetUserPosition(location);  
-                    $scope.MoveToUserPosition();                                   
-                },$scope.GeolocationErrorCallback);
-
-            } else {
-                $scope.Error("Geolocation is not supported by this browser.");
+GeolocationController = function($scope){
+     var nav = null;  
+     //Geolocation Model
+    $scope.Geolocation = {
+        Position: null,
+        map: null,
+        Options: {
+            zoom: 12,
+            mapTypeControl: false
+        },
+        //Geolocation functions
+        GetBounds: function(){
+            return $scope.Geolocation.map.getBounds();
+        },
+        HandleMapClick: function(location){
+            console.log("Geolocation: HandleMapClick");
+            var pos = { coords: {
+                            latitude: location.lat(),
+                            longitude: location.lng()}};
+            $scope.Geolocation.SetPosition(pos);
+        },
+        MoveToPosition: function(){
+            console.log("Geolocation: MoveToPosition");
+            $scope.Geolocation.map.panTo($scope.Geolocation.Position.GPS);
+        },
+        SetCurrentPosition: function(){     
+            console.log("Geolocation: SetCurrentPosition");
+            if(nav === null){
+                nav = window.navigator;
             }
+            if(nav !== null){
+                if(nav.geolocation){
+                    nav.geolocation.getCurrentPosition(function(location){
+                        $scope.Geolocation.SetPosition(location);  
+                        $scope.Geolocation.MoveToPosition();                                   
+                    },this.GeolocationErrorCallback);
+
+                } else {
+                    GeolocationController.Error("Geolocation is not supported by this browser.");
+                }
+            }
+            else {
+                GeolocationController.Error("Unable to find navigator");
+            }
+        },
+        SetPosition: function(pos){
+            console.log("Geolocation: SetPosition");
+            $scope.Geolocation.Position.setPosition(pos);              
+            $scope.$apply();
         }
-        else {
-            $scope.Error("Unable to find navigator");
-        }
+    }; 
+    this.initialize = function(){           
+       console.log("Geolocation: Initialize");
+       $scope.Geolocation.map = new google.maps.Map(document.getElementById('map-canvas'), $scope.Geolocation.options);
+
+        google.maps.event.addListener($scope.Geolocation.map, 'click', function(event){
+                $scope.Geolocation.HandleMapClick(event.latLng);
+        });
+        $scope.Geolocation.Position = new Position($scope.Geolocation.map);
+        $scope.Geolocation.SetCurrentPosition();
     };
-              
-    $scope.SetUserPosition = function(pos){
-        console.log("SetUserPosition");
-        $scope.UserPosition.setPosition(pos);              
-        $scope.$apply();
-    };
-        
-    $scope.Error = function(message){
+
+    this.Error = function(message){
         if(!message || message.length === 0){
             message = "Unknown Error";
         }
-        console.log("GeolocationController: " + message);
-        $scope.ErrorMessage = message;
+        console.log("Geolocation Error: " + message);
     };
 	
-    $scope.GeolocationErrorCallback = function(error){
+    this.GeolocationErrorCallback = function(error){
         var message = "";   
         // Check for known errors
         switch (error.code) {
@@ -98,9 +92,7 @@ var GeolocationController = function($scope){
             message = "The position could not be determined due to " + 
                       "an unknown error (Code: " + strErrorCode + ").";
         }
-        $scope.Error(message);
+        this.Error(message);
     };
-	
-    console.log('$GeolocationController init');
-    $scope.Initialize();
+    this.initialize();
 };
