@@ -1,15 +1,47 @@
-function PhotolocationController($scope,$injector){
+GeoGuessApp.factory("PhotoService",function($rootScope){
+   var PhotoService = {
+       Position: new google.maps.LatLng(),
+       PhotoChanged: function(img){
+           console.log("PhotoService.Broadcast: PhotoChanged");
+           $rootScope.broadcast('PhotoChanged');
+       }
+   };
+   
+   return PhotoService;
+});
+
+GeophotoController.$inject = ['$scope','$injector','PhotoService'];
+function GeophotoController($scope,$injector,PhotoService){
 
         $injector.invoke(GeolocationController, this, {$scope: $scope});
+        //Geophoto Model
+        $scope.Geophoto = {
+            Position: new Position(),
+            UserDistance: 0,            
+            MoveToPosition: function(){
+                console.log("MoveToPhotoPosition");
+                $scope.Geolocation.map.panTo($scope.PhotoPosition.GPS);
+            },
+            SetPosition: function(position){
+                console.log("SetPhotoPosition");
+                $scope.Geophoto.Position.setPosition(position);
+            },
+            HideMarker: function(){
+                $scope.Geophoto.Position.hideMarker();
+            },
+            ShowMarker: function (){
+                $scope.Geophoto.Position.Marker.showMarker();
+            },
+            UpdateDistanceToUser: function(){
+                console.log("Photolocation: UpdateDistanceToUser");
+                $scope.Geophoto.DistanceToUser = $scope.Geophoto.Position.getDisstance($scope.Geolocation.Position);
+            }
+        };
         
-	//Geolocation Model
-        $scope.PhotoPosition = null;
-        $scope.DistanceToUser = 0;
-        
-        $scope.Initialize = function(){
-            console.log("$Photolocation Initialize");
-            $scope.PhotoPosition = new Position($scope.map,new google.maps.LatLng(50,13));
-            $scope.PhotoPosition.Marker.setIcon({
+        this.initialize = function(){
+            console.log("Photolocation: Initialize");
+            $scope.Geophoto.Position = new Position($scope.Geolocation.map,new google.maps.LatLng(50,13));
+            $scope.Geophoto.Position.Marker.setIcon({
                  path: google.maps.SymbolPath.CIRCLE,
                  scale: 7,
                  fillColor: "#F00",
@@ -17,36 +49,13 @@ function PhotolocationController($scope,$injector){
                  strokeWeight: 0.4
              });
              
-             $scope.$watch("[UserPosition.GPS.lat]", function(newValue, oldValue) {
-                        $scope.UpdateDistanceToUser();
+             $scope.$watch("[Geolocation.Position.GPS.lat]", function(newValue, oldValue) {
+                $scope.Geophoto.UpdateDistanceToUser();
             },true);
 
-            $scope.$watch("[PhotoPosition.GPS.lat]", function(newValue, oldValue) {
-                            $scope.UpdateDistanceToUser();
+            $scope.$watch("[Geophoto.Position.GPS.lat]", function(newValue, oldValue) {
+                $scope.Geophoto.UpdateDistanceToUser();
             },true);
         };
- 
-        $scope.MoveToPhotoPosition = function()
-        {
-            console.log("MoveToPhotoPosition");
-            $scope.map.panTo($scope.PhotoPosition.GPS);
-        };
-
-        $scope.$on("PhotoPositionChanged", function (event, position) {
-            console.log("HandlePhotoPositionChanged");
-            $scope.SetPhotoPosition(position); 
-        });
-        
-        $scope.SetPhotoPosition = function(position){
-            console.log("SetPhotoPosition");
-            $scope.PhotoPosition.setPosition(position);
-            $scope.$apply();
-        };
-        
-        $scope.UpdateDistanceToUser = function(){
-            console.log("UpdateDistanceToUser");
-            $scope.DistanceToUser = $scope.PhotoPosition.getDisstance($scope.UserPosition);
-        };
-        
-        $scope.Initialize();			
+        this.initialize();			
 };

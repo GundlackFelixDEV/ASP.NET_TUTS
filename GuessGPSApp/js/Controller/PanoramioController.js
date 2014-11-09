@@ -1,56 +1,26 @@
-/* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-var PanoramioController = function($scope,$injector){
-   console.log('$PanoramioController init');
+function PanoramioController ($scope,$injector,PhotoService){
+ 
+    $injector.invoke(GeophotoController, this, {$scope: $scope});
    
-   $injector.invoke(PhotolocationController, this, {$scope: $scope});
-   
-   $scope.myRequest = {
-        'rect': {'sw': {'lat':49.5, 'lng': 10.7},'ne': {'lat':49.7, 'lng': 11.3}},
-    };
-	
-    $scope.Tags = [
-        'all',
-        'sunset',
-        'beaches',
-        'panorama',
-        'mountains',
-        'church',
-        'urban',
-        'mountain',
-        'playas',
-        'best',
-        'castle'
-    ];
-    
-    $scope.photo_options = {
-        'width': 300,
-        'height': 256,
-        'croppedPhotos':true
-    };
     $scope.photo = {};
     var wapiblock = null;
     var widget = null;
     var WIDGET_ANIMATION_TIME = 300;
     var WIDGET_AUTOHIDE_TIME = 3000;
-    $scope.InitPhotoWidget = function()
+    $scope.PanoSettings = new PanoramioSettings();
+    $scope.PanoEvents = new PanoramioEvents();
+    this.initialize = function()
     {
-        if(wapiblock !== null)
-        {
+        if(wapiblock !== null){
             return null;
         }       
-        if(widget!== null)
-        {
+        if(widget!== null){
             return null;
-        }
-		
-        console.log("Initialize PanoramioWidget");
-
+        }	
+        console.log("Panoramio: Initialize");
+        var settings = $scope.PanoSettings;
         wapiblock = document.getElementById('wapiblock');	
-        widget = new panoramio.PhotoWidget(wapiblock, $scope.myRequest, $scope.photo_options);
+        widget = new panoramio.PhotoWidget(wapiblock, settings.myRequest, settings.photo_options);
         $(wapiblock).hide();
         $(wapiblock).mouseenter(function(){
            $scope.DisplayPhotoWidget(); 
@@ -61,13 +31,13 @@ var PanoramioController = function($scope,$injector){
         panoramio.events.listen( widget, panoramio.events.EventType.PHOTO_CHANGED,
                                     function(e) { $scope.HandlePhotoChanged(e); });
         
-        google.maps.event.addListener($scope.PhotoPosition.Marker, 'click', function() {
+        google.maps.event.addListener($scope.Geophoto.Position.Marker, 'click', function() {
            $scope.ToggleDisplayTemporal();
         });
-        google.maps.event.addListener($scope.map,'bounds_changed',function(){
-            $scope.GetPhotosInBounds();            
-        });
+        
+        $scope.EnableAutomaticPanoramioRequests();
     };
+    
     $scope.ToggleDisplayTemporal = function()
     {
         if($(wapiblock).is(':visible')){
@@ -108,21 +78,22 @@ var PanoramioController = function($scope,$injector){
     
     $scope.HandlePhotoChanged = function()
     {
-        console.log("Panoramio PhotoChanged"); 
+        console.log("Panoramio: PhotoChanged"); 
         var img = widget.getPhoto();
         if(img !== null){
             $scope.photo = img;
             var pos = img.getPosition();
-            $scope.$broadcast("PhotoPositionChanged", {coords:{latitude: pos.lat,longitude: pos.lng}});
+            $scope.Geophoto.SetPosition(pos);
+            //$scope.$broadcast("PhotoPositionChanged", {coords:{latitude: pos.lat,longitude: pos.lng}});
         }      
     };
     $scope.GetPhotosInBounds = function(){
         if($scope.map !== "undefined"){
-            console.log("PanoramioController: HandleMapBoundsChanged");
-            var bounds = $scope.map.getBounds();
+            console.log("Panoramio: Get photos in bounds");
+            var bounds = $scope.Geolocation.map.getBounds();
             var ne = bounds.getNorthEast();
             var sw = bounds.getSouthWest();
-            $scope.myRequest.rect = {'sw': {'lat':sw.lat(), 'lng': sw.lng()},
+            $scope.PanoSettings.myRequest.rect = {'sw': {'lat':sw.lat(), 'lng': sw.lng()},
                                      'ne': {'lat':ne.lat(), 'lng': ne.lng()}};
             $scope.HanldeRequestChanged();
         }
@@ -133,20 +104,76 @@ var PanoramioController = function($scope,$injector){
             console.log("Error PanoramioController: widget not initialized!");
             return;
         }        
-        widget.setRequest($scope.myRequest);
+        widget.setRequest($scope.PanoSettings.myRequest);
     };
     $scope.NextPhoto = function(){
         var pos = widget.getPosition();
         widget.setPosition(pos+1);
-        $scope.DisplayPhotoWidgetTemporal();
+        //$scope.DisplayPhotoWidgetTemporal();
     };
     $scope.PreviousPhoto = function(){
         var pos = widget.getPosition();
         if(pos > 0){
             widget.setPosition(pos-1);
-            $scope.DisplayPhotoWidgetTemporal();
+            //$scope.DisplayPhotoWidgetTemporal();
         }
     };
-    console.log("$PanoramioController init");
-    $scope.InitPhotoWidget();
+    $scope.SetPanoramioOptions = function(opt){
+        if(opt instanceof PanoramioOptions){
+            $scope.PanoSettings = opt;
+            $scope.SetAutomaticRequestOnChangeBounds(opt.AutomaticPhotoRequestOnChangBounds);
+        }else{
+            console.error("scope.SetPanoramioOptions unrecogniced option format!");
+        }
+    };
+    $scope.SetAutomaticRequestOnChangeBounds = function(val){
+        if(val){
+            console.log("Panoramio: Enable automatic panoramio request on changing bounds.");
+            $scope.PanoEvents.map_bounds_changed = 
+            google.maps.event.addListener($scope.Geolocation.map,'bounds_changed',function(){
+                    $scope.GetPhotosInBounds();            
+                });
+        }else{
+            console.log("Panoramio: Disable automatic panoramio request on changing bounds.");
+            google.maps.event.removeListener($scope.PanoEvents.map_bounds_changed);
+            $scope.PanoEvents.map_bounds_changed = null;
+        }
+    };    
+    $scope.DisableAutomaticPanoramioRequests = function(){
+        this.SetAutomaticRequestOnChangeBounds(false);
+    };
+    $scope.EnableAutomaticPanoramioRequests = function(){
+        this.SetAutomaticRequestOnChangeBounds(true);
+    };
+    this.initialize();
+};
+
+function PanoramioSettings(){
+    this.AutomaticPhotoRequestOnChangBounds =  true;
+    
+    this.myRequest = {
+        'rect': {'sw': {'lat':49.5, 'lng': 10.7},'ne': {'lat':49.7, 'lng': 11.3}}
+    };	
+    this.Tags = [
+        'all',
+        'sunset',
+        'beaches',
+        'panorama',
+        'mountains',
+        'church',
+        'urban',
+        'mountain',
+        'playas',
+        'best',
+        'castle'
+    ];
+    this.photo_options = {
+        'width': 300,
+        'height': 256,
+        'croppedPhotos':true
+    };
+};
+function PanoramioEvents(){
+    this.map_bounds_changed = null;
+    this.marker_click = null;
 };

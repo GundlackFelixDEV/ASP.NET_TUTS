@@ -47,10 +47,17 @@ var Position = function(aMap,aPos){
     this.Marker = new google.maps.Marker({
                 map: aMap,
                 title: 'Position'});
+    this.Map = aMap;
 
     var pos = aPos;
     if(!aPos){
         pos = { coords:{ latitude:0,longitude:0}};
     };
     this.setPosition(pos);
+    this.showMarker = function(){
+        this.Marker.setMap(this.Map);
+    };
+    this.hideMarker = function(){
+        this.Marker.setMap(null);
+    };
 };
