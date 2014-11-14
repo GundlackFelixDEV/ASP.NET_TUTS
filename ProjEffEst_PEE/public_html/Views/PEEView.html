@@ -1,4 +1,15 @@
 <div ng-controller="PEEController" class="row">
-    <div class="col-md-3" id="ItemList"></div>
-    <div class="col-md-7" id="DetailView" ng-controller="ItemController"></div>
+    
+    <script type="text/ng-template" id="Item.html" >
+        <h4>{{item.Description}}</h4>
+        <ul class="ui-li-count">
+            <li ng-repeat="item in data.Childs" ng-include="ListItem.html"></li>
+        </ul>
+    </script>
+    
+    <div class="col-md-3" id="ItemList">
+        <ul data-role="listview" class="ui-li-count">
+            <li ng-repeat="item in Pee.Items" ng-include="ListItem.html"></li>
+        </ul>
+    </div>
 </div>

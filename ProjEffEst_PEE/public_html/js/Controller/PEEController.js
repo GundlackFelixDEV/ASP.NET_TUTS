@@ -5,8 +5,8 @@
  */
 function PEEController($scope,ItemService){
     var idCnt = 0;
-    $scope.Items = [];
-    $scope.CurrentItem = {};
+    $scope.PEE.Items = [];
+    $scope.PEE.CurrentItem = {};
     
     $scope.AddItem = function(item){
         item.id = idCnt + 1;

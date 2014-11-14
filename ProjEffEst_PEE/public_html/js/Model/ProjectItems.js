@@ -1,10 +1,10 @@
 function LeaveItem(parent){
-    this.parent = parent;
+    this.Parent = parent;
     return this;
 };
 
 function RootItem(parent,childs){
-    this.parent = parent;
+    this.Parent = parent;
     this.Childs = childs;
     this.AccumulateValues = function(){
         Console.warn("NotImplemented: Returns accumulated Estimates");
@@ -13,8 +13,10 @@ function RootItem(parent,childs){
 };
 
 function Item(){
-   this.parent = null;
+   this.Description = "";
+   this.Parent = null;
    this.Estimates = new ItemValue();
+   return this;
 };
 
 function ItemValue(){
