@@ -1,6 +1,6 @@
 Number.prototype.toRad = function() { return this * (Math.PI / 180); };
 
-var Position = function(aMap,aPos){
+function Position(aMap,aPos){
 	
     this.getDisstance = function(pos)
     {
@@ -18,6 +18,7 @@ var Position = function(aMap,aPos){
 
     this.setPosition = function(pos)
     {
+        console.log("Model:Position: set");
         if(this.isGoogleMaps(pos))
         {
             this.GPS.lat = pos.lat();
@@ -60,4 +61,5 @@ var Position = function(aMap,aPos){
     this.hideMarker = function(){
         this.Marker.setMap(null);
     };
+    return this;
 };

@@ -35,10 +35,11 @@ var GeoGuessApp = angular.module('GeoGuessApp', ['ngRoute'])
 })
 .factory("PhotoService",function($rootScope){
    var PhotoService = {
-       Position: new google.maps.LatLng(),
+       Image: null,
        PhotoChanged: function(img){
            console.log("PhotoService.Broadcast: PhotoChanged");
-           $rootScope.broadcast('PhotoChanged');
+           this.Image = img;
+           $rootScope.$broadcast('PhotoChanged');
        }
    };
    

@@ -1,24 +1,29 @@
 <div ng-controller="PanoramioController" class="row">
-	<br class="hidden-md hidden-sm">
-        <div class="map-container-l">
-            <div id="map-canvas"></div>
-            <div class="map-controlls align-bottom align-right">        
-                <div><a ng-click="Geolocation.MoveToPosition()"><i class="glyphicon glyphicon-map-marker"></i></a></div>
-                <div><a ng-click="MoveToPhotoPosition()"><i class="glyphicon glyphicon-camera"></i></a></div>
-                <div><a ng-click="Geolocation.SetCurrentPosition()"><i class="glyphicon glyphicon-home"></i></a></div>
-            </div>
-            <div id="panoramio-container" class="align-top align-right">
-                <div id="wapiblock-ctrl" class="map-controlls align-top align-right">
-                    <div><a ng-click="ToggleDisplayTemporal()"><i class="glyphicon glyphicon-picture"></i></a></div>
-                    <div><a ng-click="NextPhoto()"><i class="glyphicon glyphicon-arrow-up"></i></a></div>
-                    <div><a ng-click="PreviousPhoto()"><i class="glyphicon glyphicon-arrow-down"></i></a></div>
-                </div>
-                <div id="wapiblock"></div>
-            </div>
-            <div class="map-controlls align-bottom align-left" id="GPS-info">
-		<div ng-if="Geophoto.DistanceToUser < 1" > Distance: {{Geophoto.DistanceToUser * 1000| number: 0}} m</div>
-		<div ng-if="Geophoto.DistanceToUser >= 1" >Distance: {{Geophoto.DistanceToUser | number: 2}} km</div>
-            </div>
+    <br class="hidden-md hidden-sm">
+    <div class="map-container-l">
+        <div id="map-canvas"></div>
+        <div class="map-controlls align-bottom align-right">        
+            <div><a ng-click="Geolocation.MoveToPosition()"><i class="glyphicon glyphicon-map-marker"></i></a></div>
+            <div><a ng-click="Geophoto.MoveToPosition()"><i class="glyphicon glyphicon-camera"></i></a></div>
+            <div><a ng-click="Geolocation.SetCurrentPosition()"><i class="glyphicon glyphicon-home"></i></a></div>
         </div>
+        <div id="panoramio-container" class="align-top align-right">
+            <div id="wapiblock-ctrl" class="map-controlls align-top align-right">
+                <div><a ng-click="Panoramio.ToggleDisplayTemporal()"><i class="glyphicon glyphicon-picture"></i></a></div>
+                <div><a ng-click="Panoramio.NextPhoto()"><i class="glyphicon glyphicon-arrow-up"></i></a></div>
+                <div><a ng-click="Panoramio.PreviousPhoto()"><i class="glyphicon glyphicon-arrow-down"></i></a></div>
+            </div>
+            <div id="wapiblock"></div>
+        </div>
+        <div class="map-controlls align-bottom align-left" id="GPS-info">
+            <div ng-if="Geophoto.UserDistance < 1" > Distance: {{Geophoto.UserDistance * 1000| number: 0}} m</div>
+            <div ng-if="Geophoto.UserDistance >= 1" >Distance: {{Geophoto.UserDistance | number: 2}} km</div>
+        </div>
+    </div>
+    <div>GPS:</div>
+    <div><h4>Photo:</h4>
+        <span>Lat: {{Geophoto.Position.GPS.lat}}</span>
+        <span>Lng: {{Geophoto.Position.GPS.lat}}</span>
+    </div>
 </div>
 
