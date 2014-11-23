@@ -147,6 +147,7 @@ function PanoramioController ($scope,$injector,PhotoService){
     };
     this.initialize();
 };
+PanoramioController.$inject = ['$scope','$injector','PhotoService'];
 
 function PanoramioSettings(){
     this.AutomaticPhotoRequestOnChangBounds =  true;

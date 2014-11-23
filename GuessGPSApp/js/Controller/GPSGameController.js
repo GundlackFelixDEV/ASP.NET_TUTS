@@ -68,3 +68,4 @@ function GPSGameController($scope,$injector,CountDownService){
         };
     });
 };
+GPSGameController.$inject = ['$scope','$injector','CountDownService'];

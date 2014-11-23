@@ -1,16 +1,3 @@
-GeoGuessApp.factory("PhotoService",function($rootScope){
-   var PhotoService = {
-       Position: new google.maps.LatLng(),
-       PhotoChanged: function(img){
-           console.log("PhotoService.Broadcast: PhotoChanged");
-           $rootScope.broadcast('PhotoChanged');
-       }
-   };
-   
-   return PhotoService;
-});
-
-GeophotoController.$inject = ['$scope','$injector','PhotoService'];
 function GeophotoController($scope,$injector,PhotoService){
 
         $injector.invoke(GeolocationController, this, {$scope: $scope});
@@ -59,3 +46,4 @@ function GeophotoController($scope,$injector,PhotoService){
         };
         this.initialize();			
 };
+GeophotoController.$inject = ['$scope','$injector','PhotoService'];

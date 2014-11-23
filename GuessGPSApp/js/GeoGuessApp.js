@@ -1,6 +1,5 @@
-var GeoGuessApp = angular.module('GeoGuessApp', ['ngRoute']);
-
-GeoGuessApp.config(['$routeProvider',function($routeProvider){
+var GeoGuessApp = angular.module('GeoGuessApp', ['ngRoute'])
+.config(['$routeProvider',function($routeProvider){
 	$routeProvider
             .when("/CurrentLocation",{
             templateUrl: "js/Views/GeolocationView.html"
@@ -12,9 +11,8 @@ GeoGuessApp.config(['$routeProvider',function($routeProvider){
             templateUrl: "js/Views/GPSGameView.html"
         })
         .otherwise({redirectTo:'/CurrentLocation'});
-}]);
-
-GeoGuessApp.factory("CountDownService",function($rootScope){
+}])
+.factory("CountDownService",function($rootScope){
    var CountDownService = {};
    CountDownService.options = {};
    CountDownService.CountDownEnd = function(){
@@ -34,13 +32,8 @@ GeoGuessApp.factory("CountDownService",function($rootScope){
      $rootScope.$broadcast('Pause');
    };
    return CountDownService;
-});
-
-
-CountDown.$inject = ['$scope','$timeout','CountDownService'];
-GPSGameController.$inject = ['$scope','$injector','CountDownService'];
-
-GeoGuessApp.factory("PhotoService",function($rootScope){
+})
+.factory("PhotoService",function($rootScope){
    var PhotoService = {
        Position: new google.maps.LatLng(),
        PhotoChanged: function(img){
@@ -51,6 +44,3 @@ GeoGuessApp.factory("PhotoService",function($rootScope){
    
    return PhotoService;
 });
-
-GeophotoController.$inject = ['$scope','$injector','PhotoService'];
-PanoramioController.$inject = ['$scope','$timeout','PhotoService'];

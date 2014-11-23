@@ -77,6 +77,8 @@ function CountDown($scope,$timeout,CountDownService){
             return (this.Status === "Start");
     };
 };
+CountDown.$inject = ['$scope','$timeout','CountDownService'];
+
 
 function CountDownOpts(){
     this.T_Start = 10000;
