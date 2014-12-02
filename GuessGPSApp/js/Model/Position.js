@@ -21,8 +21,16 @@ function Position(aMap,aPos){
         console.log("Model:Position: set");
         if(this.isGoogleMaps(pos))
         {
-            this.GPS.lat = pos.lat();
-            this.GPS.lng = pos.lng();
+            switch(typeof(pos.lat)){
+                case 'function':
+                    this.GPS.lat = pos.lat();
+                    this.GPS.lng = pos.lng();
+                    break;
+                default:
+                    this.GPS.lat = pos.lat;
+                    this.GPS.lng = pos.lng; 
+                    break;
+            }
         }		
         else if(this.isGeolocation(pos))
         {
@@ -34,8 +42,8 @@ function Position(aMap,aPos){
 
     this.isGoogleMaps = function(pos)
     {
-        return (typeof pos.lat !== 'undefined' && typeof pos.lat === 'function'
-                && typeof pos.lng() !== 'undefined' && typeof pos.lng === 'function');
+        return (typeof pos.lat !== 'undefined'
+                && typeof pos.lng !== 'undefined');
     };
 
     this.isGeolocation = function(pos)

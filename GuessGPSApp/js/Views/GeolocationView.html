@@ -5,8 +5,8 @@
             <div><a ng-click="Geolocation.MoveToPosition()"><i class="glyphicon glyphicon-map-marker"></i></a></div>
             <div><a ng-click="Geolocation.SetCurrentPosition()"><i class="glyphicon glyphicon-home"></i></a></div>
         </div>
-    </div>
-    <div class="gps-info">
-        User: [{{Geolocation.Position.GPS.lat | number: 3}} ; {{Geolocation.Position.GPS.lng | number: 3}}]
+        <div class="map-controlls align-bottom align-left" id="GPS-info">
+            <div>GPS: {{Geolocation.Position.GPS.lat | number: 2}} {{Geolocation.Position.GPS.lng | number: 2}}</div>
+        </div>
     </div>
 </div>

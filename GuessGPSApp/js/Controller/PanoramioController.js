@@ -60,9 +60,18 @@ function PanoramioController ($scope,$injector,PhotoService){
             }        
             widget.setRequest($scope.Panoramio.Settings.myRequest);
         },
+        HandlePhotoChanged: function(e){
+            console.log("Panoramio: HandlePhotoChanged"); 
+            var img = widget.getPhoto();
+            if(img !== null){
+                $scope.Panoramio.Photo = img;
+                $scope.Geophoto.SetPosition(img.getPosition());
+                PhotoService.PhotoChanged(img);
+            } 
+        },
         NextPhoto: function(){
             var pos = widget.getPosition();
-            widget.setPosition(pos+1);
+            widget.setPosition(pos+1);            
             $scope.Panoramio.DisplayWidgetTemporal();
         },
         PreviousPhoto: function(){
@@ -124,14 +133,11 @@ function PanoramioController ($scope,$injector,PhotoService){
         });
         
         panoramio.events.listen( widget, panoramio.events.EventType.PHOTO_CHANGED,
-                                    function(e) { 
-                                        var img = widget.getPhoto();
-                                        PhotoService.PhotoChanged(img);
-                                    });
-        $scope.$on("PhotoChanged",function(){
+                                    function(e) { $scope.Panoramio.HandlePhotoChanged(e);});
+        /*$scope.$on("PhotoChanged",function(){
             console.log("Panoramio.on: PhotoChanged");
             $scope.Panoramio.Photo = PhotoService.Image;
-        });
+        });*/
         google.maps.event.addListener($scope.Geophoto.Position.Marker, 'click', function() {
            $scope.Panoramio.ToggleDisplayTemporal();
         });

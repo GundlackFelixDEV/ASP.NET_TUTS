@@ -17,7 +17,7 @@ GeolocationController = function($scope){
             var pos = { coords: {
                             latitude: location.lat(),
                             longitude: location.lng()}};
-            $scope.Geolocation.SetPosition(pos);
+            $scope.Geolocation.SetPosition(location);
         },
         MoveToPosition: function(){
             console.log("Geolocation: MoveToPosition");
