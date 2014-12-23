@@ -8,7 +8,9 @@ function Factor(param){
     this.Weight = param.Weight;
 }
 Factor.prototype.constructor = Factor;
-Factor.prototype.valueOf = this.Description;
+Factor.prototype.valueOf = function(){
+    return this.Description;
+};
 
 function Item(param){
     console.log("Item::Constructor");
@@ -16,6 +18,7 @@ function Item(param){
     this.Factors = new Array();
     this.addFaktors(param.Factors);
 };
+
 Item.prototype = {
     constructor: Item,
     addFaktors: function(factors){
@@ -60,6 +63,66 @@ RootItem.prototype.removeChilds = function(childs){
 RootItem.prototype.removeChild = function(child){
     this.Children.splice($.inArray(child,this.Children),1); 
 };
+
+/* 
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+
+
+//Controller Structure to handle Array of Items
+function ItemController(type){
+    this.ItemType = type;
+    this.Items = new Array();
+    this.IDs = new IDHandler();
+    
+    //Enhance Factor Class with ID
+    this.ItemType.prototype.valueOf = function(){
+        return this.ID;
+    };
+}
+ItemController.prototype = {
+    valueOf: function(){
+        return "ItemController" + ":" + this.ItemType;
+    },
+    Count: function(){
+        var cnt = this.Items.length;
+        console.log("ItemController::Count - " + cnt);
+        return cnt;
+    },
+    Update: function(factor){
+        console.log("ItemController::Update");
+        if(factor instanceof this.ItemType){
+            var idx = this.indexOf(factor);
+            if(idx < 0){
+                this.Add(factor);
+            }else{
+                this.Items[idx] = factor;
+            }
+        }
+    },
+    Add: function(factor){
+        console.log("ItemController::Add");
+        if(factor instanceof this.ItemType){
+            var idx = this.Items.indexOf(factor);
+            if(idx < 0){
+                this.Items.push(factor);
+            }else{
+                this.Update(factor);
+            }
+        }
+    },
+    Remove: function(factor){
+        console.log("ItemController::Remove");
+        if(factor instanceof this.ItemType){
+            this.IDs.remove(factor.ID);
+            this.Items.splice($.inArray(factor,this.Items),1);
+        }
+    }
+};
+
 
 //Inheritance
 extend(Item,RootItem);

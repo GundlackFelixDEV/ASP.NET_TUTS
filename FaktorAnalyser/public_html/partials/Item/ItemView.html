@@ -1,0 +1,37 @@
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">X</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right" role="tablist">
+          <li role="presentation"><a href="#FactorAnalyser">Faktoren Analyse</a></li>
+          <li role="presentation" ><a href="#Factors">Faktoren <span class="badge">{{CountFactors()}}</span></a></li>
+          <li role="presentation" class="active"><a href="#">Items <span class="badge">{{CountItems()}}</span></a></li>
+        </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+
+<div>
+  <form class="form-inline">
+    <div class="form-group">
+        <label for="NewFactorDescription" class="sr-only">New Item</label>
+        <input type="text" class="form-control" id="NewFactorDescription" ng-model="NewItem.Description" placeholder="Item Description"/>
+       
+    </div>
+    <div class="form-group">
+         <button type="submit" class="btn btn-primary" ng-click="AddItem(NewItem)">Create</button>
+    </div>
+  </form>
+</div>
