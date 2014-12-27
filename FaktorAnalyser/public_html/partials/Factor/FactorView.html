@@ -10,7 +10,6 @@
       </button>
       <a class="navbar-brand" href="#">X</a>
     </div>
-
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav navbar-right" role="tablist">
@@ -32,4 +31,27 @@
          <button type="submit" class="btn btn-primary" ng-click="AddFactor(NewFactor)">Create</button>
     </div>
   </form>
+</div>
+<div>
+    <table class="table-striped table-hover table" ng-if="Factors.Items.length > 0">
+        <tr>
+            <td>#</td>
+            <td>Descritpion</td>
+            <td>Weight</td>
+        </tr>
+        <tr ng-repeat="Item in Factors.Items">
+            <td>
+               [{{$index + 1}}] 
+            </td>
+            <td>
+                {{Item.Description}}
+            </td>
+            <td>
+                {{Item.Weight}}
+            </td>
+        </tr>        
+    </table>
+    <div ng-if="Factors.Items.length == 0">
+        No Items found...
+    </div>
 </div>
