@@ -33,12 +33,12 @@
   </form>
 </div>
 <div>
-    <table class="table-striped table-hover table" ng-if="Factors.Items.length > 0">
+    <table class="table-striped table-hover table table-condensed" ng-if="Factors.Items.length > 0">
         <thead>
             <tr>
-                <td>#</td>
-                <td>Descritpion</td>
-                <td>Weight</td>
+                <th>#</th>
+                <th>Descritpion</th>
+                <th>Weight</th>
             </tr>    
         </thead>
         <tbody>
@@ -50,7 +50,9 @@
                     {{Item.Description}}
                 </td>
                 <td>
-                    {{Item.Weight}}
+                    <select ng-model="Item.Range" class="form-control">
+                        <option ng-repeat="Opt in Item.Range" ngSelected="{{Opt === Item.Weight}}">{{Opt}}</option>
+                    </select>                  
                 </td>
             </tr>  
         </tbody>      

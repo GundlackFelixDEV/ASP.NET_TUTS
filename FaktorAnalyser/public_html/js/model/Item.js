@@ -6,6 +6,7 @@
 function Factor(param){
     this.Description = param.Description;
     this.Weight = param.Weight;
+    this.Range = param.Range?param.Range:[1, 2 , 3, 4, 5];
 }
 Factor.prototype.constructor = Factor;
 Factor.prototype.valueOf = function(){
