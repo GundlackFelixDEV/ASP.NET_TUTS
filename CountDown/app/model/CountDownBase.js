@@ -2,9 +2,11 @@ function CountDown(duration,container){
     this.myInterval = null;
     this.setDuration(typeof(duration) === "undefined"?10:duration);
     this.setContainer(container);
+    this.myStatus = "Pending";
     this.Container.html(CountDown.Message.Stop);
 };
 CountDown.Message = {Update:"s remaining",Stop:"Stoped",Pause:"Paused",Finish:"Finished"};
+CountDown.Status = {Pending:"Pending",Active:"Active",Finished:"Finished"};
 
 CountDown.prototype = {
     callback: function(){
@@ -15,6 +17,7 @@ CountDown.prototype = {
         console.log("CountDown::start");
         var dom = this.Container;
         this.myInterval = dom.countdown(this.callback, this.T_Duration, CountDown.Message.Update);
+        this.myStatus = CountDown.Status.Active;
         dom.bind(CountDown.Message.Finish);
     },
     stop: function(){
@@ -22,11 +25,13 @@ CountDown.prototype = {
         this.T = this.T_Duration;
         clearInterval(this.myInterval);
         this.Container.html(CountDown.Message.Stop);
+        this.myStatus = CountDown.Status.Finished;
     },
     pause: function(){
         console.log("CountDown::pause");
         clearInterval(this.myInterval);
         this.Container.html(CountDown.Message.Pause);
+        this.myStatus = CountDown.Status.Pending;
     },
     handleUpdate: function(target,evData){
         this.T = evData.Duration;
