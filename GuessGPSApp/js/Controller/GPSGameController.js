@@ -1,4 +1,4 @@
-function GPSGameController($scope,$injector,CountDownService){
+function GPSGameController($scope,$injector){
     
     $injector.invoke(PanoramioController, this, {$scope: $scope});
     
@@ -36,20 +36,20 @@ function GPSGameController($scope,$injector,CountDownService){
     $scope.StopGame = function(){        
         $scope.GameStatus = 0;
         $scope.CurRound = 0;
-        CountDownService.Stop();
+        //CountDownService.Stop();
     };
     
     $scope.StartPicking = function(){
         console.log("StartPicking");
         $scope.GameStatus = 2;
-        CountDownService.Start($scope.PickTimer.Options);
+        //CountDownService.Start($scope.PickTimer.Options);
     };
     $scope.FinishGame = function(){
         console.log("GameFinished");
         $scope.GameStatus = 1;
         $scope.ShowPhotoMarker();
         if($scope.CurRound < $scope.Rounds){
-            CountDownService.Start($scope.NewGameTimer.Options);
+            //CountDownService.Start($scope.NewGameTimer.Options);
         }
     };
     

@@ -1,5 +1,4 @@
-function PanoramioController ($scope,$injector,PhotoService){
- 
+function PanoramioController ($scope,$injector){ 
     $injector.invoke(GeophotoController, this, {$scope: $scope});
     $scope.Panoramio = {
         Photo: {},
@@ -66,7 +65,6 @@ function PanoramioController ($scope,$injector,PhotoService){
             if(img !== null){
                 $scope.Panoramio.Photo = img;
                 $scope.Geophoto.SetPosition(img.getPosition());
-                PhotoService.PhotoChanged(img);
             } 
         },
         NextPhoto: function(){
@@ -134,10 +132,7 @@ function PanoramioController ($scope,$injector,PhotoService){
         
         panoramio.events.listen( widget, panoramio.events.EventType.PHOTO_CHANGED,
                                     function(e) { $scope.Panoramio.HandlePhotoChanged(e);});
-        /*$scope.$on("PhotoChanged",function(){
-            console.log("Panoramio.on: PhotoChanged");
-            $scope.Panoramio.Photo = PhotoService.Image;
-        });*/
+                                    
         google.maps.event.addListener($scope.Geophoto.Position.Marker, 'click', function() {
            $scope.Panoramio.ToggleDisplayTemporal();
         });
@@ -146,7 +141,6 @@ function PanoramioController ($scope,$injector,PhotoService){
     };
     this.initialize();
 };
-PanoramioController.$inject = ['$scope','$injector','PhotoService'];
 
 function PanoramioSettings(){
     this.AutomaticPhotoRequestOnChangBounds =  true;

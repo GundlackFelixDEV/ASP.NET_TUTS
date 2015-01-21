@@ -1,3 +1,4 @@
+
 <div ng-controller="PanoramioController" class="row">
 	<br class="hidden-md hidden-sm">
         <div class="map-container-l">
@@ -12,11 +13,10 @@
                         </div>
                         <div id="wapiblock"></div>
                 </div>
-                <div class="map-controlls align-bottom align-left">
-                        <div ng-controller="CountDown" id="CountDownDisplay" ng-show="CountDown.IsRunning()">{{CountDown.T / 1000}} s</div>
-                        <div ng-switch on="GameRunning()">				
-                        <div ng-switch-when="true"><a ng-click="StopGame()"><i class="glyphicon glyphicon-stop"></i></a></div>
-                        <div ng-switch-default><a ng-click="StartGame()"><i class="glyphicon glyphicon-play"></i></a></div>
+                <div ng-controller="CountDownController" class="map-controlls align-bottom align-left">
+                        <div ng-switch on="IsActive()">				
+                            <div ng-switch-when="true"><a ng-click="CountDown.stop()"><i class="glyphicon glyphicon-stop"></i></a></div>
+                            <div ng-switch-default><a ng-click="CountDown.start()"><i class="glyphicon glyphicon-play"></i>Start Game</a></div>
                         </div>
                 </div>
         </div>

@@ -32,16 +32,4 @@ var GeoGuessApp = angular.module('GeoGuessApp', ['ngRoute'])
      $rootScope.$broadcast('Pause');
    };
    return CountDownService;
-})
-.factory("PhotoService",function($rootScope){
-   var PhotoService = {
-       Image: null,
-       PhotoChanged: function(img){
-           console.log("PhotoService.Broadcast: PhotoChanged");
-           this.Image = img;
-           $rootScope.$broadcast('PhotoChanged');
-       }
-   };
-   
-   return PhotoService;
 });
