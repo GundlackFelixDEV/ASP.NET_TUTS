@@ -64,13 +64,6 @@ body{
     position: absolute;
     left:0;
 }
-
-#CountDownDisplay{
-    font-size:2em;
-    color:orange;
-    font-weight:bold;
-    text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
-}
 #GPS-info div{
     font-size: 2.5em;
     color:orange;

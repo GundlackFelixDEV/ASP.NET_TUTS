@@ -1,0 +1,21 @@
+.CD_sm{
+    font-size:1em;
+    font-weight:bold;
+}
+.CD_Container,
+.CD_md{
+    font-weight:bold;
+    font-size:2em;
+}
+.CD_lg{
+    font-weight:bold;
+    font-size:3em;
+}
+.CD_Container,
+.CD_Orange{
+    color:orange;   
+}
+.CD_Container,
+.CD_Border_White{
+    text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
+}
