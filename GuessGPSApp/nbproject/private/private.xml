@@ -2,6 +2,19 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/D:/Felix/Felix_Workspace/workspace_www/GitHub/ASP.NET_TUTS/GuessGPSApp/js/Views/GeolocationView.html</file>
+            <file>file:/D:/Felix/Felix_Workspace/workspace_www/GitHub/ASP.NET_TUTS/GuessGPSApp/index.html</file>
+            <file>file:/D:/Felix/Felix_Workspace/workspace_www/GitHub/ASP.NET_TUTS/GuessGPSApp/js/Controller/GeophotoController.js</file>
+            <file>file:/D:/Felix/Felix_Workspace/workspace_www/GitHub/ASP.NET_TUTS/GuessGPSApp/js/Controller/GeolocationController.js</file>
+            <file>file:/D:/Felix/Felix_Workspace/workspace_www/GitHub/ASP.NET_TUTS/GuessGPSApp/js/Controller/GPSGameController.js</file>
+            <file>file:/D:/Felix/Felix_Workspace/workspace_www/GitHub/ASP.NET_TUTS/GuessGPSApp/js/Controller/PanoramioController.js</file>
+            <file>file:/D:/Felix/Felix_Workspace/workspace_www/GitHub/ASP.NET_TUTS/GuessGPSApp/js/Views/GPSGameView.html</file>
+            <file>file:/D:/Felix/Felix_Workspace/workspace_www/GitHub/ASP.NET_TUTS/GuessGPSApp/js/Scripts/CountDown.js</file>
+            <file>file:/D:/Felix/Felix_Workspace/workspace_www/GitHub/ASP.NET_TUTS/GuessGPSApp/js/Views/PanoramioView.html</file>
+            <file>file:/D:/Felix/Felix_Workspace/workspace_www/GitHub/ASP.NET_TUTS/GuessGPSApp/content/styles.css</file>
+            <file>file:/D:/Felix/Felix_Workspace/workspace_www/GitHub/ASP.NET_TUTS/GuessGPSApp/js/Controller/CountDownController.js</file>
+            <file>file:/D:/Felix/Felix_Workspace/workspace_www/GitHub/ASP.NET_TUTS/GuessGPSApp/js/GeoGuessApp.js</file>
+        </group>
     </open-files>
 </project-private>

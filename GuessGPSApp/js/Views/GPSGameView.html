@@ -14,8 +14,8 @@
                         <div id="wapiblock"></div>
                 </div>
                 <div ng-controller="CountDownController" class="map-controlls align-bottom align-left">
-                        <div ng-switch on="IsActive()">				
-                            <div ng-switch-when="true"><a ng-click="CountDown.stop()"><i class="glyphicon glyphicon-stop"></i></a></div>
+                    <div ng-switch on="IsActive()">				
+                        <div ng-switch-when="true"><a ng-click="CountDown.stop()"><i class="glyphicon glyphicon-stop"></i></a>{{CountDown.T}} s</div>
                             <div ng-switch-default><a ng-click="CountDown.start()"><i class="glyphicon glyphicon-play"></i>Start Game</a></div>
                         </div>
                 </div>
