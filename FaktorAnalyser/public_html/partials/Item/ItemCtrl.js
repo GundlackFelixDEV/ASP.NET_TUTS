@@ -1,25 +1,36 @@
 function ItemCtrl($scope){
     $scope.Items = new ItemController(Item);
     $scope.GetNewItem = function(){
-        return new Item({Description:"",Factors:new Array(),ID:$scope.Items.IDs.add()});
+        return new Item({Description:"",ID:$scope.Items.IDs.add()});
     };
     $scope.CountItems = function(){
         return $scope.Items.Count();
     };
-    $scope.UpdateItem = function(factor){
+    $scope.UpdateItem = function(obj){
         console.log("ItemCtrl::CountItem");
-        $scope.Items.Update(factor);
+        $scope.Items.Update(obj);
     };
-    $scope.AddItem = function(factor){
+    $scope.AddItem = function(obj){
         console.log("ItemCtrl::AddItem");
-        $scope.Items.Add(factor);
+        $scope.Items.Add(obj);
         $scope.NewItem = $scope.GetNewItem();
     };
-    $scope.RemoveItem= function(factor){
+    $scope.RemoveItem= function(obj){
         console.log("ItemCtrl::RemoveItem");
-        $scope.Items.Remove(factor);
+        $scope.Items.Remove(obj);
     };
-
+    
+    $scope.$on('FactorAdd', function(ev,factor){
+        console.log("ItemCtrl::on::FactorAdd");
+        $.each($scope.Items,function(){
+            this.setValue(factor.ID,1);
+        });
+    });
+    $scope.$on('FactorRemove', function(ev,factor){
+        console.log("ItemCtrl::on::FactorRemove");
+    });
+    $scope.$on('FactorUpdate', function(ev,factor){
+        console.log("ItemCtrl::on::FactorUpdate");
+    });
     $scope.NewItem = $scope.GetNewItem();
 };
-

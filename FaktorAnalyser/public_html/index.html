@@ -14,12 +14,96 @@ and open the template in the editor.
         <script type="text/javascript" src="js/model/IDHandler.js"></script>
         <link rel="stylesheet" href="js/libs/twitter-bootstrap/css/bootstrap.css" >
     </head>
-    <body>
-        <div class="container-fluid">
-		<div ng-view>A View</div>
+    <body ng-controller="FactorAnalyserCtrl">
+        <div class="container col-md-2 pull-right" >
+            <div class="panel panel-default" id="FactorView">
+		<div class="panel-heading">
+                    Faktoren
+                </div>
+		<div class="panel-body" id="FactorViewBody">
+                    <p>Erstellen neuer Faktoren/Metriken.</p>
+		<div>
+                    <form class="form-inline">
+                      <div class="form-group">
+                          <label for="NewFactorDescription" class="sr-only">New Factor</label>
+                          <input type="text" class="form-control" id="NewFactorDescription" ng-model="NewFactor.Description" placeholder="New Faktor"/>
+                      </div>
+                      <div class="form-group">
+                           <button type="submit" class="btn btn-primary" ng-click="AddFactor(NewFactor)">Create</button>
+                      </div>
+                    </form>
+		</div>
+		<table class="table-striped table-hover table table-condensed" ng-if="Factors.Items.length > 0">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Descritpion</th>
+                                <th>Range</th>
+                            </tr>    
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="Item in Factors.Items">
+                                <td>
+                                   [{{$index + 1}}] 
+                                </td>
+                                <td>
+                                    {{Item.Description}}
+                                </td>
+                                <td>
+                                    <select ng-model="Item.Weight" ng-options="o for o in Item.WeightRange"></select>              
+                                </td>
+                            </tr>  
+                        </tbody>      
+                    </table>
+		</div>				
+            </div> 
 	</div>
-        <script type="text/javascript" src="js/libs/angular-1.2.28/angular.js"></script>
-        <script type="text/javascript" src="js/libs/angular-1.2.28/angular-route.js"></script>
+        <div class="container col-md-10 pull-right">
+            <div class="panel panel-default panel-primary">
+		<div class="panel-heading">Items</div>
+		<div class="panel-body" id="ItemView">
+                    <p>Eingabe neuer Items welche bewertet werden sollen.</p>
+		<div>
+                    <form class="form-inline">
+                      <div class="form-group">
+                          <label for="NewItemDescription" class="sr-only">New Item</label>
+                          <input type="text" class="form-control" id="NewItemDescription" ng-model="NewItem.Description" placeholder="New Item"/>
+                      </div>
+                      <div class="form-group">
+                           <button type="submit" class="btn btn-primary" ng-click="AddItem(NewItem)">Create</button>
+                      </div>
+                    </form>
+		</div>
+		<table class="table-striped table-hover table table-condensed" ng-if="Items.Items.length > 0">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Descritpion</th>
+                                <th ng-repeat="Fak in Factors.Items">
+                                    {{Fak.Description}}                                    
+                                </th>
+                                 
+                            </tr>    
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="Item in Items.Items">
+                                <td>
+                                   [{{$index + 1}}] 
+                                </td>
+                                <td>
+                                    {{Item.Description}}
+                                </td>
+                                <td ng-repeat="Faktor in Items.Factors">
+                                    
+                                    <select ng-model="Faktor.Value" ng-options="o for o in Faktor.ValueRange"></select>                                  
+                                </td>
+                            </tr>  
+                        </tbody>      
+                    </table>
+		</div>				
+            </div>
+        </div>
+        <script type="text/javascript" src="js/libs/angular.js/angular.js"></script>
         <script type="text/javascript" src="js/libs/twitter-bootstrap/bootstrap.js"></script>
         <script type="text/javascript" src="partials/Factor/FactorCtrl.js"></script>
         <script type="text/javascript" src="partials/Item/ItemCtrl.js"></script>

@@ -3,22 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-var myApp = angular.module("myApp",["ngRoute"]);
-myApp.config(["$routeProvider",function($routeProvider){
-    $routeProvider.
-        when('/Factors', {
-            templateUrl: 'partials/Factor/FactorView.html',
-            controller: 'FactorCtrl'
-        }).
-        when('/Items', {
-            templateUrl: 'partials/Item/ItemView.html',
-            controller: 'ItemCtrl'
-        }).
-        when('/FactorAnalyser', {
-            templateUrl: 'partials/FactorAnalyser/FactorAnalyserView.html',
-            controller: 'FactorAnalyserCtrl'
-        }).
-        otherwise({
-            redirectTo: '/FactorAnalyser'
-        });        
-}]);
+var myApp = angular.module("myApp",[])
+.factory('FactorService',function($rootScope){
+    var aService = {};
+    aService.FactorChanged = function(param){
+        console.log("FactorService:FactorChanged");
+        aService.Factor = param.Factor;
+        $rootScope.$broadcast(param.Event,param.Factor);                
+    };
+    return aService;
+});
+
+FactorCtrl.$inject = ['$scope', 'FactorService'];

@@ -5,9 +5,11 @@
  */
 function Factor(param){
     this.Description = param.Description;
-    this.Weight = param.Weight;
-    this.Range = param.Range?param.Range:[1, 2 , 3, 4, 5];
-}
+    this.Value =  param.Value?param.Value:3;
+    this.Weight = param.Weight?param.Weight:3;
+    this.WeightRange    = param.WeightRange?param.WeightRange:  [1,2,3,4,5];
+    this.ValueRange     = param.ValueRange?param.ValueRange:    [1,2,3,4,5];
+};
 Factor.prototype.constructor = Factor;
 Factor.prototype.valueOf = function(){
     return this.Description;
@@ -16,33 +18,19 @@ Factor.prototype.valueOf = function(){
 function Item(param){
     console.log("Item::Constructor");
     this.Description = param.Description;
-    this.Factors = new Array();
-    this.addFaktors(param.Factors);
+    this.Values = [];
 };
 
 Item.prototype = {
     constructor: Item,
-    addFaktors: function(factors){
-        if(factors instanceof Factor){
-            this.Factors.push(factors);
-        }
-        else if(factors.length > 1){
-            for(var i = 0; i < factors.length; ++i){
-                var fac = factors[i];
-                if(fac instanceof Factor){
-                    this.Factors.push(fac);
-                }
-            }
-        }
-    },
-    removeFactors: function(factors){
-        var obj = this;
-        $.each(factors,function(idx,val){
-            obj.removeFactor(val);
+    setValue: function(param){
+        var ID = param.ID;
+        var VALUE = param.Value;
+        console.log("Item(" + this.Description + ").setValue("+param+")");
+        var val = $.grep(this.Values,function(n,i){
+           return n.FACTOR_ID === ID; 
         });
-    },
-    removeFactor: function(factor){
-       this.Factors.splice($.inArray(factor,this.Factors),1);
+        val.Value = VALUE;        
     },
     valueOf: this.Description
 };

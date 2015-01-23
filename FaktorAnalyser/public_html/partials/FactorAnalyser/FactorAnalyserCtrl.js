@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-var FactorAnalyserCtrl = function($scope,$injector){
+function FactorAnalyserCtrl($scope,$injector){
     $injector.invoke(FactorCtrl, this, {$scope: $scope});
     $injector.invoke(ItemCtrl, this, {$scope: $scope});
 };
