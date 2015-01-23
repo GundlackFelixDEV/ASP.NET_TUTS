@@ -93,8 +93,7 @@ and open the template in the editor.
                                 <td>
                                     {{Item.Description}}
                                 </td>
-                                <td ng-repeat="Faktor in Items.Factors">
-                                    
+                                <td ng-repeat="Faktor in Items.Factors">                                    
                                     <select ng-model="Faktor.Value" ng-options="o for o in Faktor.ValueRange"></select>                                  
                                 </td>
                             </tr>  

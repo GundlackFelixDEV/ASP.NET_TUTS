@@ -22,8 +22,8 @@ function ItemCtrl($scope){
     
     $scope.$on('FactorAdd', function(ev,factor){
         console.log("ItemCtrl::on::FactorAdd");
-        $.each($scope.Items,function(){
-            this.setValue(factor.ID,1);
+        $.each($scope.Items.Items,function(){
+            this.setValue({ID:factor.ID,Value:1});
         });
     });
     $scope.$on('FactorRemove', function(ev,factor){

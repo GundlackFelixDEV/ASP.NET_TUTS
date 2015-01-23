@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 function Factor(param){
+    this.ID = param.ID;
     this.Description = param.Description;
     this.Value =  param.Value?param.Value:3;
     this.Weight = param.Weight?param.Weight:3;
@@ -18,6 +19,7 @@ Factor.prototype.valueOf = function(){
 function Item(param){
     console.log("Item::Constructor");
     this.Description = param.Description;
+    this.ID = param.ID;
     this.Values = [];
 };
 
