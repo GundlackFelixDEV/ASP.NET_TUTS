@@ -4,42 +4,6 @@ function PanoramioController ($scope,$injector){
         Photo: {},
         Settings: new PanoramioSettings(),
         Events: new PanoramioEvents(),
-        ToggleDisplayTemporal: function(){
-          if($(wapiblock).is(':visible')){
-              $scope.Panoramio.HideWidget();
-          }else{
-              $scope.Panoramio.DisplayWidgetTemporal(WIDGET_AUTOHIDE_TIME);
-          }
-        },
-        DisplayWidget: function(delay){
-          var t_delay = delay;
-          if(typeof t_delay === "undefined"){
-              t_delay = 0;   
-          }
-          $(wapiblock).stop()
-                  .delay(t_delay)
-                  .show(WIDGET_ANIMATION_TIME);
-        },
-        HideWidget: function(delay){
-            var t_delay = delay;
-            if(typeof t_delay === "undefined"){
-                t_delay = 0;   
-            }
-            $(wapiblock).stop()
-                    .show()
-                    .delay(t_delay)
-                    .hide(WIDGET_ANIMATION_TIME);
-        },
-        DisplayWidgetTemporal: function(timeOut){
-            var t_delay = timeOut;
-            if(typeof t_delay === "undefined"){
-                t_delay = WIDGET_AUTOHIDE_TIME;   
-            }
-            $(wapiblock).stop()
-                    .show(WIDGET_ANIMATION_TIME)
-                    .delay(t_delay)
-                    .hide(WIDGET_ANIMATION_TIME);
-        },
         GetPhotosInBounds: function(){
             if($scope.map !== "undefined"){
                 console.log("Panoramio: Get photos in bounds");
@@ -123,13 +87,7 @@ function PanoramioController ($scope,$injector){
         var settings = $scope.Panoramio.Settings;
         wapiblock = document.getElementById('wapiblock');	
         widget = new panoramio.PhotoWidget(wapiblock, settings.myRequest, settings.photo_options);
-        $(wapiblock).hide();
-        $(wapiblock).mouseenter(function(){
-           $scope.Panoramio.DisplayWidget(); 
-        }).mouseleave(function(){
-            $scope.Panoramio.HideWidget(WIDGET_AUTOHIDE_TIME);
-        });
-        
+               
         panoramio.events.listen( widget, panoramio.events.EventType.PHOTO_CHANGED,
                                     function(e) { $scope.Panoramio.HandlePhotoChanged(e);});
                                     

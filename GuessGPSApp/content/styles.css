@@ -32,17 +32,10 @@ body{
 .map-controlls i.glyphicon {
     font-size:1.75em;
 }
-#wapiblock{
-    display: none;
-}
-#wapiblock-ctrl{
-    padding-top: 10px;
-    padding-right:5px;
-}
+
 .gps-info{
     float:right;
 }
-
 .align-top{
     position:absolute;
     top:0;

@@ -28,7 +28,6 @@ function GPSGameController($scope,$injector){
         $scope.CurRound += 1;
         $scope.NextPhoto();
         $scope.HidePhotoMarker();
-        $scope.DisplayPhotoWidget();
         $scope.HidePhotoWidget($scope.PickTimer.Options.T_Start*0.3);
         $scope.StartPicking();	
     };
